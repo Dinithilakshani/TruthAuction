@@ -75,7 +75,7 @@
                     <form id="userForm">
                         <div class="mb-3">
                             <label for="userId" class="form-label">User ID</label>
-                            <input type="number" class="form-control" id="userId" placeholder="Auto-generated" readonly>
+                            <input type="number" class="form-control" id="userId" placeholder="userId" required>
                         </div>
 
                         <div class="row">
@@ -102,23 +102,7 @@
 
                         <div class="mb-3">
                             <label for="companyId" class="form-label">Company ID</label>
-                            <select class="form-select" id="companyId" required>
-                                <option value="" selected disabled>Select company</option>
-                                <option value="1">1001 - Acme Corporation</option>
-                                <option value="2">1002 - Global Solutions LLC</option>
-                                <option value="3">1003 - Smith & Partners</option>
-                                <option value="4">1004 - Tech Innovations Inc.</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="role" class="form-label">Role</label>
-                            <select class="form-select" id="role">
-                                <option value="1">Administrator</option>
-                                <option value="2">Manager</option>
-                                <option value="3">Standard User</option>
-                                <option value="4">Read-Only User</option>
-                            </select>
+                            <input type="text" class="form-control" id="companyId" required>
                         </div>
 
                         <div class="form-check mb-3">
@@ -142,8 +126,8 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h5 class="mb-0">User List</h5>
                     <div class="input-group w-50">
-                        <input type="text" class="form-control" placeholder="Search users...">
-                        <button class="btn btn-outline-primary" type="button">Search</button>
+                        <input type="text" class="form-control" id="searchInput" placeholder="Search users...">
+                        <button class="btn btn-outline-primary" id="searchButton" type="button">Search</button>
                     </div>
                 </div>
 
@@ -158,37 +142,8 @@
                             <th>Actions</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
-                            <td>1001</td>
-                            <td>John Doe</td>
-                            <td>john.doe@example.com</td>
-                            <td>Acme Corporation</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary me-1">Edit</button>
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1002</td>
-                            <td>Jane Smith</td>
-                            <td>jane.smith@example.com</td>
-                            <td>Global Solutions LLC</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary me-1">Edit</button>
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1003</td>
-                            <td>Mike Johnson</td>
-                            <td>mike.johnson@example.com</td>
-                            <td>Smith & Partners</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary me-1">Edit</button>
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </td>
-                        </tr>
+                        <tbody id="userTableBody">
+                        <!-- User list will be dynamically injected here -->
                         </tbody>
                     </table>
                 </div>
@@ -212,5 +167,121 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        // Fetch and display user list
+        function loadUsers() {
+            $.ajax({
+                url: "http://localhost:8082/api/v1/users/getall",
+                type: "GET",
+                success: function (response) {
+                    let userList = response;
+                    let userTable = "";
+                    $.each(userList, function (index, user) {
+                        userTable += `<tr>
+                        <td>${user.id}</td>
+                        <td>${user.first_name} ${user.last_name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.company_id}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary editUser" data-id="${user.id}">Edit</button>
+                            <button class="btn btn-sm btn-danger deleteUser" data-id="${user.id}">Delete</button>
+                        </td>
+                    </tr>`;
+                    });
+                    $("#userTableBody").html(userTable);
+                },
+                error: function () {
+                    alert("Error loading users!");
+                }
+            });
+        }
+
+        // Handle user deletion
+        $(document).on("click", ".deleteUser", function () {
+            const userId = $(this).data("id");
+
+            if (confirm("Are you sure you want to delete this user?")) {
+                $.ajax({
+                    url: `http://localhost:8082/api/v1/users/${userId}`,
+                    type: "DELETE",
+                    success: function (response) {
+                        alert(response.message);
+                        loadUsers(); // Reload to show updated user list
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                        alert("Error deleting user!");
+                    }
+                });
+            }
+        });
+
+        // Handle editing user data
+        $(document).on("click", ".editUser", function () {
+            const userId = $(this).data("id");
+
+            // Fetch user details by ID to populate the form for editing
+            $.ajax({
+                url: `http://localhost:8082/api/v1/users/${userId}`,
+                type: "GET",
+                success: function (response) {
+                    const user = response;
+                    $("#userId").val(user.id);
+                    $("#firstName").val(user.first_name);
+                    $("#lastName").val(user.last_name);
+                    $("#email").val(user.email);
+                    $("#password").val(user.password);
+                    $("#companyId").val(user.company_id);
+                    $("#activeStatus").prop('checked', user.active_status);
+                },
+                error: function () {
+                    alert("Error fetching user details!");
+                }
+            });
+        });
+
+        // Save new or updated user
+        $("#userForm").submit(function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            let userData = {
+                id: $("#userId").val(),
+                first_name: $("#firstName").val(),
+                last_name: $("#lastName").val(),
+                email: $("#email").val(),
+                password: $("#password").val(),
+                company_id: $("#companyId").val()
+            };
+
+            // If ID exists, it's an update, else it's a new user
+            let requestType = userData.id ? "PUT" : "POST";
+            let requestUrl = userData.id ? `http://localhost:8082/api/v1/users/${userData.id}` : "http://localhost:8082/api/v1/users/save";
+
+            $.ajax({
+                url: requestUrl,
+                type: requestType,
+                contentType: "application/json",
+                data: JSON.stringify(userData),
+                success: function (response) {
+                    alert(response.message);
+                    loadUsers(); // Reload to show updated list
+                    $("#userForm")[0].reset(); // Reset form after submission
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert("Error saving user!");
+                }
+            });
+        });
+
+        // Load users when the page loads
+        loadUsers();
+    });
+</script>
+
 </body>
 </html>

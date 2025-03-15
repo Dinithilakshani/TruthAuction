@@ -75,7 +75,7 @@
                     <form id="itemForm">
                         <div class="mb-3">
                             <label for="itemId" class="form-label">Item ID</label>
-                            <input type="number" class="form-control" id="itemId" placeholder="Auto-generated" readonly>
+                            <input type="number" class="form-control" id="itemId" placeholder="itemId" readonly>
                         </div>
 
                         <div class="mb-3">
@@ -85,12 +85,12 @@
 
                         <div class="mb-3">
                             <label for="chassisNumber" class="form-label">Chassis Number</label>
-                            <input type="text" class="form-control" id="chassisNumber">
+                            <input type="number" class="form-control" id="chassisNumber">
                         </div>
 
                         <div class="mb-3">
                             <label for="registerNumber" class="form-label">Register Number</label>
-                            <input type="text" class="form-control" id="registerNumber">
+                            <input type="number" class="form-control" id="registerNumber">
                         </div>
 
                         <div class="mb-3">
@@ -100,13 +100,12 @@
 
                         <div class="mb-3">
                             <label for="userId" class="form-label">User ID</label>
-                            <select class="form-select" id="userId" required>
-                                <option value="" selected disabled>Select assigned user</option>
-                                <option value="1">User 1001 (John Doe)</option>
-                                <option value="2">User 1002 (Jane Smith)</option>
-                                <option value="3">User 1003 (Mike Johnson)</option>
-                                <option value="4">User 1004 (Sarah Williams)</option>
-                            </select>
+                            <input type="number" class="form-control" id="userId">
+                        </div>
+                        <div class="mb-3">
+                            <label for="imageUpload" class="form-label">Upload Item Image</label>
+                            <input type="file" class="form-control" id="imageUpload" accept="image/*">
+                            <img id="imagePreview" src="#" alt="Preview" style="display: none; width: 100px; margin-top: 10px;">
                         </div>
 
                         <div class="d-grid gap-2">
@@ -140,36 +139,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>1001</td>
-                            <td>Sedan X500</td>
-                            <td>Toyota</td>
-                            <td>REG-12345</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary me-1">Edit</button>
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1002</td>
-                            <td>SUV Premier</td>
-                            <td>Honda</td>
-                            <td>REG-67890</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary me-1">Edit</button>
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1003</td>
-                            <td>Truck Heavy Duty</td>
-                            <td>Ford</td>
-                            <td>REG-24680</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary me-1">Edit</button>
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </td>
-                        </tr>
+                        <!-- Dynamic content will be injected here -->
                         </tbody>
                     </table>
                 </div>
@@ -192,6 +162,95 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    $(document).ready(function () {
+        loadItems();
+
+        // Save or update item
+        $("#itemForm").submit(function (event) {
+            event.preventDefault();
+
+            const id = $("#itemId").val();  // Get itemId (for update)
+            const formData = {
+                productName: $("#productName").val(),
+                chassisNumber: $("#chassisNumber").val(),
+                registerNumber: $("#registerNumber").val(),
+                brandName: $("#brandName").val(),
+                userId: $("#userId").val(),
+                image: $("#imageUpload").val()
+            };
+
+            let url = id ? `http://localhost:8082/api/items/update/${id}` : "http://localhost:8082/api/items/save";
+            let type = id ? "PUT" : "POST";
+
+            $.ajax({
+                url: url,
+                type: type,
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function () {
+                    alert(id ? "Item updated successfully!" : "Item saved successfully!");
+                    $("#itemForm")[0].reset();
+                    loadItems();
+                }
+            });
+        });
+    });
+
+    function loadItems() {
+        $.ajax({
+            url: "http://localhost:8082/api/items/getall",
+            type: "GET",
+            success: function (data) {
+                let tbody = $("tbody");
+                tbody.empty();
+                data.forEach(function (item) {
+                    tbody.append(`
+                        <tr>
+                            <td>${item.id}</td>
+                            <td>${item.productName}</td>
+                            <td>${item.brandName}</td>
+                            <td>${item.registerNumber}</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary me-1" onclick="editItem(${item.id})">Edit</button>
+                                <button class="btn btn-sm btn-danger" onclick="deleteItem(${item.id})">Delete</button>
+                            </td>
+                        </tr>
+                    `);
+                });
+            }
+        });
+    }
+
+    function deleteItem(id) {
+        if (confirm("Are you sure you want to delete this item?")) {
+            $.ajax({
+                url: `http://localhost:8082/api/items/${id}`,
+                type: "DELETE",
+                success: function () {
+                    alert("Item deleted successfully!");
+                    loadItems(); // Refresh table
+                }
+            });
+        }
+    }
+
+    function editItem(id) {
+        $.ajax({
+            url: `http://localhost:8082/api/items/user/${id}`,
+            type: "GET",
+            success: function (item) {
+                $("#itemId").val(item.id);
+                $("#productName").val(item.productName);
+                $("#chassisNumber").val(item.chassisNumber);
+                $("#registerNumber").val(item.registerNumber);
+                $("#brandName").val(item.brandName);
+                $("#userId").val(item.userId);
+            }
+        });
+    }
+</script>
 </body>
 </html>

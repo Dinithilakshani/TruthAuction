@@ -1,4 +1,8 @@
 package org.example.vehical.Repo;
 
-public interface SaleItemRepo {
+import org.example.vehical.enitity.SaleItem;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SaleItemRepo extends JpaRepository<SaleItem, Integer> {
 }
+

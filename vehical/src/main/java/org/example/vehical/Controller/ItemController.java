@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/items")
 public class ItemController {
@@ -27,11 +27,13 @@ public class ItemController {
 
     @PostMapping("/save")
     public ItemDTO saveItem(@RequestBody ItemDTO itemDTO) {
+        // Handle saving item
         return itemService.save(itemDTO);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/{id}") // Updated path with {id} in URL
     public ItemDTO updateItem(@PathVariable int id, @RequestBody ItemDTO itemDTO) {
+        // Handle updating item
         return itemService.update(id, itemDTO);
     }
 

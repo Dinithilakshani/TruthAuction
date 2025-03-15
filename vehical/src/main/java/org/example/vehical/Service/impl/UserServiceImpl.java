@@ -2,14 +2,14 @@ package org.example.vehical.Service.impl;
 
 import org.example.vehical.Repo.UserRepository;
 import org.example.vehical.Service.UserService;
-import org.example.vehical.dto.CompanyTypeDTO;
 import org.example.vehical.dto.UserDTO;
-import org.example.vehical.enitity.CompanyType;
 import org.example.vehical.enitity.User;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,4 +38,27 @@ public class UserServiceImpl implements UserService {
         }
         throw new RuntimeException("companyType not found");
     }
+    @Override
+    public List<UserDTO> getAll() {
+        List<User> users = userRepository.findAll();
+        return modelMapper.map(users, new TypeToken<List<UserDTO>>(){}.getType());
+    }
+    @Override
+    public UserDTO update(UserDTO userDTO) {
+        if (!userRepository.existsById(userDTO.getId())) {
+            throw new RuntimeException("Company does not exist");
+        }
+        User user = modelMapper.map(userDTO, User.class);
+        userRepository.save(user);
+        return userDTO;
+    }
+
+    @Override
+    public void delete(int id) {
+        if (!userRepository.existsById(id)) {
+            throw new RuntimeException("Item does not exist");
+        }
+        userRepository.deleteById(id);
+    }
+
 }

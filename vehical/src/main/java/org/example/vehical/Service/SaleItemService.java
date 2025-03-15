@@ -1,5 +1,10 @@
 package org.example.vehical.Service;
 
-public interface SaleItemService  {
+import org.example.vehical.dto.SaleItemDTO;
+import org.example.vehical.enitity.SaleItem;
 
-}
+public interface SaleItemService  {
+    public SaleItem saveSaleItem(SaleItemDTO saleItemDTO);
+
+
+    }

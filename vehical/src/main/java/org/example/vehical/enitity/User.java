@@ -18,7 +18,7 @@ public class User {
     private String first_name;
     private String last_name;
     private String email;
-    private int password;
+    private String password;
 
     @ManyToOne
     @JoinColumn(name = "company_id")

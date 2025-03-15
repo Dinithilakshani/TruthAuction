@@ -11,5 +11,6 @@ public class ItemDTO {
     private String chassisNumber;
     private String registerNumber;
     private String brandName;
+    private String image;
     private int userId;
 }
