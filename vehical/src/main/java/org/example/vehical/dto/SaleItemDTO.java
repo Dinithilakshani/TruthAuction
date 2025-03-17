@@ -13,6 +13,9 @@ private int id;
 private double biddingPrice;
 private LocalDate time;
 private boolean issold;
+private int item_id;
+private int sale_id;
+private int user_id;
 
 
 
