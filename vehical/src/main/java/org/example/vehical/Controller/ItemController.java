@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000") // Change to your frontend URL
 @RestController
 @RequestMapping("/api/items")
 public class ItemController {

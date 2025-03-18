@@ -10,10 +10,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class SaleDTO {
     private int id;
-    private String saleName;
-    private LocalDate createDate;
-    private LocalDate AuctionDate;
-    private int u_id;
+    private String sale_name;
+    private LocalDate create_date;
+    private LocalDate auction_date;
+    private int user_id;
 
 
 }

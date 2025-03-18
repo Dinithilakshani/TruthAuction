@@ -1,18 +1,24 @@
 package org.example.vehical.Service.impl;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.example.vehical.Repo.SaleRepository;
+import org.example.vehical.Repo.UserRepository;
 import org.example.vehical.Service.SaleService;
 import org.example.vehical.dto.SaleDTO;
 import org.example.vehical.enitity.Sale;
+import org.example.vehical.enitity.User;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+//@RequiredArgsConstructor
 public class SaleImpl implements SaleService {
 
     @Autowired
@@ -21,17 +27,32 @@ public class SaleImpl implements SaleService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public void save(SaleDTO saleDTO) {
-        if (saleRepository.existsById(saleDTO.getId())) {
-            throw new RuntimeException("Sale already exists");
+        try {
+            Optional<Sale> optionalSale = saleRepository.findById(saleDTO.getId());
+            if (optionalSale.isPresent()) {
+                throw new RuntimeException("Sale already exists");
+            }
+
+            Optional<User> optionalUser = userRepository.findById(saleDTO.getUser_id());
+            if (optionalUser.isEmpty()) throw new RuntimeException("USer not found");
+
+            Sale sale = modelMapper.map(saleDTO, Sale.class);
+            sale.setUser(optionalUser.get());
+            saleRepository.save(sale);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        saleRepository.save(modelMapper.map(saleDTO, Sale.class));
     }
 
     @Override
     public List<SaleDTO> getAll() {
-        return modelMapper.map(saleRepository.findAll(), new TypeToken<List<SaleDTO>>() {}.getType());
+        return modelMapper.map(saleRepository.findAll(), new TypeToken<List<SaleDTO>>() {
+        }.getType());
     }
 
     @Override

@@ -16,36 +16,37 @@ import java.util.List;
 @CrossOrigin("*")
 public class SaleController {
 
-    @GeneratedValue
+
     @Autowired
     private SaleService saleService;
 
     @PostMapping("/save")
-    public ResponseEntity<ResponseUtil> saveCompany(@RequestBody SaleDTO saleDTO) {
+    public ResponseEntity<ResponseUtil> saveSale(@RequestBody SaleDTO saleDTO) {
+        System.out.println(saleDTO);
         saleService.save(saleDTO);
         return ResponseEntity.ok(new ResponseUtil(200, "Company saved successfully", null));
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<ResponseUtil> getAllCompanies() {
+    public ResponseEntity<ResponseUtil> getAllSale() {
         List<SaleDTO> companyDTOList = saleService.getAll();
         return ResponseEntity.ok(new ResponseUtil(200, "Success", companyDTOList));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseUtil> getCompanyById(@PathVariable int id) {
+    public ResponseEntity<ResponseUtil> getSaleById(@PathVariable int id) {
         SaleDTO saleDTO = saleService.getById(id);
         return ResponseEntity.ok(new ResponseUtil(200, "Success", saleDTO));
     }
 
     @PutMapping("/update")
-    public ResponseEntity<ResponseUtil> updateCompany(@RequestBody SaleDTO saleDTO) {
+    public ResponseEntity<ResponseUtil> updateSale(@RequestBody SaleDTO saleDTO) {
         saleService.update(saleDTO);
         return ResponseEntity.ok(new ResponseUtil(200, "Company updated successfully", null));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ResponseUtil> deleteCompany(@PathVariable int id) {
+    public ResponseEntity<ResponseUtil> deleteSale(@PathVariable int id) {
         saleService.delete(id);
         return ResponseEntity.ok(new ResponseUtil(200, "Company deleted successfully", null));
     }

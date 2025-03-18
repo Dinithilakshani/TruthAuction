@@ -1,8 +1,13 @@
 package org.example.vehical.Service.impl;
 
+import org.example.vehical.Repo.CompanyRepo;
+import org.example.vehical.Repo.CompanyTypeRepo;
 import org.example.vehical.Repo.UserRepository;
 import org.example.vehical.Service.UserService;
 import org.example.vehical.dto.UserDTO;
+import org.example.vehical.enitity.Company;
+import org.example.vehical.enitity.CompanyType;
+import org.example.vehical.enitity.Sale;
 import org.example.vehical.enitity.User;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -19,18 +24,33 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private CompanyRepo companyRepo;
+
+    @Autowired
     private ModelMapper modelMapper;
 
-
+@Override
         public void save(UserDTO userDTO) {
-            UserDTO userDTO1 = new UserDTO();
-            int id = userDTO1.getId();
-            if(userRepository.existsById(userDTO.getId())){
-                throw new RuntimeException("companyType already exists");
-            }
-            userRepository.save(modelMapper.map(userDTO, User.class));
+
+
+    try {
+        Optional<User> optionalUser = userRepository.findById(userDTO.getId());
+        if (optionalUser.isPresent()) {
+            throw new RuntimeException("user already exists");
         }
 
+        Optional<Company> optionalCompanyType = companyRepo.findById(userDTO.getCompany_id());
+        if (optionalCompanyType.isEmpty()) throw new RuntimeException("USer not found");
+
+        User user = modelMapper.map(userDTO, User.class);
+        user.setCompany(optionalCompanyType.get());
+        userRepository.save(user);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+@Override
     public UserDTO getById(int id) {
         Optional<User> optionalCustomer = userRepository.findById(id);
         if (optionalCustomer.isPresent()) {

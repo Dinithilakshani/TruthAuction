@@ -7,8 +7,7 @@ import org.example.vehical.Repo.UserRepository;
 import org.example.vehical.dto.CompanyTypeDTO;
 import org.example.vehical.dto.SaleDTO;
 import org.example.vehical.dto.SaleItemDTO;
-import org.example.vehical.enitity.CompanyType;
-import org.example.vehical.enitity.SaleItem;
+import org.example.vehical.enitity.*;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -35,20 +34,33 @@ public class SaleItemService implements org.example.vehical.Service.SaleItemServ
     @Autowired
     private ModelMapper modelMapper;
 
-    public SaleItem saveSaleItem(SaleItemDTO saleItemDTO) {
-        SaleItem saleItem = modelMapper.map(saleItemDTO, SaleItem.class);
+@Override
+        public SaleItem saveSaleItem(SaleItemDTO saleItemDTO) {
+            // Map SaleItemDTO to SaleItem entity
+            SaleItem saleItem = modelMapper.map(saleItemDTO, SaleItem.class);
 
-        // Fetch related entities
-        saleItem.setUser(userRepository.findById(saleItemDTO.getId())
-                .orElseThrow(() -> new RuntimeException("User not found")));
-        saleItem.setSale(saleRepository.findById(saleItemDTO.getId())
-                .orElseThrow(() -> new RuntimeException("Sale not found")));
-        saleItem.setItem(itemRepository.findById(saleItemDTO.getId())
-                .orElseThrow(() -> new RuntimeException("Item not found")));
+            // Fetch the User by userId from DTO
+            User user = userRepository.findById(saleItemDTO.getUser_id())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
 
-        return saleItemRepository.save(saleItem);
-    }
-    @Override
+            // Fetch the Sale by saleId from DTO
+            Sale sale = saleRepository.findById(saleItemDTO.getSale_id())
+                    .orElseThrow(() -> new RuntimeException("Sale not found"));
+
+            // Fetch the Item by itemId from DTO
+            Item item = itemRepository.findById(saleItemDTO.getItem_id())
+                    .orElseThrow(() -> new RuntimeException("Item not found"));
+
+            // Set the fetched entities to the SaleItem entity
+            saleItem.setUser(user);
+            saleItem.setSale(sale);
+            saleItem.setItem(item);
+
+            // Save the SaleItem to the database
+            return saleItemRepository.save(saleItem);
+        }
+
+        @Override
     public List<SaleItemDTO> getAll() {
         return modelMapper.map(saleRepository.findAll(), new TypeToken<List<SaleItemDTO>>() {}.getType());
     }

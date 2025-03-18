@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@CrossOrigin(origins = "*")
-@RequestMapping("api/v1/users")
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     @Autowired
@@ -35,14 +35,15 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseUtil> deleteUser(@PathVariable int id) {  // Changed method name to "deleteUser"
+    public ResponseEntity<ResponseUtil> deleteUser(@PathVariable int id) {
         userService.delete(id);
-        return ResponseEntity.ok(new ResponseUtil(200, "User deleted successfully", null));  // Changed message
+        return ResponseEntity.ok(new ResponseUtil(200, "User deleted successfully", null));
     }
 
-    @PutMapping("/update")  // Fixed the URL path to include {id}
-    public ResponseEntity<ResponseUtil> updateUser(@PathVariable int id, @RequestBody UserDTO userDTO) {  // Fixed method name
+    @PutMapping("/update")
+    public ResponseEntity<ResponseUtil> updateUser(@PathVariable int id, @RequestBody UserDTO userDTO) {
         UserDTO updatedUser = userService.update( userDTO);
         return ResponseEntity.ok(new ResponseUtil(200, "User updated successfully", updatedUser));
     }
+
 }

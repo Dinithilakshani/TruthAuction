@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/company")
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 public class CompanyController {
 @GeneratedValue
     @Autowired
