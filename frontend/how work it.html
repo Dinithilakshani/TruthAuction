@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works - Elite Auto Auctions</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --secondary: #e67e22;
+      --accent: #3498db;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --success: #2ecc71;
+      --danger: #e74c3c;
+      --warning: #f39c12;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f5f5;
+      padding-top: 80px;
+    }
+
+    /* Navbar Styling */
+    .navbar {
+      padding: 15px 0;
+      background-color: rgba(44, 62, 80, 0.97) !important;
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: white;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand i {
+      margin-right: 10px;
+      color: var(--secondary);
+    }
+
+    .nav-link {
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+      margin: 0 5px;
+    }
+
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--secondary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover:after {
+      width: 100%;
+    }
+
+    .nav-link.active:after {
+      width: 100%;
+    }
+
+    .btn-register {
+      background-color: var(--secondary);
+      border: none;
+      padding: 8px 20px;
+      border-radius: 30px;
+      box-shadow: 0 4px 15px rgba(230, 126, 34, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .btn-register:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(230, 126, 34, 0.4);
+      background-color: #d35400;
+    }
+
+    /* Page Header */
+    .page-header {
+      background: linear-gradient(135deg, rgba(0,0,0,0.8), rgba(44, 62, 80, 0.7)), url("/api/placeholder/1200/300") center/cover no-repeat;
+      padding: 80px 0;
+      margin-bottom: 50px;
+      text-align: center;
+      color: white;
+    }
+
+    .page-header h1 {
+      font-weight: 800;
+      margin-bottom: 20px;
+      font-size: 3rem;
+    }
+
+    .breadcrumb {
+      background: transparent;
+      display: inline-flex;
+      padding: 10px 20px;
+      border-radius: 30px;
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+    }
+
+    .breadcrumb-item a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+
+    .breadcrumb-item.active {
+      color: white;
+    }
+
+    .breadcrumb-item+.breadcrumb-item::before {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Process Navigation */
+    .process-nav {
+      position: sticky;
+      top: 80px;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+      z-index: 100;
+    }
+
+    .process-nav .nav-link {
+      padding: 20px;
+      text-align: center;
+      border-radius: 0;
+      color: var(--dark);
+      font-weight: 600;
+      transition: all 0.3s;
+      border-bottom: 3px solid transparent;
+    }
+
+    .process-nav .nav-link:hover {
+      color: var(--secondary);
+    }
+
+    .process-nav .nav-link.active {
+      color: var(--secondary);
+      background-color: transparent;
+      border-bottom: 3px solid var(--secondary);
+    }
+
+    .process-nav .nav-link i {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .process-nav .nav-link.active i {
+      color: var(--secondary);
+    }
+
+    /* Process Sections */
+    .process-section {
+      padding: 80px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .process-section:last-child {
+      border-bottom: none;
+    }
+
+    .process-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .process-number {
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--secondary);
+      color: white;
+      border-radius: 50%;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0 auto 20px;
+    }
+
+    .process-title {
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+
+    .process-subtitle {
+      font-size: 1.1rem;
+      color: #6c757d;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background-color: white;
+      border-radius: 15px;
+      padding: 30px;
+      height: 100%;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background-color: var(--secondary);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background-color: rgba(230, 126, 34, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--secondary);
+      font-size: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+      background-color: var(--secondary);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .feature-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+
+    .feature-description {
+      color: #6c757d;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding: 40px 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 4px;
+      background-color: rgba(52, 152, 219, 0.2);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 60px;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-content {
+      position: relative;
+      width: calc(50% - 40px);
+      padding: 30px;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content {
+      margin-left: auto;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+      margin-right: auto;
+    }
+
+    .timeline-content::before {
+      content: '';
+      position: absolute;
+      top: 30px;
+      width: 20px;
+      height: 20px;
+      background-color: white;
+      transform: rotate(45deg);
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content::before {
+      left: -10px;
+      box-shadow: -5px 5px 10px rgba(0,0,0,0.05);
+    }
+
+    .timeline-item:nth-child(even) .timeline-content::before {
+      right: -10px;
+      box-shadow: 5px -5px 10px rgba(0,0,0,0.05);
+    }
+
+    .timeline-point {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      width: 30px;
+      height: 30px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      border: 5px solid white;
+      box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+      z-index: 10;
+    }
+
+    .timeline-date {
+      position: absolute;
+      top: 30px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .timeline-item:nth-child(odd) .timeline-date {
+      right: calc(50% + 60px);
+    }
+
+    .timeline-item:nth-child(even) .timeline-date {
+      left: calc(50% + 60px);
+    }
+
+    .timeline-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+
+    .timeline-description {
+      color: #6c757d;
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--primary);
+      color: white;
+      padding: 50px 0 30px;
+      margin-top: 80px;
+    }
+
+    /* Responsive Timeline */
+    @media (max-width: 767.98px) {
+      .timeline::before {
+        left: 30px;
+      }
+
+      .timeline-content {
+        width: calc(100% - 60px);
+        margin-left: 60px !important;
+      }
+
+      .timeline-content::before {
+        top: 24px;
+        left: -10px !important;
+        box-shadow: -5px 5px 10px rgba(0,0,0,0.05) !important;
+      }
+
+      .timeline-point {
+        left: 30px;
+        transform: none;
+      }
+
+      .timeline-date {
+        position: relative;
+        top: auto;
+        left: auto !important;
+        right: auto !important;
+        margin-bottom: 10px;
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#"><i class="fas fa-car"></i>Elite Auto Auctions</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Auctions</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Sell Your Car</a></li>
+        <li class="nav-item"><a class="nav-link active" href="#">How It Works</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-sign-in-alt me-1"></i>Sign In</a></li>
+        <li class="nav-item"><a class="nav-link btn-register text-white" href="#"><i class="fas fa-user-plus me-1"></i>Register</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Header -->
+<section class="page-header">
+  <div class="container">
+    <h1>How It Works</h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#"><i class="fas fa-home me-1"></i>Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">How It Works</li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<!-- Process Navigation -->
+<div class="container">
+  <nav class="process-nav">
+    <ul class="nav nav-tabs nav-fill" id="processTab">
+      <li class="nav-item">
+        <a class="nav-link active" href="#register" data-bs-toggle="tab">
+          <i class="fas fa-user-plus"></i>
+          Register
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#browse" data-bs-toggle="tab">
+          <i class="fas fa-search"></i>
+          Browse & Research
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#bid" data-bs-toggle="tab">
+          <i class="fas fa-gavel"></i>
+          Bid
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#delivery" data-bs-toggle="tab">
+          <i class="fas fa-truck"></i>
+          Delivery
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="tab-content">
+    <!-- Register Section -->
+    <div class="tab-pane fade show active" id="register">
+      <section class="process-section">
+        <div class="process-header">
+          <div class="process-number">1</div>
+          <h2 class="process-title">Create Your Account</h2>
+          <p class="process-subtitle">Registration is quick, easy, and opens the door to thousands of premium vehicle auctions.</p>
+        </div>
+
+        <div class="row g-4 mb-5">
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-id-card"></i>
+              </div>
+              <h5 class="feature-title">Simple Registration</h5>
+              <p class="feature-description">Create an account in minutes with your email and basic information. No complex paperwork required.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <h5 class="feature-title">Verification Process</h5>
+              <p class="feature-description">We verify all members to ensure a secure and trustworthy auction environment for everyone.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-credit-card"></i>
+              </div>
+              <h5 class="feature-title">Payment Information</h5>
+              <p class="feature-description">Add your payment method securely to be ready when you win an auction. All data is encrypted.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <a href="#" class="btn btn-primary btn-lg px-5">Register Now</a>
+        </div>
+      </section>
+    </div>
+
+    <!-- Browse & Research Section -->
+    <div class="tab-pane fade" id="browse">
+      <section class="process-section">
+        <div class="process-header">
+          <div class="process-number">2</div>
+          <h2 class="process-title">Browse & Research</h2>
+          <p class="process-subtitle">Explore our extensive collection of premium vehicles with comprehensive details to make informed decisions.</p>
+        </div>
+
+        <div class="row align-items-center mb-5">
+          <div class="col-lg-6">
+            <h3 class="mb-4">Detailed Vehicle Information</h3>
+            <p class="mb-4">Each listing includes comprehensive details about the vehicle, including:</p>
+            <ul class="list-group mb-4">
+              <li class="list-group-item d-flex align-items-center">
+                <i class="fas fa-camera text-primary me-3"></i>
+                <div>
+                  <strong>High-Quality Photos</strong>
+                  <p class="mb-0 text-muted">Multiple angles inside and out</p>
+                </div>
+              </li>
+              <li class="list-group-item d-flex align-items-center">
+                <i class="fas fa-file-alt text-primary me-3"></i>
+                <div>
+                  <strong>Vehicle History Reports</strong>
+                  <p class="mb-0 text-muted">Comprehensive background check</p>
+                </div>
+              </li>
+              <li class="list-group-item d-flex align-items-center">
+                <i class="fas fa-tools text-primary me-3"></i>
+                <div>
+                  <strong>Maintenance Records</strong>
+                  <p class="mb-0 text-muted">Service history and care</p>
+                </div>
+              </li>
+              <li class="list-group-item d-flex align-items-center">
+                <i class="fas fa-clipboard-check text-primary me-3"></i>
+                <div>
+                  <strong>Inspection Results</strong>
+                  <p class="mb-0 text-muted">Professional assessment details</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-6">
+            <img src="/api/placeholder/600/400" class="img-fluid rounded-3 shadow" alt="Browse Vehicles">
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-filter"></i>
+              </div>
+              <h5 class="feature-title">Advanced Filters</h5>
+              <p class="feature-description">Narrow down your search with multiple filters including make, model, year, price range, and more.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-heart"></i>
+              </div>
+              <h5 class="feature-title">Save Favorites</h5>
+              <p class="feature-description">Create a wishlist of vehicles you're interested in to track and compare before bidding.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-bell"></i>
+              </div>
+              <h5 class="feature-title">Custom Alerts</h5>
+              <p class="feature-description">Set up notifications for new listings that match your preferences or for auction updates.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Bid Section -->
+    <div class="tab-pane fade" id="bid">
+      <section class="process-section">
+        <div class="process-header">
+          <div class="process-number">3</div>
+          <h2 class="process-title">Place Your Bids</h2>
+          <p class="process-subtitle">Our transparent bidding system makes it easy to participate in auctions and compete for your dream car.</p>
+        </div>
+
+        <div class="timeline mb-5">
+          <div class="timeline-item">
+            <div class="timeline-point"></div>
+            <div class="timeline-date">Step 1</div>
+            <div class="timeline-content">
+              <h4 class="timeline-title">Set Your Maximum Bid</h4>
+              <p class="timeline-description">Determine the highest amount you're willing to pay for the vehicle. Our system will automatically bid incrementally on your behalf up to your maximum amount.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-point"></div>
+            <div class="timeline-date">Step 2</div>
+            <div class="timeline-content">
+              <h4 class="timeline-title">Monitor Auction Progress</h4>
+              <p class="timeline-description">Track the bidding activity in real-time. You'll receive notifications if you're outbid or when the auction is ending soon.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-point"></div>
+            <div class="timeline-date">Step 3</div>
+            <div class="timeline-content">
+              <h4 class="timeline-title">Adjust Your Bid</h4>
+              <p class="timeline-description">You can increase your maximum bid at any time during the auction if you decide the vehicle is worth more to you.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-point"></div>
+            <div class="timeline-date">Step 4</div>
+            <div class="timeline-content">
+              <h4 class="timeline-title">Final Countdown</h4>
+              <p class="timeline-description">In the last minutes of the auction, any new bid extends the auction time by two minutes to prevent last-second sniping and ensure everyone has a fair chance.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-4">
+          <div class="col-lg-6 offset-lg-3">
+            <div class="card p-4 text-center">
+              <h4 class="mb-3"><i class="fas fa-info-circle text-primary me-2"></i>Understanding Reserve Prices</h4>
+              <p class="mb-0">Some auctions have a reserve price set by the seller. If the bidding doesn't reach this minimum threshold, the seller isn't obligated to sell. Look for the "No Reserve" badge for auctions with no minimum price requirement.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Delivery Section -->
+    <div class="tab-pane fade" id="delivery">
+      <section class="process-section">
+        <div class="process-header">
+          <div class="process-number">4</div>
+          <h2 class="process-title">Vehicle Delivery</h2>
+          <p class="process-subtitle">After winning an auction and completing payment, it's time to get your new vehicle delivered safely to your location.</p>
+        </div>
+
+        <div class="row align-items-center mb-5">
+          <div class="col-lg-6 order-lg-2">
+            <h3 class="mb-4">Flexible Delivery Options</h3>
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="d-flex align-items-center">
+                  <i class="fas fa-truck text-primary me-3"></i>
+                  Professional Transport
+                </h5>
+                <p class="mb-0 ps-5">We partner with trusted auto transport companies to deliver your vehicle directly to your doorstep. Enclosed trailers available for premium vehicles.</p>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-body">
+                <h5 class="d-flex align-items-center">
+                  <i class="fas fa-map-marker-alt text-primary me-3"></i>
+                  Local Pickup
+                </h5>
+                <p class="mb-0 ps-5">If you prefer, you can arrange to pick up the vehicle in person. Our team will prepare all necessary paperwork and help with the transfer process.</p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <h5 class="d-flex align-items-center">
+                  <i class="fas fa-globe text-primary me-3"></i>
+                  International Shipping
+                </h5>
+                <p class="mb-0 ps-5">We offer international shipping services and can handle all customs documentation. Our experts will guide you through the entire process.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1 mb-4 mb-lg-0">
+            <img src="/api/placeholder/600/400" class="img-fluid rounded-3 shadow" alt="Vehicle Delivery">
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-clipboard-list"></i>
+              </div>
+              <h5 class="feature-title">Full Documentation</h5>
+              <p class="feature-description">We handle all the necessary paperwork including title transfer, registration documents, and delivery confirmation.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <h5 class="feature-title">Fully Insured</h5>
+              <p class="feature-description">Your vehicle is fully insured during the entire transport process, giving you complete peace of mind.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-location-arrow"></i>
+              </div>
+              <h5 class="feature-title">Real-time Tracking</h5>
+              <p class="feature-description">Track your vehicle's journey with our real-time GPS tracking system and get updates throughout the delivery process.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- Call to Action -->
+<div class="container">
+  <div class="p-5 text-center bg-primary text-white rounded-4 shadow">
+    <h2 class="mb-3">Ready to Find Your Dream Car?</h2>
+    <p class="mb-4">Join thousands of satisfied customers who have found their perfect vehicles through Elite Auto Auctions.</p>
+    <a href="#" class="btn btn-lg btn-secondary">Start Bidding Today</a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer mt-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-4 mb-md-0">
+        <h5 class="mb-3">Elite Auto Auctions</h5>
+        <p class="mb-3">The premier destination for premium automobile auctions. Connecting buyers and sellers since 2010.</p>
+        <div>
+          <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="col-md-2 col-6 mb-4 mb-md-0">
+        <h5 class="mb-3">Quick Links

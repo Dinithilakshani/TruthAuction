@@ -8,86 +8,224 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #0d6efd;
+            --primary-color: #2c3e50;
             --secondary-color: #6c757d;
             --accent-color: #e9f2ff;
-            --success-color: #198754;
-            --danger-color: #dc3545;
+            --success-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-text: #343a40;
+            --sidebar-width: 240px;
         }
 
         body {
             background-color: #f8f9fa;
-            padding-top: 20px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
         }
 
-        .page-header {
-            margin-bottom: 30px;
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background-color: var(--primary-color);
+            color: white;
+            padding-top: 20px;
+            z-index: 1000;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
         }
 
-        .page-header h1 {
-            color: var(--primary-color);
+        .sidebar-brand {
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-brand h2 {
+            margin-left: 10px;
+            font-size: 22px;
             font-weight: 600;
         }
 
+        .sidebar-menu {
+            padding: 0;
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu a {
+            color: #ecf0f1;
+            text-decoration: none;
+            display: block;
+            padding: 12px 20px;
+            transition: all 0.3s;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #f39c12;
+            padding-left: 16px;
+        }
+
+        .sidebar-menu a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 20px;
+            transition: margin-left 0.3s;
+        }
+
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 210px;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-color);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 24px;
+        }
+
+        .blue-icon {
+            background-color: #e9f2ff;
+            color: #3498db;
+        }
+
+        .green-icon {
+            background-color: #e8f8f5;
+            color: #2ecc71;
+        }
+
+        .orange-icon {
+            background-color: #fff3e0;
+            color: #f39c12;
+        }
+
+        .teal-icon {
+            background-color: #e0f7fa;
+            color: #00bcd4;
+        }
+
+        .stat-info h3 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .stat-info p {
+            margin: 0;
+            color: var(--secondary-color);
+            font-size: 14px;
+        }
+
         .card {
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             border: none;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .card-header {
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 10px 10px 0 0 !important;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
             padding: 15px 20px;
-            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .form-control:focus, .form-select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        .card-header h5 {
+            margin: 0;
+            font-weight: 600;
+            color: var(--dark-text);
         }
 
-        .form-label {
-            font-weight: 500;
-            color: #212529;
+        .card-header .btn {
+            padding: 5px 10px;
+            font-size: 14px;
         }
 
-        .btn-primary {
-            background-color: var(--primary-color);
-            border: none;
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
         }
 
-        .btn-primary:hover {
-            background-color: #0b5ed7;
+        .section-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
         }
 
         .table-container {
             background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
             overflow: hidden;
         }
 
-        .table-header {
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table thead th {
             background-color: var(--accent-color);
-        }
-
-        .table th {
+            color: var(--dark-text);
             font-weight: 600;
-            color: #495057;
+            border-bottom: none;
+            padding: 12px 15px;
         }
 
-        .table td {
+        .table tbody td {
+            padding: 12px 15px;
             vertical-align: middle;
+            border-top: 1px solid #eee;
         }
 
         .action-buttons .btn {
-            padding: 0.25rem 0.5rem;
-            font-size: 0.875rem;
+            padding: 5px 10px;
+            font-size: 14px;
+            margin-right: 5px;
         }
 
         .btn-icon {
@@ -100,12 +238,46 @@
             margin-right: 5px;
         }
 
+        .btn-view {
+            background-color: #e9f2ff;
+            color: #3498db;
+            border: none;
+        }
+
+        .btn-edit {
+            background-color: #fff3e0;
+            color: #f39c12;
+            border: none;
+        }
+
+        .btn-delete {
+            background-color: #fdedec;
+            color: #e74c3c;
+            border: none;
+        }
+
+        .form-control, .form-select {
+            padding: 10px 15px;
+            border-radius: 6px;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(44, 62, 80, 0.25);
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--dark-text);
+            margin-bottom: 6px;
+        }
+
         .password-toggle {
             cursor: pointer;
             position: absolute;
             right: 10px;
-            top: 10px;
-            color: #6c757d;
+            top: 40px;
+            color: var(--secondary-color);
         }
 
         .toast-container {
@@ -115,22 +287,149 @@
             z-index: 1050;
         }
 
-        .search-container {
-            margin-bottom: 20px;
-        }
-
         .required::after {
             content: " *";
             color: var(--danger-color);
         }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 70px;
+                padding-top: 10px;
+            }
+
+            .sidebar-brand h2, .sidebar-menu a span {
+                display: none;
+            }
+
+            .sidebar-menu a i {
+                font-size: 18px;
+                margin-right: 0;
+            }
+
+            .sidebar-menu a {
+                padding: 15px;
+                text-align: center;
+            }
+
+            .sidebar-menu a:hover, .sidebar-menu a.active {
+                padding-left: 11px;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+        }
+
+        .badge-active {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+
+        .badge-inactive {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+
+        .badge-pending {
+            background-color: #fff3cd;
+            color: #664d03;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .header-actions .btn {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e9f2ff;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="row page-header">
-        <div class="col-12 text-center">
-            <h1><i class="fas fa-users me-2"></i>User Management System</h1>
-            <p class="text-muted">Manage your application users efficiently</p>
+<!-- Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-brand">
+        <i class="fas fa-users fa-2x"></i>
+        <h2>User Management</h2>
+    </div>
+    <ul class="sidebar-menu">
+        <li><a href="#"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+        <li><a href="#" class="active"><i class="fas fa-users"></i> <span>Users</span></a></li>
+        <li><a href="#"><i class="fas fa-building"></i> <span>Companies</span></a></li>
+        <li><a href="#"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+        <li><a href="#"><i class="fas fa-chart-bar"></i> <span>Reports</span></a></li>
+        <li><a href="#"><i class="fas fa-question-circle"></i> <span>Help</span></a></li>
+    </ul>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Navbar -->
+    <div class="navbar d-flex justify-content-between align-items-center">
+        <div>
+            <h4 class="mb-0">User Management</h4>
+        </div>
+        <div class="d-flex align-items-center">
+            <div class="me-3">
+                <span class="text-muted">Admin</span>
+            </div>
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-icon blue-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-info">
+                <h3 id="totalUsers">0</h3>
+                <p>Total Users</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon green-icon">
+                <i class="fas fa-user-check"></i>
+            </div>
+            <div class="stat-info">
+                <h3 id="activeUsers">0</h3>
+                <p>Active Users</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon orange-icon">
+                <i class="fas fa-building"></i>
+            </div>
+            <div class="stat-info">
+                <h3 id="totalCompanies">0</h3>
+                <p>Companies</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon teal-icon">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <div class="stat-info">
+                <h3 id="newUsers">0</h3>
+                <p>New Users (30d)</p>
+            </div>
         </div>
     </div>
 
@@ -138,8 +437,8 @@
         <!-- User Form -->
         <div class="col-lg-4 mb-4">
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0" id="formTitle">Add New User</h5>
+                <div class="card-header">
+                    <h5 id="formTitle">Add New User</h5>
                     <button id="collapseFormBtn" class="btn btn-sm btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#formContainer">
                         <i class="fas fa-minus"></i>
                     </button>
@@ -195,30 +494,30 @@
 
         <!-- User List -->
         <div class="col-lg-8">
-            <div class="card table-container">
-                <div class="card-body p-0">
-                    <div class="p-3 bg-light border-bottom">
-                        <div class="row align-items-center">
-                            <div class="col-md-6">
-                                <h5 class="mb-0">User List</h5>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="input-group">
-                                    <input type="text" id="searchInput" class="form-control" placeholder="Search users...">
-                                    <button id="searchBtn" class="btn btn-outline-primary" type="button">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                    <button id="refreshBtn" class="btn btn-outline-secondary" type="button">
-                                        <i class="fas fa-sync-alt"></i>
-                                    </button>
-                                </div>
-                            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="section-header">
+                        <h5>User List</h5>
+                        <div class="header-actions">
+                            <button class="btn btn-sm btn-outline-primary" id="refreshBtn">
+                                <i class="fas fa-sync-alt"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="text" id="searchInput" class="form-control" placeholder="Search users...">
+                            <button id="searchBtn" class="btn btn-outline-primary" type="button">
+                                <i class="fas fa-search"></i>
+                            </button>
                         </div>
                     </div>
 
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
-                            <thead class="table-header">
+                    <div class="table-container">
+                        <table class="table table-hover">
+                            <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
@@ -301,6 +600,7 @@
     let editMode = false;
     let deleteUserId = null;
     let toastInstance = null;
+    let usersData = [];
 
     $(document).ready(function() {
         // Initialize toast
@@ -384,7 +684,9 @@
             url: API_URL + "/getall",
             type: "GET",
             success: function(response) {
-                renderUserTable(response);
+                usersData = response || [];
+                renderUserTable(usersData);
+                updateStatistics(usersData);
             },
             error: function(xhr) {
                 showToast("Failed to load users: " + xhr.statusText, "bg-danger");
@@ -395,6 +697,17 @@
         });
     }
 
+    // Update statistics
+    function updateStatistics(users) {
+        if (users && users.length > 0) {
+            // For demo purposes, let's set some values
+            $("#totalUsers").text(users.length);
+            $("#activeUsers").text(Math.floor(users.length * 0.8)); // 80% active
+            $("#totalCompanies").text(Math.floor(users.length * 0.3)); // 30% of users count
+            $("#newUsers").text(Math.floor(users.length * 0.2)); // 20% new users
+        }
+    }
+
     // Render user table
     function renderUserTable(users) {
         const tableBody = $("#userTableBody");
@@ -403,28 +716,34 @@
         if (users && users.length > 0) {
             users.forEach(function(user) {
                 tableBody.append(`
-                        <tr>
-                            <td>${user.id}</td>
-                            <td>${user.first_name} ${user.last_name}</td>
-                            <td>${user.email}</td>
-                            <td>${user.company_id}</td>
-                            <td class="action-buttons">
-                                <button class="btn-icon btn-primary edit-btn" data-id="${user.id}" title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="btn-icon btn-danger delete-btn" data-id="${user.id}" title="Delete">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    `);
+                    <tr>
+                        <td>${user.id}</td>
+                        <td>${user.first_name} ${user.last_name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.company_id}</td>
+                        <td class="action-buttons">
+                            <button class="btn-icon btn-view" title="View">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn-icon btn-edit edit-btn" data-id="${user.id}" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn-icon btn-delete delete-btn" data-id="${user.id}" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `);
             });
 
             $("#emptyMessage").addClass("d-none");
+            $("#userTableBody").removeClass("d-none");
         } else {
             $("#emptyMessage").removeClass("d-none");
+            $("#userTableBody").addClass("d-none");
         }
     }
+
 
     // Save or update user
     function saveUser() {

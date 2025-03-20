@@ -4,6 +4,7 @@ import org.example.vehical.Repo.ItemRepository;
 import org.example.vehical.Repo.UserRepository;
 import org.example.vehical.Service.ItemService;
 import org.example.vehical.enitity.Item;
+import org.example.vehical.enitity.Sale;
 import org.example.vehical.enitity.User;
 import org.example.vehical.dto.ItemDTO;
 import org.modelmapper.ModelMapper;
@@ -25,20 +26,33 @@ public class ItemImpl implements ItemService {
     @Autowired
     private ModelMapper modelMapper;
 
+
     @Override
     public ItemDTO save(ItemDTO itemDTO) {
-        if (itemRepository.existsById(itemDTO.getId())) {
-            throw new RuntimeException("Item already exists");
+        try {
+            Optional<Item> optionalItem = itemRepository.findById(itemDTO.getId());
+            if (optionalItem.isPresent()) {
+                throw new RuntimeException("Item already exists");
+            }
+
+            Optional<User> optionalUser = userRepository.findById(itemDTO.getUser_id());
+            if (optionalUser.isEmpty()) {
+                throw new RuntimeException("User not found");
+            }
+
+            Item item = modelMapper.map(itemDTO, Item.class);
+            item.setUser(optionalUser.get());
+            itemRepository.save(item);
+
+            return modelMapper.map(item, ItemDTO.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error saving item", e); // Throw an exception to propagate the error
         }
-
-        User user = userRepository.findById(itemDTO.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-
-        Item item = modelMapper.map(itemDTO, Item.class);
-        item.setUser(user);
-        itemRepository.save(item);
-        return itemDTO;
     }
+
+
+
 
     @Override
     public List<ItemDTO> getAll() {
@@ -61,7 +75,7 @@ public class ItemImpl implements ItemService {
             throw new RuntimeException("Item does not exist");
         }
 
-        User user = userRepository.findById(itemDTO.getUserId())
+        User user = userRepository.findById(itemDTO.getUser_id())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         Item item = modelMapper.map(itemDTO, Item.class);

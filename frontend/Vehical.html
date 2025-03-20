@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elite Auctions - Vehicle Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+    .sidebar {
+      background-color: #263745;
+      color: white;
+      width: 240px;
+      position: fixed;
+      height: 100%;
+      padding-top: 20px;
+    }
+    .sidebar-header {
+      padding: 10px 20px;
+      font-size: 22px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .sidebar-header i {
+      margin-right: 10px;
+      color: #ff7f50;
+    }
+    .sidebar-menu {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar-menu li {
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .sidebar-menu li:hover {
+      background-color: #1e2b37;
+    }
+    .sidebar-menu li.active {
+      background-color: #1e2b37;
+      border-left: 4px solid #ff7f50;
+    }
+    .sidebar-menu li i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+    .content {
+      margin-left: 240px;
+      padding: 20px;
+    }
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+      border: none;
+    }
+    .card-header {
+      background-color: #fff;
+      border-bottom: 1px solid #eee;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 15px 20px;
+      border-radius: 10px 10px 0 0 !important;
+    }
+    .btn-primary {
+      background-color: #0d6efd;
+      border-color: #0d6efd;
+    }
+    .dashboard-stats {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      flex: 1;
+      margin: 0 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+    }
+    .stat-card .icon {
+      background-color: #f8f9fa;
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      font-size: 24px;
+    }
+    .stat-card .icon.blue {
+      background-color: #e6f0ff;
+      color: #0d6efd;
+    }
+    .stat-card .icon.orange {
+      background-color: #fff4e6;
+      color: #fd7e14;
+    }
+    .stat-card .icon.green {
+      background-color: #e6fff0;
+      color: #20c997;
+    }
+    .stat-card .icon.teal {
+      background-color: #e6fffa;
+      color: #20c9c9;
+    }
+    .stat-card .value {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .stat-card .label {
+      color: #6c757d;
+      font-size: 14px;
+    }
+    .table th {
+      font-weight: 500;
+      border-bottom-width: 1px;
+    }
+    .table td {
+      vertical-align: middle;
+    }
+    .status-badge {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .status-active {
+      background-color: #e6fff0;
+      color: #20c997;
+    }
+    .status-pending {
+      background-color: #fff8e6;
+      color: #ffc107;
+    }
+    .status-ended {
+      background-color: #f0f0f0;
+      color: #6c757d;
+    }
+    .action-btn {
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    .header-bar {
+      background-color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+    .user-menu {
+      display: flex;
+      align-items: center;
+    }
+    .user-menu .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #ff7f50;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    .view-all-btn {
+      float: right;
+      font-size: 14px;
+      padding: 5px 15px;
+      margin-top: -5px;
+    }
+    .chart-container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      min-height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .search-container {
+      display: flex;
+      margin-bottom: 15px;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 5px;
+    }
+  </style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <i class="fas fa-car"></i> Elite Auctions
+  </div>
+  <ul class="sidebar-menu">
+    <li class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</li>
+    <li><i class="fas fa-user"></i> User Management</li>
+    <li><i class="fas fa-building"></i> Company Management</li>
+    <li><i class="fas fa-car"></i> Items Management</li>
+    <li><i class="fas fa-tag"></i> Sale Management</li>
+    <li><i class="fas fa-chart-bar"></i> Reports</li>
+    <li><i class="fas fa-cog"></i> Settings</li>
+    <li><i class="fas fa-question-circle"></i> Help</li>
+    <li><i class="fas fa-sign-out-alt"></i> Logout</li>
+  </ul>
+</div>
+
+<div class="content">
+  <div class="header-bar">
+    <h3>Vehicle Management</h3>
+    <div class="user-menu">
+      <div class="user-avatar">A</div>
+      <div>Admin <i class="fas fa-chevron-down"></i></div>
+    </div>
+  </div>
+
+  <div class="dashboard-stats">
+    <div class="stat-card">
+      <div class="icon blue">
+        <i class="fas fa-car"></i>
+      </div>
+      <div>
+        <div class="value">524</div>
+        <div class="label">Active Auctions</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="icon orange">
+        <i class="fas fa-users"></i>
+      </div>
+      <div>
+        <div class="value">12,582</div>
+        <div class="label">Registered Users</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="icon green">
+        <i class="fas fa-dollar-sign"></i>
+      </div>
+      <div>
+        <div class="value">$2.4M</div>
+        <div class="label">Revenue This Month</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="icon teal">
+        <i class="fas fa-check"></i>
+      </div>
+      <div>
+        <div class="value">876</div>
+        <div class="label">Completed Auctions</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Vehicle Information Form -->
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-header">Vehicle Information</div>
+        <div class="card-body">
+          <form id="itemForm">
+            <input type="hidden" id="isUpdate" value="false">
+
+            <div class="mb-3">
+              <label for="itemId" class="form-label">Item ID</label>
+              <input type="text" class="form-control" id="itemId" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="productName" class="form-label">Product Name</label>
+              <input type="text" class="form-control" id="productName" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="chassisNumber" class="form-label">Chassis Number</label>
+              <input type="text" class="form-control" id="chassisNumber" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="registerNumber" class="form-label">Register Number</label>
+              <input type="text" class="form-control" id="registerNumber" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="brandName" class="form-label">Brand Name</label>
+              <input type="text" class="form-control" id="brandName" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="image" class="form-label">Image URL</label>
+              <input type="text" class="form-control" id="image" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="userId" class="form-label">User ID</label>
+              <input type="number" class="form-control" id="userId" required>
+            </div>
+
+            <div class="mb-3 d-flex gap-2">
+              <button type="submit" class="btn btn-primary" id="saveBtn">Save Vehicle</button>
+              <button type="button" class="btn btn-success" id="updateBtn" style="display:none;">Update Vehicle</button>
+              <button type="button" class="btn btn-secondary" id="clearBtn">Clear Form</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vehicle List -->
+    <div class="col-md-7">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>Vehicle List</span>
+          <button class="btn btn-primary btn-sm view-all-btn" id="refreshBtn">Refresh List</button>
+        </div>
+        <div class="card-body">
+          <div class="search-container mb-3">
+            <input type="text" class="form-control" id="searchInput" placeholder="Search vehicles...">
+            <button class="btn btn-primary ms-2" id="searchBtn">Search</button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>Product Name</th>
+                <th>Brand Name</th>
+                <th>Register Number</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody id="itemTableBody">
+              <!-- Items will be loaded here -->
+              </tbody>
+            </table>
+          </div>
+
+          <nav>
+            <ul class="pagination" id="pagination">
+              <li class="page-item"><a class="page-link" href="#" id="prevPage">Previous</a></li>
+              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#" id="nextPage">Next</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    // Load vehicle list on page load
+    loadVehicleList();
+
+    // Save vehicle form submission
+    $("#itemForm").submit(function(event) {
+      event.preventDefault();
+      saveVehicle();
+    });
+
+    // Update button click handler
+    $("#updateBtn").click(function() {
+      updateVehicle();
+    });
+
+    // Clear form button
+    $("#clearBtn").click(function() {
+      clearForm();
+    });
+
+    // Refresh list button
+    $("#refreshBtn").click(function() {
+      loadVehicleList();
+    });
+
+    // Search button
+    $("#searchBtn").click(function() {
+      searchVehicles();
+    });
+
+    // Also trigger search on enter key in search input
+    $("#searchInput").keypress(function(event) {
+      if (event.which == 13) {
+        searchVehicles();
+      }
+    });
+  });
+
+  // Function to save a new vehicle
+  function saveVehicle() {
+    var vehicleData = {
+      id: $("#itemId").val(),
+      product_name: $("#productName").val(),
+      chassis_number: $("#chassisNumber").val(),
+      register_number: $("#registerNumber").val(),
+      brand_name: $("#brandName").val(),
+      image: $("#image").val(),
+      user_id: $("#userId").val()
+    };
+
+    $.ajax({
+      url: "http://localhost:8082/api/items/save",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(vehicleData),
+      success: function(response) {
+        alert("Vehicle saved successfully!");
+        clearForm();
+        loadVehicleList();
+      },
+      error: function(xhr, status, error) {
+        alert("Error saving vehicle: " + (xhr.responseJSON?.message || error));
+        console.error("Error details:", xhr.responseText);
+      }
+    });
+  }
+
+  // Function to update an existing vehicle
+  function updateVehicle() {
+    var vehicleData = {
+      id: $("#itemId").val(),
+      product_name: $("#productName").val(),
+      chassis_number: $("#chassisNumber").val(),
+      register_number: $("#registerNumber").val(),
+      brand_name: $("#brandName").val(),
+      image: $("#image").val(),
+      user_id: $("#userId").val()
+    };
+
+    $.ajax({
+      url: "http://localhost:8082/api/items/update",
+      type: "PUT",
+      contentType: "application/json",
+      data: JSON.stringify(vehicleData),
+      success: function(response) {
+        alert("Vehicle updated successfully!");
+        clearForm();
+        loadVehicleList();
+      },
+      error: function(xhr, status, error) {
+        alert("Error updating vehicle: " + (xhr.responseJSON?.message || error));
+        console.error("Error details:", xhr.responseText);
+      }
+    });
+  }
+
+  // Function to load the vehicle list
+  function loadVehicleList() {
+    $.ajax({
+      url: "http://localhost:8082/api/items/getall",
+      type: "GET",
+      success: function(data) {
+        populateTable(data);
+      },
+      error: function(xhr, status, error) {
+        console.error("Error loading vehicles:", error);
+        console.error("Response:", xhr.responseText);
+        alert("Error loading vehicle list. See console for details.");
+      }
+    });
+  }
+
+  // Function to populate the table with vehicle data
+  function populateTable(data) {
+    var tableBody = $("#itemTableBody");
+    tableBody.empty();
+
+    if (data.length === 0) {
+      tableBody.append('<tr><td colspan="5" class="text-center">No vehicles found</td></tr>');
+      return;
+    }
+
+    data.forEach(function(item) {
+      tableBody.append(`
+        <tr>
+          <td>${item.id}</td>
+          <td>${item.product_name}</td>
+          <td>${item.brand_name}</td>
+          <td>${item.register_number}</td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn btn-primary btn-sm" onclick="editVehicle('${item.id}')">Edit</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteVehicle('${item.id}')">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `);
+    });
+  }
+
+  // Function to delete a vehicle
+  function deleteVehicle(id) {
+    if (confirm("Are you sure you want to delete this vehicle?")) {
+      $.ajax({
+        url: `http://localhost:8082/api/items/delete/${id}`,
+        type: "DELETE",
+        success: function(response) {
+          alert("Vehicle deleted successfully!");
+          loadVehicleList();
+        },
+        error: function(xhr, status, error) {
+          alert("Error deleting vehicle: " + (xhr.responseJSON?.message || error));
+          console.error("Error details:", xhr.responseText);
+        }
+      });
+    }
+  }
+
+  // Function to edit a vehicle
+  function editVehicle(id) {
+    $.ajax({
+      url: `http://localhost:8082/api/items/${id}`,
+      type: "GET",
+      success: function(item) {
+        // Populate form with vehicle data
+        $("#itemId").val(item.id);
+        $("#productName").val(item.product_name);
+        $("#chassisNumber").val(item.chassis_number);
+        $("#registerNumber").val(item.register_number);
+        $("#brandName").val(item.brand_name);
+        $("#image").val(item.image);
+        $("#userId").val(item.user_id);
+
+        // Show update button, hide save button
+        $("#saveBtn").hide();
+        $("#updateBtn").show();
+        $("#itemId").prop("readonly", true);
+
+        // Scroll to form
+        $('html, body').animate({
+          scrollTop: $("#itemForm").offset().top - 100
+        }, 500);
+      },
+      error: function(xhr, status, error) {
+        alert("Error loading vehicle details: " + (xhr.responseJSON?.message || error));
+        console.error("Error details:", xhr.responseText);
+      }
+    });
+  }
+
+  // Function to clear the form
+  function clearForm() {
+    $("#itemForm")[0].reset();
+    $("#itemId").prop("readonly", false);
+    $("#saveBtn").show();
+    $("#updateBtn").hide();
+  }
+
+  // Function to search vehicles
+  function searchVehicles() {
+    var searchTerm = $("#searchInput").val().trim();
+
+    if (!searchTerm) {
+      loadVehicleList();
+      return;
+    }
+
+    $.ajax({
+      url: `http://localhost:8082/api/items/search?term=${encodeURIComponent(searchTerm)}`,
+      type: "GET",
+      success: function(data) {
+        populateTable(data);
+      },
+      error: function(xhr, status, error) {
+        console.error("Error searching vehicles:", error);
+        alert("Error searching vehicles. See console for details.");
+      }
+    });
+  }
+</script>
+</body>
+</html>

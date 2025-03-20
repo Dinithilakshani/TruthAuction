@@ -3,294 +3,459 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Vehicle Auction System</title>
-    <!-- Bootstrap CSS -->
+    <title>Contact - Elite Auto Auctions</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-blue: #0d6efd;
-            --dark-blue: #0a58ca;
-            --light-blue: #e7f1ff;
-        }
-
         body {
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
         }
 
-        .navbar {
-            background-color: var(--primary-blue);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        /* Header Styles */
+        .main-header {
+            background-color: #2d3e50;
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: #e67e22;
+            margin-right: 8px;
         }
 
         .nav-link {
-            color: white !important;
+            color: rgba(255,255,255,0.8) !important;
+            margin: 0 10px;
             font-weight: 500;
-            transition: all 0.3s ease;
         }
 
-        .nav-link:hover {
-            color: var(--light-blue) !important;
-        }
-
-        .navbar-brand {
-            font-weight: 700;
+        .nav-link:hover, .nav-link.active {
             color: white !important;
         }
 
-        .page-header {
-            background-color: var(--light-blue);
-            padding: 3rem 0;
-            margin-bottom: 2rem;
-        }
-
-        .contact-form {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .contact-info {
-            background-color: var(--light-blue);
-            padding: 2rem;
-            border-radius: 8px;
-        }
-
-        .contact-info i {
-            color: var(--primary-blue);
-            font-size: 1.5rem;
-            margin-right: 0.5rem;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-blue);
-            border-color: var(--primary-blue);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--dark-blue);
-            border-color: var(--dark-blue);
-        }
-
-        main {
-            flex: 1;
-        }
-
-        footer {
-            background-color: var(--primary-blue);
+        .auth-buttons .btn-sign-in {
             color: white;
-            padding: 3rem 0 1rem;
-            margin-top: 3rem;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            margin-right: 10px;
         }
 
-        .footer-heading {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
+        .auth-buttons .btn-register {
+            background-color: #e67e22;
+            color: white;
+            border: none;
         }
 
-        .footer-link {
-            color: rgba(255, 255, 255, 0.8);
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(45, 62, 80, 0.9), rgba(45, 62, 80, 0.9)), url('/api/placeholder/1200/400');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .hero-section h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .breadcrumb-section {
+            padding: 10px 0;
+        }
+
+        .breadcrumb-section .breadcrumb-item {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .breadcrumb-section .breadcrumb-item.active, .breadcrumb-section a {
+            color: white;
             text-decoration: none;
-            transition: color 0.3s ease;
-            display: block;
-            margin-bottom: 0.75rem;
         }
 
-        .footer-link:hover {
-            color: white;
-            text-decoration: underline;
+        .breadcrumb-section i {
+            color: #e67e22;
         }
 
-        .social-icons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
+        /* Contact Section */
+        .contact-section {
+            padding: 60px 0;
         }
 
-        .social-icon {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.2);
+        .contact-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            padding: 30px;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            background-color: #f5f9fc;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            margin: 0 auto 20px;
         }
 
-        .social-icon:hover {
-            background-color: white;
-            color: var(--primary-blue);
+        .contact-icon i {
+            font-size: 30px;
+            color: #e67e22;
         }
 
-        .copyright {
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
+        .contact-form {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .form-control {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #e1e1e1;
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .btn-submit {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 6px;
         }
 
         .map-container {
-            height: 300px;
+            height: 350px;
             border-radius: 8px;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
         }
 
-        .footer-newsletter .form-control {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: none;
+        /* Footer */
+        footer {
+            background-color: #2d3e50;
             color: white;
+            padding: 40px 0 20px;
         }
 
-        .footer-newsletter .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+        .footer-heading {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
         }
 
-        .footer-newsletter .btn {
-            background-color: white;
-            color: var(--primary-blue);
-            border: none;
+        .footer-links {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #e67e22;
+        }
+
+        .social-icons a {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            text-align: center;
+            line-height: 36px;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: #e67e22;
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark">
+<!-- Header -->
+<header class="main-header">
     <div class="container">
-        <a class="navbar-brand" href="#">Vehicle Auction System</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Auctions</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">How It Works</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn btn-outline-light py-1" href="#">Register</a>
-                </li>
-            </ul>
+        <div class="row align-items-center">
+            <div class="col-lg-3 col-md-3">
+                <a href="#" class="logo">
+                    <i class="fas fa-car"></i> Elite Auto Auctions
+                </a>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <nav class="navbar navbar-expand-lg">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Auctions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Sell Your Car</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">How It Works</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-lg-3 col-md-3 text-end auth-buttons">
+                <a href="#" class="btn btn-sign-in">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </a>
+                <a href="#" class="btn btn-register">
+                    <i class="fas fa-user-plus"></i> Register
+                </a>
+            </div>
         </div>
     </div>
-</nav>
+</header>
 
-<!-- Page Header -->
-<div class="page-header">
+<!-- Hero Section -->
+<section class="hero-section">
     <div class="container">
-        <h1 class="fw-bold">Contact Us</h1>
-        <p class="lead">We're here to help with your vehicle auction needs. Reach out to our team.</p>
+        <h1>Contact Us</h1>
+        <div class="breadcrumb-section">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                </ol>
+            </nav>
+        </div>
     </div>
-</div>
+</section>
 
-<!-- Main Content -->
-<main>
+<!-- Contact Info Section -->
+<section class="contact-section">
     <div class="container">
-        <div class="row g-4">
-            <!-- Contact Form -->
-            <div class="col-lg-8">
+        <div class="row mb-5">
+            <div class="col-md-4 mb-4">
+                <div class="contact-card text-center">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h4>Our Location</h4>
+                    <p class="mb-0">123 Auto Plaza Drive<br>Car City, AZ 12345<br>United States</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="contact-card text-center">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h4>Call Us</h4>
+                    <p class="mb-2">(555) 123-4567</p>
+                    <p class="mb-0">Monday - Friday: 9am - 6pm<br>Saturday: 10am - 4pm</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="contact-card text-center">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h4>Email Us</h4>
+                    <p class="mb-2">support@eliteautoauctions.com</p>
+                    <p class="mb-0">sales@eliteautoauctions.com</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form and Map -->
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <h2 class="mb-4">Send Us a Message</h2>
                 <div class="contact-form">
-                    <h2 class="mb-4">Send Us a Message</h2>
                     <form>
-                        <div class="row mb-3">
+                        <div class="row">
                             <div class="col-md-6">
-                                <label for="name" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+                                <div class="mb-3">
+                                    <label for="firstName" class="form-label">First Name*</label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="phone" class="form-label">Phone Number</label>
-                                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="subject" class="form-label">Subject</label>
-                                <select class="form-select" id="subject" required>
-                                    <option value="" selected disabled>Select a subject</option>
-                                    <option value="general">General Inquiry</option>
-                                    <option value="auction">Auction Support</option>
-                                    <option value="seller">Selling a Vehicle</option>
-                                    <option value="buyer">Buying a Vehicle</option>
-                                    <option value="technical">Technical Support</option>
-                                </select>
+                                <div class="mb-3">
+                                    <label for="lastName" class="form-label">Last Name*</label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                </div>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="message" class="form-label">Message</label>
-                            <textarea class="form-control" id="message" rows="5" placeholder="Type your message here..." required></textarea>
+                            <label for="email" class="form-label">Email Address*</label>
+                            <input type="email" class="form-control" id="email" required>
                         </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="privacy">
-                            <label class="form-check-label" for="privacy">I agree to the privacy policy and terms of service</label>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone">
                         </div>
-                        <button type="submit" class="btn btn-primary btn-lg">Submit Message</button>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject*</label>
+                            <select class="form-select form-control" id="subject" required>
+                                <option value="" selected disabled>Select a subject</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="support">Customer Support</option>
+                                <option value="bidding">Bidding Question</option>
+                                <option value="selling">Selling My Vehicle</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Your Message*</label>
+                            <textarea class="form-control" id="message" rows="5" required></textarea>
+                        </div>
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-submit">
+                                <i class="fas fa-paper-plane me-2"></i>Send Message
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
+            <div class="col-lg-6">
+                <h2 class="mb-4">Find Us</h2>
+                <div class="map-container">
+                    <div style="width: 100%; height: 100%; background-color: #e9ecef; display: flex; align-items: center; justify-content: center;">
+                        <p class="text-center text-muted">
+                            <i class="fas fa-map-marked-alt fa-3x mb-3"></i><br>
+                            Interactive Map Would Display Here<br>
+                            (Google Maps API Integration Required)
+                        </p>
+                    </div>
+                </div>
 
-            <!-- Contact Information -->
-            <div class="col-lg-4">
-                <div class="contact-info mb-4">
-                    <h3 class="mb-4">Contact Information</h3>
-                    <div class="d-flex mb-3 align-items-center">
-                        <div class="flex-shrink-0">
-                            <svg width="24" height="24" fill="var(--primary-blue)" viewBox="0 0 16 16" class="bi bi-geo-alt">
-                                <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
-                                <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                            </svg>
+                <div class="mt-4">
+                    <h4>Frequently Asked Questions</h4>
+                    <div class="accordion mt-3" id="contactFAQ">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    How quickly will I get a response?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#contactFAQ">
+                                <div class="accordion-body">
+                                    We aim to respond to all inquiries within 24 business hours. For urgent matters, please call our customer service line.
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex-grow-1 ms-3">
-                            <p class="mb-0">123 Auction Drive, Carville</p>
-                            <p class="mb-0">Motorland, ML 12345</p>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3 align-items-center">
-                        <div class="flex-shrink-0">
-                            <svg width="24" height="24" fill="var(--primary-blue)" viewBox="0 0 16 16" class="bi bi-telephone">
-                                <path d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.568 17.568 0 0 0 4.168 6.608 17.569 17.569 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.678.678 0 0 0-.58-.122l-2.19.547a1.745 1.745 0 0 1-1.657-.459L5.482 8.062a1.745 1.745 0 0 1-.46-1.657l.548-2.19a.678.678 0 0 0-.122-.58L3.654 1.328zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511z"/>
-                            </svg>
-                        </div>
-                        <div class="flex-grow-1 ms-3">
-                            <p class="mb-0">Phone: (555) 123-4567</p>
-                            <p class="mb-0">Toll Free: 1-800-AUTO-BID</p>
-                        </div>
-                    </div>
-                    <div class="d-flex mb-3 align-items-center">
-                        <div class="flex-shrink-0">
-                            <svg width="24" height="24" fill="var(--primary-blue)" viewBox="0 0 16 16" class="bi bi-envelope">
-                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z"/>
-                            </svg>
-                        </div>
-                        <div class="flex-grow-1 ms-3">
-                            <p class="mb-0">Email: contact@vehicleauction.com</p>
-                            <p class="mb-0">Support: support@vehicleauction.com</p>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    Can I visit your location?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#contactFAQ">
+                                <div class="accordion-body">
+                                    Yes, our office is open during business hours. We recommend scheduling an appointment for personalized service.
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="d-flex mb-3 align-items-center">
-                        <div class="flex-shrink-0">
-                            <svg width="24" height="24" fill="var(--primary-blue)" viewBox="0 0 16 16" class="bi bi-clock">
-                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3>></path>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="footer-heading">About Us</h5>
+                <p>Elite Auto Auctions is the premier platform for buying and selling quality vehicles through transparent online auctions.</p>
+                <div class="social-icons mt-3">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="footer-heading">Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Current Auctions</a></li>
+                    <li><a href="#">Sell Your Car</a></li>
+                    <li><a href="#">How It Works</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="footer-heading">Support</h5>
+                <ul class="footer-links">
+                    <li><a href="#">Help Center</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <h5 class="footer-heading">Newsletter</h5>
+                <p>Subscribe to get updates on new auctions and special deals.</p>
+                <div class="input-group mb-3">
+                    <input type="email" class="form-control" placeholder="Your Email" aria-label="Your Email">
+                    <button class="btn btn-outline-light" type="button">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <div class="text-center copyright">
+            <p>&copy; 2025 Elite Auto Auctions. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

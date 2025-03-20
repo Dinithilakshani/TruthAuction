@@ -2,12 +2,15 @@ package org.example.vehical.Controller;
 
 import org.example.vehical.Service.ItemService;
 import org.example.vehical.dto.ItemDTO;
+import org.example.vehical.dto.SaleDTO;
+import org.example.vehical.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000") // Change to your frontend URL
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/items")
 public class ItemController {
@@ -26,15 +29,16 @@ public class ItemController {
     }
 
     @PostMapping("/save")
-    public ItemDTO saveItem(@RequestBody ItemDTO itemDTO) {
-        // Handle saving item
-        return itemService.save(itemDTO);
+    public ResponseEntity<ResponseUtil> saveItem(@RequestBody ItemDTO itemDTO) {
+        System.out.println(itemDTO);
+        itemService.save(itemDTO);
+        return ResponseEntity.ok(new ResponseUtil(200, "Company saved successfully", null));
     }
 
-    @PutMapping("/update/{id}") // Updated path with {id} in URL
+    @PutMapping("/update/{id}")
     public ItemDTO updateItem(@PathVariable int id, @RequestBody ItemDTO itemDTO) {
-        // Handle updating item
-        return itemService.update(id, itemDTO);
+
+        return itemService.update(id, itemDTO)   ;
     }
 
     @DeleteMapping("/{id}")

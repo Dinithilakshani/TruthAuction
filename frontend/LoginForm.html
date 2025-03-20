@@ -3,639 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Login Experience</title>
+    <title>Elite Auto Auctions - Sign In</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #3a86ff;
-            --secondary-color: #8338ec;
-            --accent-color: #ff006e;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-        }
-
         body {
-            background: linear-gradient(135deg, #111, #333);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 2rem 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
         }
 
-        .login-container {
-            max-width: 900px;
-            width: 100%;
-            perspective: 1000px;
+        .navbar {
+            background-color: #2d3e50 !important;
+            padding: 15px 0;
         }
 
-        .card {
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            transition: transform 0.6s, box-shadow 0.6s;
-            background: transparent;
+        .navbar-brand {
+            color: white !important;
+            font-size: 24px;
+            font-weight: bold;
         }
 
-        .card:hover {
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-            transform: translateY(-10px);
+        .car-icon {
+            color: #f78c40;
+            margin-right: 10px;
         }
 
-        .card-inner {
-            display: flex;
-            flex-direction: row;
-            height: 600px;
+        .form-container {
+            max-width: 450px;
+            margin: 80px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .card-left {
-            flex: 1;
-            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        .form-header {
+            background-color: #2d3e50;
             color: white;
-            padding: 3rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
+            padding: 25px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            text-align: center;
         }
 
-        .card-right {
-            flex: 1;
-            background-color: white;
-            padding: 3rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .form-body {
+            padding: 30px;
         }
 
-        .brand {
-            position: absolute;
-            top: 2rem;
-            left: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        .form-footer {
+            padding: 15px 30px;
+            background-color: #f9f9f9;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            border-top: 1px solid #eee;
         }
 
-        .brand-logo {
-            width: 40px;
-            height: 40px;
-            background-color: white;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .btn-primary {
+            background-color: #f78c40;
+            border-color: #f78c40;
+            padding: 10px 20px;
+            font-weight: bold;
         }
 
-        .brand-name {
-            font-weight: 700;
-            font-size: 1.5rem;
-            letter-spacing: 1px;
-        }
-
-        .welcome-text {
-            margin-bottom: 2rem;
-        }
-
-        .welcome-text h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .welcome-text p {
-            opacity: 0.8;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        .decorative-dots {
-            position: absolute;
-            bottom: 2rem;
-            right: 2rem;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-gap: 10px;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .dot.active {
-            background-color: white;
-        }
-
-        .form-floating > label {
-            padding: 1rem 1.25rem;
+        .btn-primary:hover {
+            background-color: #e67420;
+            border-color: #e67420;
         }
 
         .form-control {
-            border-radius: 10px;
-            padding: 1rem 1.25rem;
-            height: 60px;
-            font-size: 1rem;
-            border: 2px solid #e0e0e0;
-            background-color: var(--light-color);
-            transition: all 0.3s ease;
+            padding: 12px;
+            border-radius: 4px;
         }
 
         .form-control:focus {
-            box-shadow: none;
-            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(247, 140, 64, 0.25);
+            border-color: #f78c40;
         }
 
-        .input-group {
-            margin-bottom: 1.5rem;
+        .social-login {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .social-btn {
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .google-btn {
+            background-color: #DB4437;
+            color: white;
+            border: none;
+        }
+
+        .facebook-btn {
+            background-color: #4267B2;
+            color: white;
+            border: none;
+        }
+
+        .apple-btn {
+            background-color: #000;
+            color: white;
+            border: none;
+        }
+
+        .or-divider {
+            text-align: center;
             position: relative;
+            margin: 25px 0;
         }
 
-        .input-icon {
+        .or-divider::before, .or-divider::after {
+            content: "";
             position: absolute;
             top: 50%;
-            left: 15px;
-            transform: translateY(-50%);
-            color: #6c757d;
-            z-index: 10;
-        }
-
-        .input-with-icon {
-            padding-left: 45px;
-        }
-
-        .form-check {
-            display: flex;
-            align-items: center;
-        }
-
-        .form-check-input {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            cursor: pointer;
-        }
-
-        .form-check-label {
-            cursor: pointer;
-        }
-
-        .options-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 1.5rem 0;
-        }
-
-        .forgot-link {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .forgot-link:hover {
-            color: var(--secondary-color);
-            text-decoration: underline;
-        }
-
-        .btn-login {
-            height: 55px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border: none;
-            color: white;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 15px rgba(58, 134, 255, 0.2);
-        }
-
-        .btn-login:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 20px rgba(58, 134, 255, 0.3);
-            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 2rem 0;
-            color: #6c757d;
-        }
-
-        .divider-line {
-            flex-grow: 1;
+            width: 45%;
             height: 1px;
-            background-color: #e0e0e0;
+            background-color: #ddd;
         }
 
-        .divider-text {
-            padding: 0 1rem;
-            font-weight: 600;
-        }
-
-        .social-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .btn-social {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
-            border: 2px solid #e0e0e0;
-            background-color: white;
-            color: #212529;
-            transition: all 0.3s ease;
-        }
-
-        .btn-social:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-social.google:hover {
-            border-color: #DB4437;
-            color: #DB4437;
-        }
-
-        .btn-social.facebook:hover {
-            border-color: #4267B2;
-            color: #4267B2;
-        }
-
-        .btn-social.apple:hover {
-            border-color: #000;
-            color: #000;
-        }
-
-        .signup-text {
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        .signup-link {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .signup-link:hover {
-            color: var(--secondary-color);
-            text-decoration: underline;
-        }
-
-        .floating-shapes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            top: 0;
+        .or-divider::before {
             left: 0;
-            z-index: 0;
         }
 
-        .shape {
-            position: absolute;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
+        .or-divider::after {
+            right: 0;
         }
 
-        .shape-1 {
-            width: 200px;
-            height: 200px;
-            top: -50px;
-            left: -50px;
-        }
-
-        .shape-2 {
-            width: 150px;
-            height: 150px;
-            bottom: 50px;
-            right: -30px;
-        }
-
-        .shape-3 {
-            width: 100px;
-            height: 100px;
-            bottom: -30px;
-            left: 30%;
-        }
-
-        .relative-container {
+        .or-text {
+            background-color: white;
+            padding: 0 10px;
             position: relative;
             z-index: 1;
-        }
-
-        .feature-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 2rem;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            color: rgba(255, 255, 255, 0.8);
-        }
-
-        .feature-icon {
-            margin-right: 10px;
-            color: white;
-        }
-
-        /* Animation effects */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .btn-login:active {
-            animation: pulse 0.3s ease-in-out;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 992px) {
-            .card-inner {
-                flex-direction: column;
-                height: auto;
-            }
-
-            .card-left, .card-right {
-                padding: 2rem;
-            }
-
-            .login-container {
-                padding: 1rem;
-            }
-        }
-
-        /* Password visibility toggle */
-        .password-toggle {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            z-index: 10;
-            color: #6c757d;
-        }
-
-        /* Custom toast/notification */
-        .toast-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .custom-toast {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            margin-bottom: 10px;
-            transform: translateX(150%);
-            transition: transform 0.3s ease;
-        }
-
-        .custom-toast.show {
-            transform: translateX(0);
-        }
-
-        .toast-icon {
-            margin-right: 15px;
-            color: var(--primary-color);
-            font-size: 1.5rem;
-        }
-
-        .toast-body {
-            flex-grow: 1;
-        }
-
-        .toast-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .toast-message {
-            color: #6c757d;
-            font-size: 0.9rem;
-        }
-
-        .toast-close {
-            background: none;
-            border: none;
-            color: #6c757d;
-            font-size: 1.2rem;
-            cursor: pointer;
+            color: #777;
         }
     </style>
 </head>
 <body>
-<div class="login-container">
-    <div class="card">
-        <div class="card-inner">
-            <!-- Left side (welcome section) -->
-            <div class="card-left">
-                <div class="floating-shapes">
-                    <div class="shape shape-1"></div>
-                    <div class="shape shape-2"></div>
-                    <div class="shape shape-3"></div>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="fas fa-car car-icon"></i>Elite Auto Auctions</a>
+    </div>
+</nav>
+
+<!-- Sign In Form -->
+<div class="container">
+    <div class="form-container">
+        <div class="form-header">
+            <h2><i class="fas fa-sign-in-alt me-2"></i>Sign In</h2>
+        </div>
+        <div class="form-body">
+            <form id="signInForm">
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
                 </div>
-
-                <div class="brand">
-                    <div class="brand-logo">
-                        <i class="fas fa-bolt text-primary"></i>
-                    </div>
-                    <div class="brand-name">Trust Auction</div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
                 </div>
-
-                <div class="relative-container">
-                    <div class="welcome-text">
-                        <h2>Welcome Back!</h2>
-                        <p>Log in to access your dashboard, manage your account, and explore our latest features.</p>
-                    </div>
-
-                    <ul class="feature-list">
-                        <li class="feature-item">
-                            <i class="fas fa-check-circle feature-icon"></i>
-                            <span>Personalized experience</span>
-                        </li>
-                        <li class="feature-item">
-                            <i class="fas fa-check-circle feature-icon"></i>
-                            <span>Secure and private</span>
-                        </li>
-                        <li class="feature-item">
-                            <i class="fas fa-check-circle feature-icon"></i>
-                            <span>Sync across all devices</span>
-                        </li>
-                        <li class="feature-item">
-                            <i class="fas fa-check-circle feature-icon"></i>
-                            <span>24/7 dedicated support</span>
-                        </li>
-                    </ul>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                    <a href="#" class="float-end">Forgot password?</a>
                 </div>
-
-                <div class="decorative-dots">
-                    <div class="dot active"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Sign In</button>
                 </div>
-            </div>
-
-            <!-- Right side (login form) -->
-            <div class="card-right">
-                <h3 class="mb-4 text-center">Sign In</h3>
-
-                <form id="loginForm">
-                    <div class="input-group">
-                        <i class="fas fa-envelope input-icon"></i>
-                        <input type="email" class="form-control input-with-icon" id="emailInput" placeholder="Email address" required>
-                    </div>
-
-                    <div class="input-group">
-                        <i class="fas fa-lock input-icon"></i>
-                        <input type="password" class="form-control input-with-icon" id="passwordInput" placeholder="Password" required>
-                        <span class="password-toggle" id="passwordToggle">
-                                <i class="fas fa-eye"></i>
-                            </span>
-                    </div>
-
-                    <div class="options-row">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="rememberMe">
-                            <label class="form-check-label" for="rememberMe">Remember me</label>
-                        </div>
-                        <a href="#" class="forgot-link">Forgot password?</a>
-                    </div>
-
-                    <button type="submit" class="btn btn-login w-100">Sign In</button>
-                </form>
+            </form>
 
 
-
-
-                <div class="signup-text">
-                    <p>Don't have an account? <a href="#" class="signup-link">Sign Up</a></p>
-                </div>
-            </div>
+        <div class="form-footer text-center">
+            Don't have an account? <a href="#">Register Now</a>
         </div>
     </div>
 </div>
 
-<!-- Toast notifications container -->
-<div class="toast-container" id="toastContainer">
-    <!-- Toast will be added here via JavaScript -->
-</div>
-
+<!-- Bootstrap JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Password visibility toggle
-    document.addEventListener('DOMContentLoaded', function() {
-        const passwordInput = document.getElementById('passwordInput');
-        const passwordToggle = document.getElementById('passwordToggle');
-        const loginForm = document.getElementById('loginForm');
-        const toastContainer = document.getElementById('toastContainer');
+    // Form submission handler
+    document.getElementById('signInForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-        // Toggle password visibility
-        passwordToggle.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
+        // Here you would typically send the data to your server
+        console.log('Sign in attempt:', { email, password });
 
-            // Toggle eye icon
-            const eyeIcon = passwordToggle.querySelector('i');
-            eyeIcon.classList.toggle('fa-eye');
-            eyeIcon.classList.toggle('fa-eye-slash');
-        });
-
-        // Form submission
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // Show loading state
-            const submitBtn = loginForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin me-2"></i>Signing in...';
-
-            // Simulate API call
-            setTimeout(() => {
-                // Reset button
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = originalText;
-
-                // Show success toast
-                showToast('Success', 'You have successfully logged in!', 'success');
-
-                // Clear form (in a real app, you would redirect)
-                // window.location.href = '/dashboard';
-            }, 1500);
-        });
-
-        // Toast notification function
-        function showToast(title, message, type = 'success') {
-            const toast = document.createElement('div');
-            toast.className = 'custom-toast';
-
-            // Set icon based on type
-            let iconClass = 'fa-check-circle';
-            if (type === 'error') iconClass = 'fa-times-circle';
-            if (type === 'warning') iconClass = 'fa-exclamation-circle';
-            if (type === 'info') iconClass = 'fa-info-circle';
-
-            toast.innerHTML = `
-                    <div class="toast-icon">
-                        <i class="fas ${iconClass}"></i>
-                    </div>
-                    <div class="toast-body">
-                        <div class="toast-title">${title}</div>
-                        <div class="toast-message">${message}</div>
-                    </div>
-                    <button class="toast-close">&times;</button>
-                `;
-
-            toastContainer.appendChild(toast);
-
-            // Show the toast with a slight delay
-            setTimeout(() => {
-                toast.classList.add('show');
-            }, 100);
-
-            // Set up close button
-            const closeBtn = toast.querySelector('.toast-close');
-            closeBtn.addEventListener('click', () => {
-                toast.classList.remove('show');
-                setTimeout(() => {
-                    toast.remove();
-                }, 300);
-            });
-
-            // Auto dismiss after 5 seconds
-            setTimeout(() => {
-                toast.classList.remove('show');
-                setTimeout(() => {
-                    toast.remove();
-                }, 300);
-            }, 5000);
-        }
+        // For demo purposes, show a success message
+        alert('Sign in successful!');
     });
 </script>
 </body>

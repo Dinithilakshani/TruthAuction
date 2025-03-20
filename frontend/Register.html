@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Auto Auctions - Register</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        .navbar {
+            background-color: #2d3e50 !important;
+            padding: 15px 0;
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .car-icon {
+            color: #f78c40;
+            margin-right: 10px;
+        }
+
+        .form-container {
+            max-width: 550px;
+            margin: 50px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-header {
+            background-color: #2d3e50;
+            color: white;
+            padding: 25px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            text-align: center;
+        }
+
+        .form-body {
+            padding: 30px;
+        }
+
+        .form-footer {
+            padding: 15px 30px;
+            background-color: #f9f9f9;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-primary {
+            background-color: #f78c40;
+            border-color: #f78c40;
+            padding: 10px 20px;
+            font-weight: bold;
+        }
+
+        .btn-primary:hover {
+            background-color: #e67420;
+            border-color: #e67420;
+        }
+
+        .form-control {
+            padding: 12px;
+            border-radius: 4px;
+        }
+
+        .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(247, 140, 64, 0.25);
+            border-color: #f78c40;
+        }
+
+        .social-login {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .social-btn {
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .google-btn {
+            background-color: #DB4437;
+            color: white;
+            border: none;
+        }
+
+        .facebook-btn {
+            background-color: #4267B2;
+            color: white;
+            border: none;
+        }
+
+        .apple-btn {
+            background-color: #000;
+            color: white;
+            border: none;
+        }
+
+        .or-divider {
+            text-align: center;
+            position: relative;
+            margin: 25px 0;
+        }
+
+        .or-divider::before, .or-divider::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background-color: #ddd;
+        }
+
+        .or-divider::before {
+            left: 0;
+        }
+
+        .or-divider::after {
+            right: 0;
+        }
+
+        .or-text {
+            background-color: white;
+            padding: 0 10px;
+            position: relative;
+            z-index: 1;
+            color: #777;
+        }
+
+        .terms-text {
+            font-size: 14px;
+            color: #777;
+        }
+
+        .role-selector {
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .role-option {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .role-option:hover {
+            background-color: #f9f9f9;
+        }
+
+        .role-option.selected {
+            background-color: #e6f7ff;
+            border: 1px solid #91d5ff;
+        }
+
+        .role-icon {
+            margin-right: 10px;
+            color: #f78c40;
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="fas fa-car car-icon"></i>Elite Auto Auctions</a>
+    </div>
+</nav>
+
+<!-- Registration Form -->
+<div class="container">
+    <div class="form-container">
+        <div class="form-header">
+            <h2><i class="fas fa-user-plus me-2"></i>Create Account</h2>
+        </div>
+        <div class="form-body">
+            <form id="registrationForm">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="Enter first name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Enter last name" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                </div>
+
+                <!-- New Role Selection Field -->
+                <div class="mb-3">
+                    <label class="form-label">Select Role</label>
+                    <div class="role-selector">
+                        <div class="role-option" data-role="user" onclick="selectRole(this)">
+                            <i class="fas fa-user role-icon"></i> User
+                            <small class="d-block text-muted mt-1">Regular user account with standard auction access</small>
+                        </div>
+                        <div class="role-option" data-role="admin" onclick="selectRole(this)">
+                            <i class="fas fa-user-shield role-icon"></i> Admin
+                            <small class="d-block text-muted mt-1">Administrative account with full system access</small>
+                        </div>
+                    </div>
+                    <input type="hidden" id="selectedRole" name="role" value="user">
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Create a password" required>
+                    <small class="text-muted">Password must be at least 8 characters with letters and numbers</small>
+                </div>
+                <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+                <div class="mb-4 form-check">
+                    <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+                    <label class="form-check-label terms-text" for="agreeTerms">
+                        I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>
+                    </label>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-footer text-center">
+            Already have an account? <a href="#">Sign In</a>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Function to handle role selection
+    function selectRole(element) {
+        // Remove selected class from all options
+        document.querySelectorAll('.role-option').forEach(option => {
+            option.classList.remove('selected');
+        });
+
+        // Add selected class to clicked option
+        element.classList.add('selected');
+
+        // Update hidden field value
+        document.getElementById('selectedRole').value = element.dataset.role;
+    }
+
+    // Set default role selection on page load
+    window.onload = function() {
+        const userRoleOption = document.querySelector('.role-option[data-role="user"]');
+        selectRole(userRoleOption);
+    };
+
+    // Form validation
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+
+        if (password !== confirmPassword) {
+            alert("Passwords don't match!");
+            return;
+        }
+
+        // Get form data
+        const formData = {
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            role: document.getElementById('selectedRole').value,
+            password: document.getElementById('password').value
+        };
+
+        // Here you would typically send the data to your server
+        console.log('Registration data:', formData);
+
+        // For demo purposes, show a success message
+        alert('Registration successful! Selected role: ' + formData.role);
+    });
+</script>
+</body>
+</html>

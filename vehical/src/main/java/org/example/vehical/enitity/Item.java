@@ -14,10 +14,10 @@ import java.util.List;
 public class Item {
 @Id
     private int id;
-    private String productName;
-    private String chassisNumber;
-    private String registerNumber;
-    private String brandName;
+    private String product_name;
+    private String chassis_number;
+    private String register_number;
+    private String brand_name;
     private String image;
 
 

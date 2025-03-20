@@ -1,6 +1,7 @@
 package org.example.vehical.Controller;
 
 import org.example.vehical.Service.UserService;
+import org.example.vehical.dto.SaleDTO;
 import org.example.vehical.dto.UserDTO;
 import org.example.vehical.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/users")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -30,9 +31,11 @@ public class UserController {
     }
 
     @GetMapping("/getall")
-    public List<UserDTO> getAllUsers() {
-        return userService.getAll();
+    public ResponseEntity<ResponseUtil> getAllUser() {
+        List<UserDTO> companyDTOList = userService.getAll();
+        return ResponseEntity.ok(new ResponseUtil(200, "Success", companyDTOList));
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseUtil> deleteUser(@PathVariable int id) {
