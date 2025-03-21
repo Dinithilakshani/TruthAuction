@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Navigation --><!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Auto Auction House</title>
+    <title>Elite Auto Auctions</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -94,6 +91,7 @@
             height: 600px;
             position: relative;
             overflow: hidden;
+            margin-top: 56px;
         }
 
         .hero-content {
@@ -260,44 +258,6 @@
             background-color: var(--accent);
         }
 
-        .card-title {
-            font-weight: 700;
-            margin-bottom: 5px;
-            font-size: 1.25rem;
-        }
-
-        .auction-details {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .detail-item {
-            display: flex;
-            align-items: center;
-            font-size: 0.85rem;
-            color: #6c757d;
-        }
-
-        .detail-item i {
-            margin-right: 5px;
-            color: var(--primary);
-        }
-
-        .bid-info {
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-
-        .current-bid {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
         .timer {
             font-weight: 600;
             background-color: rgba(231, 76, 60, 0.1);
@@ -313,97 +273,11 @@
             margin-right: 5px;
         }
 
-        .progress {
-            height: 8px;
-            border-radius: 4px;
-            background-color: #e9ecef;
-        }
-
-        .bid-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-        }
-
-        .reserve-status {
-            display: flex;
-            align-items: center;
-        }
-
-        .reserve-status i {
-            margin-right: 5px;
-        }
-
-        .reserve-met i {
-            color: var(--success);
-        }
-
-        .reserve-not-met i {
-            color: var(--warning);
-        }
-
-        .bid-count {
-            display: flex;
-            align-items: center;
-        }
-
-        .bid-count i {
-            margin-right: 5px;
-            color: var(--primary);
-        }
-
-        .card-footer {
-            border-top: none;
-            padding: 15px 20px;
-        }
-
-        .btn-view-details {
-            border-radius: 8px;
-            font-weight: 600;
-            padding: 10px 15px;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            transition: all 0.3s ease;
-        }
-
-        .btn-view-details:hover {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-view-all {
-            border-radius: 30px;
-            font-weight: 600;
-            padding: 12px 35px;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            transition: all 0.3s ease;
-            margin-top: 30px;
-        }
-
-        .btn-view-all:hover {
-            background-color: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(44, 62, 80, 0.2);
-        }
-
         /* How It Works */
         .how-it-works {
             background-color: #f8f9fa;
             padding: 80px 0;
             position: relative;
-        }
-
-        .how-it-works:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100px;
-            background: linear-gradient(to bottom right, transparent 49%, #f8f9fa 50%);
-            transform: translateY(-99px);
         }
 
         .process-card {
@@ -434,18 +308,6 @@
             margin: 0 auto 20px;
         }
 
-        .process-card h5 {
-            font-weight: 700;
-            margin-bottom: 15px;
-            font-size: 1.2rem;
-        }
-
-        .process-card p {
-            color: #6c757d;
-            font-size: 0.95rem;
-            margin-bottom: 0;
-        }
-
         /* Testimonials */
         .testimonials {
             padding: 80px 0;
@@ -471,60 +333,6 @@
             margin-bottom: 15px;
         }
 
-        .testimonial-text {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #495057;
-            font-style: italic;
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 20px;
-        }
-
-        .testimonial-text:before {
-            content: '"';
-            font-size: 3rem;
-            position: absolute;
-            left: 0;
-            top: -15px;
-            color: rgba(230, 126, 34, 0.2);
-            font-family: 'Georgia', serif;
-        }
-
-        .user-image {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .user-name {
-            font-weight: 700;
-            margin-bottom: 0;
-            font-size: 1.1rem;
-        }
-
-        /* Auction Indicator Carousel */
-        .carousel-indicators {
-            position: relative;
-            margin-top: 30px;
-            margin-bottom: 0;
-        }
-
-        .carousel-indicators button {
-            width: 12px !important;
-            height: 12px !important;
-            border-radius: 50%;
-            background-color: #cbd3da !important;
-            opacity: 1 !important;
-        }
-
-        .carousel-indicators button.active {
-            background-color: var(--secondary) !important;
-        }
-
         /* Footer */
         .footer {
             background-color: var(--primary);
@@ -543,12 +351,6 @@
         .footer-logo i {
             color: var(--secondary);
             margin-right: 10px;
-        }
-
-        .footer-about p {
-            color: #ecf0f1;
-            line-height: 1.7;
-            margin-bottom: 20px;
         }
 
         .social-links {
@@ -661,34 +463,6 @@
             color: #bdc3c7;
         }
 
-        .auction-tabs .nav-link {
-            font-weight: 600;
-            color: #495057;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 0;
-            position: relative;
-        }
-
-        .auction-tabs .nav-link.active {
-            color: var(--primary);
-            background-color: transparent;
-        }
-
-        .auction-tabs .nav-link.active:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: var(--secondary);
-        }
-
-        .tab-content {
-            padding: 30px 0;
-        }
-
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -732,13 +506,13 @@
             <ul class="navbar-nav me-auto">
                 <li class="nav-item"><a class="nav-link active" href="/Dashboard.html">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Auctions</a></li>
-                <li class="nav-item"><a class="nav-link" href="/seeyoucar.html">Sell Your Car</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Sell Your Car</a></li>
                 <li class="nav-item"><a class="nav-link" href="/how%20work%20it.html">How It Works</a></li>
                 <li class="nav-item"><a class="nav-link" href="/Contact.html">Contact</a></li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="/LoginForm.html"><i class="fas fa-sign-in-alt me-1"></i>Sign In</a></li>
-                <li class="nav-item"><a class="nav-link btn-register text-white" href="/Register.htmlek"><i class="fas fa-user-plus me-1"></i>Register</a></li>
+                <li class="nav-item"><a class="nav-link btn-register text-white" href="/Register.html"><i class="fas fa-user-plus me-1"></i>Register</a></li>
             </ul>
         </div>
     </div>
@@ -749,8 +523,7 @@
     <div class="container text-center text-white hero-content">
         <h1 class="animation-delay-1">Discover Exceptional Automobiles</h1>
         <p class="lead mb-4 animation-delay-2">Access exclusive auctions featuring premium vehicles vetted by industry experts</p>
-        <a href="#" class="btn hero-cta-btn animation-delay-3">Browse Auctions</a>
-
+        <a href="/images/img_4.png" class="btn hero-cta-btn animation-delay-3">Browse Auctions</a>
     </div>
 
     <!-- Stats Bar -->
@@ -846,21 +619,10 @@
 </section>
 
 <!-- Featured Auctions -->
-
-                                <div class="bid-info">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="current-bid">Current Bid: $72,500</span>
-                                        <span class="timer"><i class="far fa-clock"></i> 2d 14h</span>
-                                    </div>
-                                    <div class="progress mb-3">
-                                        <div class="progress-bar bg-success" style="width: 75%"></div>
-                                    </div>
-                                    <div class="bid-meta">
-                                        <span class="reserve-status reserve-met"><i class="fas fa-check-circle"></i> Reserve met</span>
-                                        <span class="bid-count"><i class="fas fa-gavel"></i> 24 bids</span>
-                                    </div>
-                                </div>
-                            </div>
+<section class="py-5">
+    <div class="container">
+        <h2 class="section-title">Featured Auctions</h2>
+        <div class="row g-4">
             <!-- Auction Item 1 -->
             <div class="col-lg-4 col-md-6">
                 <div class="card auction-card h-100">
@@ -869,16 +631,18 @@
                     <div class="card-body">
                         <h5 class="card-title">2022 BMW M4 Competition</h5>
                         <p class="card-text text-muted">12,345 miles • San Francisco, CA</p>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="fw-bold">Current Bid: $72,500</span>
-                            <span class="timer">Ends in: 2d 14h</span>
-                        </div>
-                        <div class="progress mb-3">
-                            <div class="progress-bar bg-success" style="width: 75%"></div>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <span class="text-muted">Reserve price met</span>
-                            <span class="text-muted">24 bids</span>
+                        <div class="bid-info">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="current-bid">Current Bid: $72,500</span>
+                                <span class="timer"><i class="far fa-clock"></i> 2d 14h</span>
+                            </div>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-success" style="width: 75%"></div>
+                            </div>
+                            <div class="bid-meta">
+                                <span class="reserve-status reserve-met"><i class="fas fa-check-circle"></i> Reserve met</span>
+                                <span class="bid-count"><i class="fas fa-gavel"></i> 24 bids</span>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer bg-white">
@@ -890,20 +654,22 @@
             <!-- Auction Item 2 -->
             <div class="col-lg-4 col-md-6">
                 <div class="card auction-card h-100">
-                    <img src="/images/img.png" class="card-img-top" alt="Vehicle Image">
+                    <img src="/images/img_2.png" class="card-img-top" alt="Vehicle Image">
                     <div class="card-body">
                         <h5 class="card-title">2021 Tesla Model 3 Long Range</h5>
                         <p class="card-text text-muted">18,750 miles • Austin, TX</p>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="fw-bold">Current Bid: $41,250</span>
-                            <span class="timer">Ends in: 1d 8h</span>
-                        </div>
-                        <div class="progress mb-3">
-                            <div class="progress-bar bg-warning" style="width: 60%"></div>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <span class="text-muted">Reserve not met</span>
-                            <span class="text-muted">17 bids</span>
+                        <div class="bid-info">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="current-bid">Current Bid: $41,250</span>
+                                <span class="timer"><i class="far fa-clock"></i> 1d 8h</span>
+                            </div>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-warning" style="width: 60%"></div>
+                            </div>
+                            <div class="bid-meta">
+                                <span class="reserve-status reserve-not-met"><i class="fas fa-exclamation-circle"></i> Reserve not met</span>
+                                <span class="bid-count"><i class="fas fa-gavel"></i> 17 bids</span>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer bg-white">
@@ -916,20 +682,22 @@
             <div class="col-lg-4 col-md-6">
                 <div class="card auction-card h-100">
                     <span class="badge bg-primary featured-badge">New</span>
-                    <img src="/images/img_2.png" class="card-img-top" alt="Vehicle Image">
+                    <img src="/images/img_3.png" class="card-img-top" alt="Vehicle Image">
                     <div class="card-body">
                         <h5 class="card-title">2023 Ford F-150 Raptor</h5>
                         <p class="card-text text-muted">3,240 miles • Denver, CO</p>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="fw-bold">Current Bid: $85,750</span>
-                            <span class="timer">Ends in: 3d 22h</span>
-                        </div>
-                        <div class="progress mb-3">
-                            <div class="progress-bar bg-success" style="width: 90%"></div>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <span class="text-muted">Reserve price met</span>
-                            <span class="text-muted">9 bids</span>
+                        <div class="bid-info">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="current-bid">Current Bid: $85,750</span>
+                                <span class="timer"><i class="far fa-clock"></i> 3d 22h</span>
+                            </div>
+                            <div class="progress mb-3">
+                                <div class="progress-bar bg-success" style="width: 90%"></div>
+                            </div>
+                            <div class="bid-meta">
+                                <span class="reserve-status reserve-met"><i class="fas fa-check-circle"></i> Reserve met</span>
+                                <span class="bid-count"><i class="fas fa-gavel"></i> 9 bids</span>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer bg-white">
@@ -938,51 +706,43 @@
                 </div>
             </div>
         </div>
-        <div class="text-center mt-4">
-            <a href="#" class="btn btn-outline-dark">View All Auctions</a>
+        <div class="text-center mt-5">
+            <a href="#" class="btn btn-view-all">View All Auctions</a>
         </div>
     </div>
 </section>
 
 <!-- How It Works -->
-<section class="py-5 bg-light">
+<section class="how-it-works">
     <div class="container">
-        <h2 class="text-center mb-5">How Our Auctions Work</h2>
+        <h2 class="text-center mb-5">How It Works</h2>
         <div class="row g-4">
-            <div class="col-md-3">
-                <div class="card text-center h-100">
-                    <div class="card-body">
-                        <div class="display-4 mb-3 text-primary">1</div>
-                        <h5 class="card-title">Register</h5>
-                        <p class="card-text">Create an account to access all auction features.</p>
-                    </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="process-card text-center">
+                    <div class="step-number">1</div>
+                    <h5>Register</h5>
+                    <p>Create your account in minutes. Verification is quick and secure.</p>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card text-center h-100">
-                    <div class="card-body">
-                        <div class="display-4 mb-3 text-primary">2</div>
-                        <h5 class="card-title">Browse & Research</h5>
-                        <p class="card-text">Explore our vehicle listings with detailed information.</p>
-                    </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="process-card text-center">
+                    <div class="step-number">2</div>
+                    <h5>Browse Listings</h5>
+                    <p>Explore our curated selection of premium vehicles with detailed history reports.</p>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card text-center h-100">
-                    <div class="card-body">
-                        <div class="display-4 mb-3 text-primary">3</div>
-                        <h5 class="card-title">Bid</h5>
-                        <p class="card-text">Place your bids before the auction timer ends.</p>
-                    </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="process-card text-center">
+                    <div class="step-number">3</div>
+                    <h5>Place Bids</h5>
+                    <p>Competitive bidding with real-time updates and transparent reserve prices.</p>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card text-center h-100">
-                    <div class="card-body">
-                        <div class="display-4 mb-3 text-primary">4</div>
-                        <h5 class="card-title">Win & Pay</h5>
-                        <p class="card-text">Complete your purchase if you win the auction.</p>
-                    </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="process-card text-center">
+                    <div class="step-number">4</div>
+                    <h5>Win & Collect</h5>
+                    <p>Secure payment processing and nationwide delivery options available.</p>
                 </div>
             </div>
         </div>
@@ -990,72 +750,71 @@
 </section>
 
 <!-- Testimonials -->
-<section class="py-5">
+<section class="testimonials">
     <div class="container">
         <h2 class="text-center mb-5">What Our Customers Say</h2>
-        <div class="row">
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="testimonial-card">
                     <div class="card-body">
-                        <div class="mb-3 text-warning">
-                            ★★★★★
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
                         </div>
-                        <p class="card-text">"I found my dream Porsche at an incredible price. The bidding process was transparent and the vehicle was exactly as described."</p>
-                    </div>
-                    <div class="card-footer bg-white">
+                        <p class="testimonial-text">I found my dream Porsche at an incredible price. The bidding process was transparent and the vehicle was exactly as described.</p>
                         <div class="d-flex align-items-center">
-                            <img src="/images/WhatsApp%20Image%202025-03-14%20at%2012.32.53_c14d0506.jpg" WIDTH="60PX" class="rounded-circle me-3" alt="User">
-                            <div>
-                                <h6 class="mb-0">Michael Rodriguez</h6>
-                                <small class="text-muted">Los Angeles, CA</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="mb-3 text-warning">
-                            ★★★★★
-                        </div>
-                        <p class="card-text">"Sold my BMW in just 3 days for more than I expected. The process was streamlined and the customer support was exceptional."</p>
-                    </div>
-                    <div class="card-footer bg-white">
-                        <div class="d-flex align-items-center">
-                            <img src="/api/placeholder/50/50" class="rounded-circle me-3" alt="User">
-                            <div>
-                                <h6 class="mb-0">Sarah Johnson</h6>
-                                <small class="text-muted">Chicago, IL</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="mb-3 text-warning">
-                            ★★★★★
-                        </div>
-                        <p class="card-text">"As a classic car collector, I appreciate the curated selection and verification process. Found a rare 1967 Mustang in excellent condition."</p>
-                    </div>
-                    <div class="card-footer bg-white">
-                        <div class="d-flex align-items-center">
-                            <img src="/api/placeholder/50/50" class="rounded-circle me-3" alt="User">
-                            <div>
-                                <h6 class="mb-0">Robert Williams</h6>
-                                <small class="text-muted">Dallas, TX</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+                            <img src="/images/img_6.png"  width="70px" height="80px" class="rounded-circle" alt="Circular Image">
 
-<!-- Vehicle Details Modal (For Demo) -->
-<div class="modal fade" id="vehicleModal" tabindex="-1">
-    <div class="modal-dialog modal-xl">
-        <div
+                            <div>
+                                <p class="user-name">Michael Rodriguez</p>
+                                <p class="text-muted mb-0">Los Angeles, CA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="testimonial-card">
+                    <div class="card-body">
+                        <div class="testimonial-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="testimonial-text">Sold my BMW in just 3 days for more than I expected. The process was streamlined and the customer support was exceptional.</p>
+                        <div class="d-flex align-items-center">
+                            <img src="/images/img_5.png" width="70px" height="80px" class="rounded-circle" alt="Circular Image">
+
+                            <div>
+                                <p class="user-name">Sarah Johnson</p>
+                                <p class="text-muted mb-0">Chicago, IL</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="testimonial-card">
+                    div class="card-body">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">Sold my BMW in just 3 days for more than I expected. The process was streamlined and the customer support was exceptional.</p>
+                    <div class="d-flex align-items-center">
+                        <img src="/images/img_7.png" width="70px" height="80px" class="rounded-circle" alt="Circular Image">
+
+                        <div>Sarath Senanayaka</p>
+                            <p class="text-muted mb-0">Chicago, IL</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
