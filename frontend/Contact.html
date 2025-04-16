@@ -3,99 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Elite Auto Auctions</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>AutoAuctions - Contact Us</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Custom CSS -->
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
+        /* Your existing CSS styles */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --light-color: #ecf0f1;
         }
 
-        /* Header Styles */
-        .main-header {
-            background-color: #2d3e50;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .logo {
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            text-decoration: none;
-        }
-
-        .logo i {
-            color: #e67e22;
-            margin-right: 8px;
-        }
-
-        .nav-link {
-            color: rgba(255,255,255,0.8) !important;
-            margin: 0 10px;
+        .btn-primary-custom {
+            background-color: var(--secondary-color);
+            border: none;
+            padding: 10px 25px;
             font-weight: 500;
         }
 
-        .nav-link:hover, .nav-link.active {
-            color: white !important;
+        .btn-primary-custom:hover {
+            background-color: #c0392b;
         }
 
-        .auth-buttons .btn-sign-in {
-            color: white;
-            background: transparent;
-            border: 1px solid rgba(255,255,255,0.3);
-            margin-right: 10px;
-        }
-
-        .auth-buttons .btn-register {
-            background-color: #e67e22;
-            color: white;
-            border: none;
-        }
-
-        /* Hero Section */
-        .hero-section {
-            background: linear-gradient(rgba(45, 62, 80, 0.9), rgba(45, 62, 80, 0.9)), url('/api/placeholder/1200/400');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 60px 0;
-            text-align: center;
-        }
-
-        .hero-section h1 {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .breadcrumb-section {
-            padding: 10px 0;
-        }
-
-        .breadcrumb-section .breadcrumb-item {
-            color: rgba(255,255,255,0.7);
-        }
-
-        .breadcrumb-section .breadcrumb-item.active, .breadcrumb-section a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .breadcrumb-section i {
-            color: #e67e22;
-        }
-
-        /* Contact Section */
         .contact-section {
             padding: 60px 0;
         }
 
         .contact-card {
-            background: white;
             border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             padding: 30px;
             height: 100%;
             transition: transform 0.3s ease;
@@ -106,347 +47,444 @@
         }
 
         .contact-icon {
-            background-color: #f5f9fc;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-        }
-
-        .contact-icon i {
-            font-size: 30px;
-            color: #e67e22;
-        }
-
-        .contact-form {
-            background: white;
-            border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-
-        .form-control {
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #e1e1e1;
+            font-size: 2rem;
+            color: var(--secondary-color);
             margin-bottom: 20px;
         }
 
-        .form-label {
-            font-weight: 500;
-            margin-bottom: 8px;
+        .contact-form {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            padding: 40px;
         }
 
-        .btn-submit {
-            background-color: #e67e22;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-weight: 600;
-            border-radius: 6px;
+        .form-control {
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.25rem rgba(231, 76, 60, 0.25);
         }
 
         .map-container {
-            height: 350px;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 400px;
+            border: 0;
+        }
+
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .nav-item {
+            margin: 0 10px;
+        }
+
+        .btn-auction {
+            background-color: #ff6b00;
+            color: white;
+            font-weight: bold;
+            padding: 10px 25px;
+            border-radius: 30px;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .btn-auction:hover {
+            background-color: #e05e00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .brand-highlight {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 80px 0;
+            }
+        }
+
+        .brand-highlight {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #ff6b00;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            transition: all 0.3s;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+            url('new images/img_1.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+            height: 500px;
+        }
+
+        /* Brand Highlight */
+        .brand-highlight {
+            color: var(- --accent-color);
+            font-weight: bold;
+        }
+
+        /* Buttons */
+        .btn-auction {
+            background-color: var(--accent-color);
+            color: white;
+            font-weight: bold;
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: none;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-auction:hover {
+            background-color: #e05e00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: white;
         }
 
         /* Footer */
         footer {
-            background-color: #2d3e50;
+            background-color: var(--dark-color);
             color: white;
-            padding: 40px 0 20px;
         }
 
-        .footer-heading {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .footer-links {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
+        footer a {
             color: rgba(255,255,255,0.7);
             text-decoration: none;
             transition: color 0.3s;
         }
 
-        .footer-links a:hover {
-            color: #e67e22;
-        }
-
-        .social-icons a {
-            display: inline-block;
-            width: 36px;
-            height: 36px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50%;
-            margin-right: 10px;
-            text-align: center;
-            line-height: 36px;
+        footer a:hover {
             color: white;
-            transition: all 0.3s;
         }
 
-        .social-icons a:hover {
-            background: #e67e22;
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 80px 0;
+            }
         }
 
-        .copyright {
-            border-top: 1px solid rgba(255,255,255,0.1);
-            padding-top: 20px;
-            margin-top: 40px;
+        /* Feedback message styles */
+        .feedback-message {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Spinner for form submission */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-<!-- Header -->
-<header class="main-header">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-3 col-md-3">
-                <a href="#" class="logo">
-                    <i class="fas fa-car"></i> Elite Auto Auctions
-                </a>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <nav class="navbar navbar-expand-lg">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav me-auto">
-                            <li class="nav-item"><a class="nav-link active" href="/Dashboard.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Auctions</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Sell Your Car</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/how%20work%20it.html">How It Works</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/Contact.html">Contact</a></li>
-                        </ul>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-            <div class="col-lg-3 col-md-3 text-end auth-buttons">
-                <a href="/LoginForm.html" class="btn btn-sign-in">
-                    <i class="fas fa-sign-in-alt"></i> Sign In
-                </a>
-                <a href="/Register.html" class="btn btn-register">
-                    <i class="fas fa-user-plus"></i> Register
-                </a>
+        <a class="navbar-brand" href="#">AutoAuctions</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="Dashboard%202.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="indexAuction.html">Auctions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="how%20work%20it.html">How It Works</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Category.html">Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Contact.html">Contact</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <button class="btn btn-auction">
+                    <a class="nav-link" href="LoginForm.html">Login</a>
+                </button>
+                <button class="btn btn-outline-light me-2">Register</button>
             </div>
         </div>
     </div>
-</header>
+</nav>
 
-<!-- Hero Section -->
 <section class="hero-section">
     <div class="container">
-        <h1>Contact Us</h1>
-        <div class="breadcrumb-section">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb justify-content-center">
-                    <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Contact</li>
-                </ol>
-            </nav>
-        </div>
+        <h1 class="hero-title">Contact Truth Auctions</h1>
+        <p class="hero-subtitle">We're here to help you with any questions about our vehicle auctions.</p>
     </div>
 </section>
 
-<!-- Contact Info Section -->
+<!-- Contact Section -->
 <section class="contact-section">
     <div class="container">
         <div class="row mb-5">
-            <div class="col-md-4 mb-4">
+            <div class="col-md-4 mb-4 mb-md-0">
                 <div class="contact-card text-center">
                     <div class="contact-icon">
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
-                    <h4>Our Location</h4>
-                    <p class="mb-0">123 Auto Plaza Drive<br>Car City, AZ 12345<br>United States</p>
+                    <h3>Our Location</h3>
+                    <p>123 Auction Street<br>Ahangama, Galle</p>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-4 mb-4 mb-md-0">
                 <div class="contact-card text-center">
                     <div class="contact-icon">
                         <i class="fas fa-phone-alt"></i>
                     </div>
-                    <h4>Call Us</h4>
-                    <p class="mb-2">(555) 123-4567</p>
-                    <p class="mb-0">Monday - Friday: 9am - 6pm<br>Saturday: 10am - 4pm</p>
+                    <h3>Phone Number</h3>
+                    <p>+78 56787888<br>Mon-Fri: 9am-6pm<br>Sat: 10am-4pm</p>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-4">
                 <div class="contact-card text-center">
                     <div class="contact-icon">
                         <i class="fas fa-envelope"></i>
                     </div>
-                    <h4>Email Us</h4>
-                    <p class="mb-2">support@eliteautoauctions.com</p>
-                    <p class="mb-0">sales@eliteautoauctions.com</p>
+                    <h3>Email Address</h3>
+                    <p>Thruthauction.gmail.com<br>support@autoauctions.com<br>sales@autoauctions.com</p>
                 </div>
             </div>
         </div>
 
-        <!-- Contact Form and Map -->
         <div class="row">
-            <div class="col-lg-6 mb-4">
-                <h2 class="mb-4">Send Us a Message</h2>
+            <div class="col-lg-6 mb-5 mb-lg-0">
                 <div class="contact-form">
-                    <form>
+                    <h2 class="mb-4">Send Us a Message</h2>
+                    <!-- Feedback messages -->
+                    <div id="successMessage" class="feedback-message success-message">Message sent successfully!</div>
+                    <div id="errorMessage" class="feedback-message error-message">Error sending message. Please try again.</div>
+
+                    <form id="contactForm">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="firstName" class="form-label">First Name*</label>
-                                    <input type="text" class="form-control" id="firstName" required>
-                                </div>
+                                <input type="text" class="form-control" placeholder="First Name" required id="firstName" name="firstName">
                             </div>
                             <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="lastName" class="form-label">Last Name*</label>
-                                    <input type="text" class="form-control" id="lastName" required>
-                                </div>
+                                <input type="text" class="form-control" placeholder="Last Name" required id="lastName" name="lastName">
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email Address*</label>
-                            <input type="email" class="form-control" id="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone">
-                        </div>
-                        <div class="mb-3">
-                            <label for="subject" class="form-label">Subject*</label>
-                            <select class="form-select form-control" id="subject" required>
-                                <option value="" selected disabled>Select a subject</option>
-                                <option value="general">General Inquiry</option>
-                                <option value="support">Customer Support</option>
-                                <option value="bidding">Bidding Question</option>
-                                <option value="selling">Selling My Vehicle</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="message" class="form-label">Your Message*</label>
-                            <textarea class="form-control" id="message" rows="5" required></textarea>
-                        </div>
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-submit">
-                                <i class="fas fa-paper-plane me-2"></i>Send Message
-                            </button>
-                        </div>
+                        <input type="email" class="form-control" placeholder="Email Address" required id="email" name="email">
+                        <input type="tel" class="form-control" placeholder="Phone Number" id="phoneNumber" name="phoneNumber">
+                        <select class="form-control" id="subject" name="subject">
+                            <option value="">Select Subject</option>
+                            <option value="auction">Auction Questions</option>
+                            <option value="vehicle">Vehicle Inquiry</option>
+                            <option value="account">Account Help</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <textarea class="form-control" rows="5" placeholder="Your Message" required id="message" name="message"></textarea>
+                        <button type="submit" class="btn btn-primary-custom w-100" id="submitBtn">
+                            <span class="spinner" id="submitSpinner"></span>SEND MESSAGE
+                        </button>
                     </form>
                 </div>
             </div>
             <div class="col-lg-6">
-                <h2 class="mb-4">Find Us</h2>
                 <div class="map-container">
-                    <div style="width: 100%; height: 100%; background-color: #e9ecef; display: flex; align-items: center; justify-content: center;">
-                        <p class="text-center text-muted">
-                            <i class="fas fa-map-marked-alt fa-3x mb-3"></i><br>
-                            Interactive Map Would Display Here<br>
-                            (Google Maps API Integration Required)
-                        </p>
-                    </div>
-                </div>
-
-                <div class="mt-4">
-                    <h4>Frequently Asked Questions</h4>
-                    <div class="accordion mt-3" id="contactFAQ">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                                    How quickly will I get a response?
-                                </button>
-                            </h2>
-                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#contactFAQ">
-                                <div class="accordion-body">
-                                    We aim to respond to all inquiries within 24 business hours. For urgent matters, please call our customer service line.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                                    Can I visit your location?
-                                </button>
-                            </h2>
-                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#contactFAQ">
-                                <div class="accordion-body">
-                                    Yes, our office is open during business hours. We recommend scheduling an appointment for personalized service.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30173.456803182504!2d80.33701579016773!3d5.992499815513462!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae16b5e17eded4b%3A0xa57ffb8f5d620f13!2sAhangama%2C%20Sri%20Lanka!5e1!3m2!1sen!2suk!4v1743412373121!5m2!1sen!2suk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<!-- Footer -->
-<footer>
+<br><br>
+<footer class="py-5">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-6 mb-4">
-                <h5 class="footer-heading">About Us</h5>
-                <p>Elite Auto Auctions is the premier platform for buying and selling quality vehicles through transparent online auctions.</p>
-                <div class="social-icons mt-3">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <h5><span class="brand-highlight">EXLEASINGCAR</span> Thruth AUCTIONS</h5>
+                <p>International platform for auto auctions with thousands of vehicles from European banks and leasing companies.</p>
+                <div class="mt-3">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <h5 class="footer-heading">Quick Links</h5>
-                <ul class="footer-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Current Auctions</a></li>
-                    <li><a href="#">Sell Your Car</a></li>
-                    <li><a href="#">How It Works</a></li>
-                    <li><a href="#">Contact Us</a></li>
+            <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="Dashboard%202.html">Home</a></li>
+                    <li class="mb-2"><a href="indexAuction.html">Auctions</a></li>
+                    <li class="mb-2"><a href="how%20work%20it.html">How It Works</a></li>
+                    <li class="mb-2"><a href="Category.html">Category</a></li>
+                    <li><a href="Contact.html">Contact</a></li>
                 </ul>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <h5 class="footer-heading">Support</h5>
-                <ul class="footer-links">
-                    <li><a href="#">Help Center</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Cookie Policy</a></li>
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5>Services</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#">Car Delivery</a></li>
+                    <li class="mb-2"><a href="#">Document Preparation</a></li>
+                    <li class="mb-2"><a href="#">Auto Workshop</a></li>
+                    <li><a href="#">Vehicle Inspection</a></li>
                 </ul>
             </div>
-            <div class="col-lg-3 col-md-6 mb-4">
-                <h5 class="footer-heading">Newsletter</h5>
-                <p>Subscribe to get updates on new auctions and special deals.</p>
-                <div class="input-group mb-3">
-                    <input type="email" class="form-control" placeholder="Your Email" aria-label="Your Email">
-                    <button class="btn btn-outline-light" type="button">Subscribe</button>
-                </div>
+            <div class="col-lg-3 col-md-6">
+                <h5>Contact Us</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Ahangama road,Galle</li>
+                    <li class="mb-2"><i class="fas fa-phone me-2"></i> +78 4078977</li>
+                    <li><i class="fas fa-envelope me-2"></i>Thruthauction@gmail.com</li>
+                </ul>
             </div>
         </div>
-        <div class="text-center copyright">
-            <p>&copy; 2025 Elite Auto Auctions. All Rights Reserved.</p>
+        <hr class="my-4 bg-secondary">
+        <div class="text-center">
+            <p class="mb-0">&copy; 2025 Eclassingcar Thruth Auctions. All rights reserved.</p>
         </div>
     </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery AJAX Contact Form Script -->
+<script>
+    $(document).ready(function() {
+        // Form submission
+        $('#contactForm').on('submit', function(e) {
+            e.preventDefault();
+
+            // Hide any previous messages
+            $('#successMessage').hide();
+            $('#errorMessage').hide();
+
+            // Show spinner
+            $('#submitSpinner').show();
+
+            // Create message object
+            const messageData = {
+                firstName: $('#firstName').val(),
+                lastNName: $('#lastName').val(), // Note: matches DTO field name with typo
+                email: $('#email').val(),
+                number: $('#phoneNumber').val(),
+                subject: $('#subject').val(),
+                message: $('#message').val()
+            };
+
+            // Send AJAX request
+            $.ajax({
+                url: 'http://localhost:8082/api/v1/Message/save',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(messageData),
+                success: function(response) {
+                    // Hide spinner
+                    $('#submitSpinner').hide();
+
+                    if(response.code === 200) {
+                        // Show success message
+                        $('#successMessage').fadeIn().delay(5000).fadeOut();
+
+                        // Reset form
+                        $('#contactForm')[0].reset();
+                    } else {
+                        // Show error message
+                        $('#errorMessage').fadeIn().delay(5000).fadeOut();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // Hide spinner
+                    $('#submitSpinner').hide();
+
+                    // Show error message
+                    $('#errorMessage').fadeIn().delay(5000).fadeOut();
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

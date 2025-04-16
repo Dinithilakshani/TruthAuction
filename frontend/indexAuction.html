@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto auctions online | Exleasingcar</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+
+        .navbar {
+            background-color: white;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .auction-card {
+            background-color: white;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .car-img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        .car-flag {
+            height: 20px;
+            width: auto;
+            margin-right: 5px;
+        }
+        .car-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            color: #555;
+            font-size: 14px;
+        }
+        .final-call {
+            display: inline-block;
+            background-color: #333;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            margin-right: 10px;
+        }
+        .bid-alert {
+            color: #dc3545;
+            margin-left: 5px;
+        }
+        .bid-input {
+            text-align: center;
+            font-weight: bold;
+            height: 40px;
+        }
+        .bid-control {
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+        .submit-bid {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .ibid-assistant {
+            background-color: #343a40;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .info-icon {
+            margin-left: 5px;
+            color: white;
+            font-size: 12px;
+        }
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .nav-item {
+            margin: 0 10px;
+        }
+
+        .btn-auction {
+            background-color: #ff6b00;
+            color: white;
+            font-weight: bold;
+            padding: 10px 25px;
+            border-radius: 30px;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .btn-auction:hover {
+            background-color: #e05e00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+
+
+        .brand-highlight {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+
+
+
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 80px 0;
+            }
+        }
+
+        .brand-highlight {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #ff6b00;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+        }
+
+
+        /* Navigation */
+        .navbar {
+            background-color: var(--primary-color) !important;
+            transition: all 0.3s;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+            url('new images/img_1.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 120px 0;
+            text-align: center;
+            height: 500px;
+        }
+
+        /* Brand Highlight */
+        .brand-highlight {
+            color: var(- --accent-color);
+            font-weight: bold;
+        }
+
+        /* Buttons */
+        .btn-auction {
+            background-color: var(--accent-color);
+            color: white;
+            font-weight: bold;
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: none;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-auction:hover {
+            background-color: #e05e00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+
+
+        /* Section Titles */
+
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 80px 0;
+            }
+
+
+
+
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">AutoAuctions</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="Dashboard%202.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="indexAuction.html">Auctions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="how%20work%20it.html">How It Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Category.html">Category</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Contact.html">Contact</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <button class="btn btn-auction">
+
+                        <a class="nav-link" href="LoginForm.html">Login</a>
+                        <button class="btn btn-outline-light me-2" > Register</button>
+
+                </div>
+            </div>
+        </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-4">It's easy to buy vehicles at auctions</h1>
+        <p class="lead mb-5">Find your dream car at unbeatable prices from our trusted European suppliers</p>
+        <button class="btn btn-auction btn-lg">VIEW CURRENT AUCTIONS</button>
+
+
+</section>
+
+<!-- Main Content -->
+<div class="container mt-4">
+    <!-- Ford Focus Listing -->
+    <div class="auction-card">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="images/img_13.png" alt="Ford Focus" class="car-img">
+            </div>
+            <div class="col-md-8">
+                <h5>Ford Focus Focus Clipper Titanium Business 2.0 EcoBlue 150pk/cv 5p, 2018</h5>
+                <div class="car-details">
+                    <span><img src="images/img_17.png" alt="Belgium" class="car-flag"> Car ID: 14952993</span>
+                    <span>2018-11-26</span>
+                    <span>Diesel</span>
+                    <span>1999cc</span>
+                    <span>Manual</span>
+                    <span>181,690km</span>
+                </div>
+
+                <div class="mt-3">
+                    <span class="final-call">FINAL CALL</span>
+                    <span>Start: Today 10:01</span>
+                    <i class="fas fa-exclamation-circle bid-alert"></i>
+                </div>
+
+                <div class="row mt-4 align-items-center">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">€</span>
+                            </div>
+                            <a class="nav-link" href="LoginForm.html"> <input type="text" class="form-control bid-input" value="4800"></a>
+
+                            <div class="input-group-append">
+                                <span class="bid-control rounded-0">−</span>
+                                <span class="bid-control rounded-0">+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="submit-bid me-2">
+                            SUBMIT BID
+                            <i class="fas fa-info-circle info-icon"></i>
+                        </button>
+                        <button class="ibid-assistant">
+                            IBID ASSISTANT
+                            <i class="fas fa-info-circle info-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Peugeot 5008 Listing -->
+    <div class="auction-card">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="images/img_9.png" alt="Peugeot 5008" class="car-img">
+            </div>
+            <div class="col-md-8">
+                <h5>Peugeot 5008 5008 Allure 1.5 BlueHDi S/S 130pk/cv (109g) 5p, 2019</h5>
+                <div class="car-details">
+                    <span><img src="images/img_18.png" alt="Belgium" class="car-flag"> Car ID: 14952975</span>
+                    <span>2019-03-08</span>
+                    <span>Diesel</span>
+                    <span>1499cc</span>
+                    <span>Manual</span>
+                    <span>174,095km</span>
+                </div>
+
+                <div class="mt-3">
+                    <span class="final-call">FINAL CALL</span>
+                    <span>Start: Today 10:02</span>
+                    <i class="fas fa-exclamation-circle bid-alert"></i>
+                </div>
+
+                <div class="row mt-4 align-items-center">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">€</span>
+                            </div>
+                            <a class="nav-link" href="LoginForm.html"> <input type="text" class="form-control bid-input" value="4800"></a>
+
+                            <div class="input-group-append">
+                                <span class="bid-control rounded-0">−</span>
+                                <span class="bid-control rounded-0">+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="submit-bid me-2">
+                            SUBMIT BID
+                            <i class="fas fa-info-circle info-icon"></i>
+                        </button>
+                        <button class="ibid-assistant">
+                            IBID ASSISTANT
+                            <i class="fas fa-info-circle info-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="auction-card">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="images/img_16.png" alt="Peugeot 5008" class="car-img">
+            </div>
+            <div class="col-md-8">
+                <h5>Peugeot 5008 5008 Allure 1.5 BlueHDi S/S 130pk/cv (109g) 5p, 2019</h5>
+                <div class="car-details">
+                    <span><img src="images/img_17.png" alt="Belgium" class="car-flag"> Car ID: 14952975</span>
+                    <span>2019-03-08</span>
+                    <span>Diesel</span>
+                    <span>1499cc</span>
+                    <span>Manual</span>
+                    <span>174,095km</span>
+                </div>
+
+                <div class="mt-3">
+                    <span class="final-call">FINAL CALL</span>
+                    <span>Start: Today 10:02</span>
+                    <i class="fas fa-exclamation-circle bid-alert"></i>
+                </div>
+
+                <div class="row mt-4 align-items-center">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">€</span>
+                            </div>
+                            <a class="nav-link" href="LoginForm.html"> <input type="text" class="form-control bid-input" value="4800"></a>
+
+                            <div class="input-group-append">
+                                <span class="bid-control rounded-0">−</span>
+                                <span class="bid-control rounded-0">+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="submit-bid me-2">
+                            SUBMIT BID
+                            <i class="fas fa-info-circle info-icon"></i>
+                        </button>
+                        <button class="ibid-assistant">
+                            IBID ASSISTANT
+                            <i class="fas fa-info-circle info-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="auction-card">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="images/img_15.png" alt="Peugeot 5008" class="car-img">
+            </div>
+            <div class="col-md-8">
+                <h5>Peugeot 5008 5008 Allure 1.5 BlueHDi S/S 130pk/cv (109g) 5p, 2019</h5>
+                <div class="car-details">
+                    <span><img src="images/img_17.png" alt="Belgium" class="car-flag"> Car ID: 14952975</span>
+                    <span>2019-03-08</span>
+                    <span>Diesel</span>
+                    <span>1499cc</span>
+                    <span>Manual</span>
+                    <span>174,095km</span>
+                </div>
+
+                <div class="mt-3">
+                    <span class="final-call">FINAL CALL</span>
+                    <span>Start: Today 10:02</span>
+                    <i class="fas fa-exclamation-circle bid-alert"></i>
+                </div>
+
+                <div class="row mt-4 align-items-center">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">€</span>
+                            </div>
+                            <a class="nav-link" href="LoginForm.html"> <input type="text" class="form-control bid-input" value="4800"></a>
+
+                            <div class="input-group-append">
+                                <span class="bid-control rounded-0">−</span>
+                                <span class="bid-control rounded-0">+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="submit-bid me-2">
+                            SUBMIT BID
+                            <i class="fas fa-info-circle info-icon"></i>
+                        </button>
+                        <button class="ibid-assistant">
+                            IBID ASSISTANT
+                            <i class="fas fa-info-circle info-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="auction-card">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="images/img_1.png" alt="Peugeot 5008" class="car-img">
+            </div>
+            <div class="col-md-8">
+                <h5>Peugeot 5008 5008 Allure 1.5 BlueHDi S/S 130pk/cv (109g) 5p, 2019</h5>
+                <div class="car-details">
+                    <span><img src="images/img_17.png" alt="Belgium" class="car-flag"> Car ID: 14952975</span>
+                    <span>2019-03-08</span>
+                    <span>Diesel</span>
+                    <span>1499cc</span>
+                    <span>Manual</span>
+                    <span>174,095km</span>
+                </div>
+
+                <div class="mt-3">
+                    <span class="final-call">FINAL CALL</span>
+                    <span>Start: Today 10:02</span>
+                    <i class="fas fa-exclamation-circle bid-alert"></i>
+                </div>
+
+                <div class="row mt-4 align-items-center">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">€</span>
+                            </div>
+                            <a class="nav-link" href="LoginForm.html"> <input type="text" class="form-control bid-input" value="4800"></a>
+
+                            <div class="input-group-append">
+                                <span class="bid-control rounded-0">−</span>
+                                <span class="bid-control rounded-0">+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="submit-bid me-2">
+                            SUBMIT BID
+                            <i class="fas fa-info-circle info-icon"></i>
+                        </button>
+                        <button class="ibid-assistant">
+                            IBID ASSISTANT
+                            <i class="fas fa-info-circle info-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Renault Kangoo Listing -->
+    <div class="auction-card">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="images/img.png" alt="Renault Kangoo" class="car-img">
+            </div>
+            <div class="col-md-8">
+                <h5>Renault Kangoo Kangoo Maxi ZE Electric 60pk/cv 5pl (incl. batterij), 2019</h5>
+                <div class="car-details">
+                    <span><img src="images/img_17.png" alt="Belgium" class="car-flag"> Car ID: 14952971</span>
+                    <span>2019-08-06</span>
+                    <span>Electric</span>
+                    <span>0cc</span>
+                    <span>Automatic</span>
+                    <span>40,178km</span>
+                </div>
+
+                <div class="mt-3">
+                    <span class="final-call">FINAL CALL</span>
+                    <span>Start: Today 10:03</span>
+                    <i class="fas fa-exclamation-circle bid-alert"></i>
+                </div>
+
+                <div class="row mt-4 align-items-center">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">€</span>
+                            </div>
+                            <a class="nav-link" href="LoginForm.html"> <input type="text" class="form-control bid-input" value="4800"></a>
+
+                            <div class="input-group-append">
+                                <span class="bid-control rounded-0">−</span>
+                                <span class="bid-control rounded-0">+</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="submit-bid me-2">
+                            SUBMIT BID
+
+                            <i class="fas fa-info-circle info-icon"></i>
+                        </button>
+                        <button class="ibid-assistant">
+                            IBID ASSISTANT
+                            <i class="fas fa-info-circle info-icon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <h5><span class="brand-highlight">Truth</span> AUCTIONS</h5>
+                <p>International platform for auto auctions with thousands of vehicles from European banks and leasing companies.</p>
+                <div class="mt-3">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#">Home</a></li>
+                    <li class="mb-2"><a href="#">Auctions</a></li>
+                    <li class="mb-2"><a href="#">How It Works</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5>Services</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="Dashboard%202.html">Home</a></li>
+                    <li class="mb-2"><a href="indexAuction.html">Auctions</a></li>
+                    <li class="mb-2"><a href="how%20work%20it.html">How It Works</a></li>
+                    <li class="mb-2"><a href="Category.html">Category</a></li>
+
+                    <li><a href="Contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h5>Contact Us</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Ahangama road,Galle</li>
+                    <li class="mb-2"><i class="fas fa-phone me-2"></i> +78 4078977</li>
+                    <li><i class="fas fa-envelope me-2"></i>Thruthauction@gmail.com</li>
+                </ul>
+            </div>
+        </div>
+        <hr class="my-4 bg-secondary">
+        <div class="text-center">
+            <p class="mb-0">&copy; 2023 Eclassingcar Auto Auctions. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Basic functionality for bid increments/decrements
+    document.addEventListener('DOMContentLoaded', function() {
+        const bidControls = document.querySelectorAll('.bid-control');
+
+        bidControls.forEach(control => {
+            control.addEventListener('click', function() {
+                const input = this.parentElement.previousElementSibling;
+                let value = parseInt(input.value);
+
+                if (this.textContent === '+') {
+                    input.value = value + 100;
+                } else if (this.textContent === '−' && value > 100) {
+                    input.value = value - 100;
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Auctions - Premium Bidding Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --danger: #e63946;
+            --gradient: linear-gradient(135deg, #4361ee, #3a0ca3);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7ff;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Animated sidebar */
+        .sidebar {
+            background: var(--gradient);
+            color: white;
+            height: 100vh;
+            padding: 20px 0;
+            position: fixed;
+            width: 250px;
+            transition: all 0.3s ease;
+            box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .sidebar:hover {
+            width: 260px;
+        }
+
+        .brand-logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .brand-logo i {
+            font-size: 2rem;
+            margin-right: 10px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .sidebar a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+            margin-bottom: 5px;
+        }
+
+        .sidebar a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            border-left: 4px solid var(--accent);
+            transform: translateX(5px);
+        }
+
+        .sidebar a.active {
+            color: white;
+            background-color: rgba(255,255,255,0.15);
+            border-left: 4px solid var(--accent);
+        }
+
+        .sidebar i {
+            margin-right: 15px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* Main content area */
+        .content-area {
+            margin-left: 250px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        /* Card styling */
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            font-weight: 600;
+            background: white;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 20px;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        /* Glowing form elements */
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #e1e5eb;
+            padding: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        /* Custom buttons */
+        .btn {
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #3a0ca3, #4361ee);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #f8f9fa;
+            color: #495057;
+            border: 1px solid #e1e5eb;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e9ecef;
+        }
+
+        .btn-danger {
+            background-color: var(--danger);
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #d62828;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+        }
+
+        /* Table styling */
+        .table {
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+
+        .table thead th {
+            border-bottom: none;
+            font-weight: 600;
+            color: #495057;
+            padding: 15px;
+            background-color: #f8f9fa;
+        }
+
+        .table tbody tr {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border-radius: 10px;
+            background-color: white;
+            transition: all 0.2s ease;
+        }
+
+        .table tbody tr:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.07);
+        }
+
+        .table td {
+            padding: 15px;
+            vertical-align: middle;
+            border-top: none;
+        }
+
+        /* Pagination */
+        .pagination {
+            margin-top: 30px;
+        }
+
+        .page-link {
+            border: none;
+            color: var(--dark);
+            margin: 0 5px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .page-item.active .page-link {
+            background: var(--gradient);
+            color: white;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+        }
+
+        /* Price tag */
+        .price-tag {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Status badges */
+        .badge {
+            padding: 8px 12px;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 12px;
+        }
+
+        .badge-primary {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+        }
+
+        .badge-success {
+            background-color: rgba(76, 201, 240, 0.1);
+            color: var(--success);
+        }
+
+        /* Search input */
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-wrapper .form-control {
+            padding-left: 45px;
+            background-color: white;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #adb5bd;
+        }
+
+        /* Stats cards */
+        .stats-card {
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .stats-primary {
+            background: linear-gradient(45deg, #4361ee, #4cc9f0);
+            color: white;
+        }
+
+        .stats-warning {
+            background: linear-gradient(45deg, #f72585, #f8961e);
+            color: white;
+        }
+
+        .stats-success {
+            background: linear-gradient(45deg, #4cc9f0, #06d6a0);
+            color: white;
+        }
+
+        .stats-icon {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            font-size: 4rem;
+            opacity: 0.15;
+        }
+
+        .stats-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stats-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+            }
+
+            .sidebar:hover {
+                width: 250px;
+            }
+
+            .sidebar .brand-logo span,
+            .sidebar a span {
+                display: none;
+            }
+
+            .sidebar:hover .brand-logo span,
+            .sidebar:hover a span {
+                display: inline;
+            }
+
+            .content-area {
+                margin-left: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-area {
+                margin-left: 0;
+                padding: 80px 15px 15px;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: 70px;
+                padding: 0;
+            }
+
+            .sidebar:hover {
+                width: 100%;
+                height: 70px;
+            }
+
+            .sidebar .nav-links {
+                display: none;
+            }
+
+            .brand-logo {
+                justify-content: center;
+                margin-bottom: 0;
+                padding-top: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid p-0">
+    <div class="row g-0">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="brand-logo">
+                <i class="fas fa-car-alt"></i>
+                <span>Elite Auctions</span>
+            </div>
+            <nav class="nav-links">
+                <a href="#" class="fade-in delay-1">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="fade-in delay-1">
+                    <i class="fas fa-users"></i>
+                    <span>User Management</span>
+                </a>
+                <a href="#" class="fade-in delay-1">
+                    <i class="fas fa-building"></i>
+                    <span>Company Management</span>
+                </a>
+                <a href="#" class="fade-in delay-1">
+                    <i class="fas fa-car"></i>
+                    <span>Vehicle Management</span>
+                </a>
+                <a href="#" class="active fade-in delay-2">
+                    <i class="fas fa-gavel"></i>
+                    <span>Auction Management</span>
+                </a>
+                <a href="#" class="fade-in delay-2">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Reports</span>
+                </a>
+                <a href="#" class="fade-in delay-2">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="#" class="fade-in delay-3">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Help</span>
+                </a>
+                <a href="#" class="fade-in delay-3">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-area">
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="mb-4 fade-in">Auction Management</h2>
+                </div>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="row fade-in">
+                <div class="col-md-4">
+                    <div class="card stats-card stats-primary">
+                        <div>
+                            <div class="stats-value">42</div>
+                            <div class="stats-label">Active Auctions</div>
+                        </div>
+                        <i class="fas fa-gavel stats-icon"></i>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card stats-card stats-warning">
+                        <div>
+                            <div class="stats-value">$124,500</div>
+                            <div class="stats-label">Total Bids Value</div>
+                        </div>
+                        <i class="fas fa-dollar-sign stats-icon"></i>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card stats-card stats-success">
+                        <div>
+                            <div class="stats-value">89</div>
+                            <div class="stats-label">Active Bidders</div>
+                        </div>
+                        <i class="fas fa-users stats-icon"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Auction Form -->
+                <div class="col-lg-5 col-md-12 fade-in delay-1">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="fas fa-file-alt me-2"></i> Create New Bid
+                        </div>
+                        <div class="card-body">
+                            <form id="auctionForm">
+                                <div class="mb-3">
+                                    <label for="id" class="form-label">Bid ID</label>
+                                    <input type="number" class="form-control" id="id" name="id" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="chassi_number" class="form-label">Chassis Number</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
+                                        <input type="number" class="form-control" id="chassi_number" name="chassi_number" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Bidder Email</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="bid_price" class="form-label">Bid Price ($)</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                        <input type="number" step="0.01" class="form-control" id="bid_price" name="bid_price" required>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-2"></i> Save Bid
+                                    </button>
+                                    <button type="reset" class="btn btn-secondary">
+                                        <i class="fas fa-eraser me-2"></i> Clear Form
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Auction List -->
+                <div class="col-lg-7 col-md-12 fade-in delay-2">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span><i class="fas fa-list me-2"></i> Active Bids</span>
+                            <button id="refreshList" class="btn btn-primary btn-sm">
+                                <i class="fas fa-sync-alt me-1"></i> Refresh
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="search-wrapper mb-4">
+                                <i class="fas fa-search search-icon"></i>
+                                <input type="text" class="form-control" placeholder="Search bids..." id="searchInput">
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Chassis</th>
+                                        <th>Email</th>
+                                        <th>Bid Amount</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="auctionTableBody">
+                                    <tr>
+                                        <td>#1</td>
+                                        <td>12345</td>
+                                        <td>john@example.com</td>
+                                        <td><span class="price-tag">$5,500.00</span></td>
+                                        <td><span class="badge badge-primary">Active</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#2</td>
+                                        <td>54321</td>
+                                        <td>alice@example.com</td>
+                                        <td><span class="price-tag">$6,200.00</span></td>
+                                        <td><span class="badge badge-success">Winner</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#3</td>
+                                        <td>98765</td>
+                                        <td>mike@example.com</td>
+                                        <td><span class="price-tag">$4,800.00</span></td>
+                                        <td><span class="badge badge-primary">Active</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#4</td>
+                                        <td>56789</td>
+                                        <td>sara@example.com</td>
+                                        <td><span class="price-tag">$7,100.00</span></td>
+                                        <td><span class="badge badge-primary">Active</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Pagination -->
+                            <nav aria-label="Auction bid navigation">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"></script>
+<script>
+    // Form submission handler
+    document.getElementById('auctionForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Get form values
+        const id = document.getElementById('id').value;
+        const chassi_number = document.getElementById('chassi_number').value;
+        const email = document.getElementById('email').value;
+        const bid_price = document.getElementById('bid_price').value;
+
+        // In a real application, send this data to a server
+        console.log('Form submitted:', { id, chassi_number, email, bid_price });
+
+        // For demo purposes, add to table with animation
+        addBidToTable(id, chassi_number, email, bid_price);
+
+        // Show success message with animation
+        showNotification('Bid successfully added!', 'success');
+
+        // Clear the form
+        this.reset();
+    });
+
+    function addBidToTable(id, chassi_number, email, price) {
+        const tableBody = document.getElementById('auctionTableBody');
+        const newRow = document.createElement('tr');
+        newRow.style.opacity = '0';
+        newRow.style.transform = 'translateY(20px)';
+
+        // Format price as currency
+        const formattedPrice = '$' + parseFloat(price).toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+        newRow.innerHTML = `
+                <td>#${id}</td>
+                <td>${chassi_number}</td>
+                <td>${email}</td>
+                <td><span class="price-tag">${formattedPrice}</span></td>
+                <td><span class="badge badge-primary">Active</span></td>
+                <td>
+                    <button class="btn btn-primary btn-sm">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            `;
+
+        // Add to beginning of table
+        tableBody.insertBefore(newRow, tableBody.firstChild);
+
+        // Animate row appearance
+        setTimeout(() => {
+            newRow.style.transition = 'all 0.5s ease';
+            newRow.style.opacity = '1';
+            newRow.style.transform = 'translateY(0)';
+        }, 10);
+    }
+
+    // Add click handlers to edit/delete buttons
+    document.querySelector('#auctionTableBody').addEventListener('click', function(e) {
+        if (e.target.closest('.btn-danger')) {
+            // Delete button clicked
+            const row = e.target.closest('tr');
+
+            if (confirm('Are you sure you want to delete this bid?')) {
+                // Animate removal
+                row.style.transition = 'all 0.5s ease';
+                row.style.opacity = '0';
+                row.style.transform = 'translateX(20px)';
+
+                setTimeout(() => {
+                    row.remove();
+                    showNotification('Bid successfully deleted!', 'danger');
+                }, 500);
+            }
+        } else if (e.target.closest('.btn-primary')) {
+            // Edit button clicked
+            const row = e.target.closest('tr');
+            const cells = row.querySelectorAll('td');
+
+            // Fill form with data from the row
+            document.getElementById('id').value = cells[0].textContent.replace('#', '');
+            document.getElementById('chassi_number').value = cells[1].textContent;
+            document.getElementById('email').value = cells[2].textContent;
+            document.getElementById('bid_price').value = parseFloat(cells[3].textContent.replace('$', '').replace(',', ''));
+
+            // Scroll to form
+            document.querySelector('.card-header').scrollIntoView({ behavior: 'smooth' });
+
+            // Highlight form momentarily
+            const form = document.getElementById('auctionForm');
+            form.style.transition = 'background-color 1s ease';
+            form.style.backgroundColor = 'rgba(67, 97, 238, 0.1)';
+            setTimeout(() => {
+                form.style.backgroundColor = 'transparent';
+            }, 1000);
+        }
+    });
+
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const rows = document.querySelectorAll('#auctionTableBody tr');
+
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            if (text.includes(searchTerm)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+
+    // Refresh button handler
+    document.getElementById('refreshList').addEventListener('click', function() {
+        this.classList.add('fa-spin');
+        setTimeout(() => {
+            this.classList.remove('fa-spin');
+            showNotification('Bid list refreshed!', 'primary');
+        }, 1000);
+    });
+
+    // Notification system
+    function showNotification(message, type) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `alert alert-${type} fade-in`;
+        notification.style.position = 'fixed';
+        notification.style.top = '20px';
+        notification.style.right = '20px';
+        notification.style.zIndex = '9999';
+        notification.style.borderRadius = '8px';
+        notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+        notification.style.maxWidth = '300px';
+
+        // Set icon based on type
+        let icon = 'info-circle';
+        if (type === 'success') icon = 'check-circle';
+        if (type === 'danger') icon = 'exclamation-circle';
+        if (type === 'primary') icon = 'bell';
+
+        notification.innerHTML = `
+                <i class="fas fa-${icon} me-2"></i> ${message}
+            `;
+
+        // Add to document
+        document.body.appendChild(notification);
+
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transform = 'translateX(20px)';
+            setTimeout(() => {
+                notification.remove();
+            }, 500);
+        }, 3000);
+    }
+</script>
+</body>
+</html>

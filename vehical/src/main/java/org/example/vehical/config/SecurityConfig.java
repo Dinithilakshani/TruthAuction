@@ -50,7 +50,10 @@ public class SecurityConfig {
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**",
                                 "/api/hotels/**",
-                                "/api/travel-packages/**"
+                                "/api/travel-packages/**",
+                                "/api/items/getall",
+                                "/api/v1/auction/save",
+                                "/api/v1/auction/getAll"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -78,15 +81,15 @@ public class SecurityConfig {
     }
 
     @Bean
+
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-
-        // ✅ Set the frontend origin here explicitly
-        config.setAllowedOrigins(List.of("http://localhost:63342"));  // <-- required instead of "*"
+        // Allow frontend origin (e.g., React on port 3000)
+        config.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:63342"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(List.of("Authorization", "Content-Type", "x-requested-with"));
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setExposedHeaders(List.of("Authorization"));
-        config.setAllowCredentials(true); // Only works with explicit origins
+        config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
