@@ -19,8 +19,8 @@ Empower admins to monitor and manage auctions
 Let users bid with confidence in a smooth, dynamic UI
 
 📸 Screenshots
-🏠 Home / Vehicle Bidding List
-<p align="center"> <img src="https://github.com/yourusername/Truth-Vehicle-Auction/blob/main/screenshots/home.png" width="700" alt="Homepage"> <br> <em>Real-time bidding made visual! 📈</em> </p>
+🏠 Home 
+<p align="center"> <img src="https://github.com/Dinithilakshani/TruthAuction/blob/493b6caf2fca7e0a7953fd2178d990d4381c8727/Screenshot%202025-04-16%20231008.png" width="700" alt="Homepage"> <br> <em>Real-time bidding made visual! 📈</em> </p>
 🛠 Admin Auction Dashboard
 <p align="center"> <img src="https://github.com/yourusername/Truth-Vehicle-Auction/blob/main/screenshots/admin-dashboard.png" width="700" alt="Admin Dashboard"> <br> <em>Manage vehicles, monitor top bids and participant data 🧾</em> </p>
 🧾 Bid Entry Form
