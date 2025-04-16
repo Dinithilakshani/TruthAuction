@@ -4,10 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elite Auto Auctions - Sign In</title>
+
     <!-- Bootstrap CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
+
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -80,74 +86,10 @@
             box-shadow: 0 0 0 0.25rem rgba(247, 140, 64, 0.25);
             border-color: #f78c40;
         }
-
-        .social-login {
-            margin: 20px 0;
-            text-align: center;
-        }
-
-        .social-btn {
-            width: 100%;
-            margin: 8px 0;
-            padding: 10px;
-            border-radius: 4px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .google-btn {
-            background-color: #DB4437;
-            color: white;
-            border: none;
-        }
-
-        .facebook-btn {
-            background-color: #4267B2;
-            color: white;
-            border: none;
-        }
-
-        .apple-btn {
-            background-color: #000;
-            color: white;
-            border: none;
-        }
-
-        .or-divider {
-            text-align: center;
-            position: relative;
-            margin: 25px 0;
-        }
-
-        .or-divider::before, .or-divider::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            width: 45%;
-            height: 1px;
-            background-color: #ddd;
-        }
-
-        .or-divider::before {
-            left: 0;
-        }
-
-        .or-divider::after {
-            right: 0;
-        }
-
-        .or-text {
-            background-color: white;
-            padding: 0 10px;
-            position: relative;
-            z-index: 1;
-            color: #777;
-        }
     </style>
 </head>
 <body>
+
 <!-- Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
@@ -164,8 +106,8 @@
         <div class="form-body">
             <form id="signInForm">
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    <label for="username" class="form-label">User Name</label>
+                    <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
@@ -181,28 +123,51 @@
                 </div>
             </form>
 
-
-        <div class="form-footer text-center">
-            Don't have an account? <a href="#">Register Now</a>
+            <div class="form-footer text-center mt-3">
+                Don't have an account? <a href="#">Register Now</a>
+            </div>
         </div>
     </div>
 </div>
 
 <!-- Bootstrap JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<!-- Login Ajax Script -->
 <script>
-    // Form submission handler
-    document.getElementById('signInForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+    $(document).ready(function () {
+        $('#signInForm').submit(function (event) {
+            event.preventDefault();
 
-        // Here you would typically send the data to your server
-        console.log('Sign in attempt:', { email, password });
+            const username = $('#username').val();
+            const password = $('#password').val();
 
-        // For demo purposes, show a success message
-        alert('Sign in successful!');
+            $.ajax({
+                url: 'http://localhost:8082/auth/login/verify',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    username: username,
+                    password: password
+                }),
+                success: function (response) {
+                    console.log("Login successful:", response);
+                    localStorage.setItem("jwtToken", response.token);
+                    alert("Login successful!");
+                    window.location.href = "Admin.html"; // Change as needed
+                },
+                error: function (xhr) {
+                    if (xhr.status === 403 || xhr.status === 401) {
+                        alert("Invalid username or password.");
+                    } else {
+                        alert("Login failed. Please try again.");
+                    }
+                    console.error("Error:", xhr.responseText);
+                }
+            });
+        });
     });
 </script>
+
 </body>
 </html>

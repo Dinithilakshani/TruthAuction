@@ -1,18 +1,22 @@
 package org.example.vehical.Service.impl;
 
 import org.example.vehical.Repo.CompanyRepo;
-import org.example.vehical.Repo.CompanyTypeRepo;
 import org.example.vehical.Repo.UserRepository;
+import org.example.vehical.Service.JWTService;
 import org.example.vehical.Service.UserService;
+import org.example.vehical.dto.AuthTokenDTO;
 import org.example.vehical.dto.UserDTO;
+import org.example.vehical.dto.UserLoginDTO;
 import org.example.vehical.enitity.Company;
-import org.example.vehical.enitity.CompanyType;
-import org.example.vehical.enitity.Sale;
 import org.example.vehical.enitity.User;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,58 +31,91 @@ public class UserServiceImpl implements UserService {
     private CompanyRepo companyRepo;
 
     @Autowired
+    AuthenticationManager authenticationManager;
+
+    @Autowired
     private ModelMapper modelMapper;
 
-@Override
-        public void save(UserDTO userDTO) {
+    @Autowired
+    JWTService jwtService;
 
-
-    try {
-        Optional<User> optionalUser = userRepository.findById(userDTO.getId());
-        if (optionalUser.isPresent()) {
-            throw new RuntimeException("user already exists");
+    @Override
+    public void save(UserDTO userDTO) {
+        if (userRepository.existsById(userDTO.getId())) {
+            throw new RuntimeException("User already exists");
         }
 
-        Optional<Company> optionalCompanyType = companyRepo.findById(userDTO.getCompany_id());
-        if (optionalCompanyType.isEmpty()) throw new RuntimeException("USer not found");
+        Optional<Company> optionalCompany = companyRepo.findById(userDTO.getCompany_id());
+        if (optionalCompany.isEmpty()) {
+            throw new RuntimeException("Company not found");
+        }
 
         User user = modelMapper.map(userDTO, User.class);
-        user.setCompany(optionalCompanyType.get());
+        user.setCompany(optionalCompany.get());
         userRepository.save(user);
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
 
-@Override
+    @Override
     public UserDTO getById(int id) {
-        Optional<User> optionalCustomer = userRepository.findById(id);
-        if (optionalCustomer.isPresent()) {
-            return modelMapper.map(optionalCustomer.get(), UserDTO.class);
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            return modelMapper.map(optionalUser.get(), UserDTO.class);
         }
-        throw new RuntimeException("companyType not found");
+        throw new RuntimeException("User not found with id: " + id);
     }
+
     @Override
     public List<UserDTO> getAll() {
         List<User> users = userRepository.findAll();
-        return modelMapper.map(users, new TypeToken<List<UserDTO>>(){}.getType());
+        return modelMapper.map(users, new TypeToken<List<UserDTO>>() {}.getType());
     }
+
     @Override
     public UserDTO update(UserDTO userDTO) {
         if (!userRepository.existsById(userDTO.getId())) {
-            throw new RuntimeException("Company does not exist");
+            throw new RuntimeException("User does not exist");
         }
+
+        Optional<Company> optionalCompany = companyRepo.findById(userDTO.getCompany_id());
+        if (optionalCompany.isEmpty()) {
+            throw new RuntimeException("Company not found");
+        }
+
         User user = modelMapper.map(userDTO, User.class);
+        user.setCompany(optionalCompany.get());
+
         userRepository.save(user);
-        return userDTO;
+        return modelMapper.map(user, UserDTO.class);
     }
 
     @Override
     public void delete(int id) {
         if (!userRepository.existsById(id)) {
-            throw new RuntimeException("Item does not exist");
+            throw new RuntimeException("User does not exist");
         }
         userRepository.deleteById(id);
     }
 
+    @Transactional
+    @Override
+    public AuthTokenDTO verifyUser(UserLoginDTO userLoginDTO) {
+        Optional<User> optionalUser =userRepository.findByUsername(userLoginDTO.getUsername());
+        AuthTokenDTO authTokenDTO = new AuthTokenDTO();
+        if (optionalUser.isPresent()) {
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userLoginDTO.getUsername(),userLoginDTO.getPassword()));
+            if (authentication.isAuthenticated()){
+
+                authTokenDTO.setAuthenticated(true);
+                authTokenDTO.setToken(jwtService.generateToken(userLoginDTO.getUsername()));
+                authTokenDTO.setMessage("Success");
+                return authTokenDTO;
+            }
+            authTokenDTO.setAuthenticated(false);
+            authTokenDTO.setMessage("Fail");
+            return authTokenDTO;
+        }
+        authTokenDTO.setAuthenticated(false);
+        authTokenDTO.setMessage("Patient not found");
+        return authTokenDTO;
+    }
 }

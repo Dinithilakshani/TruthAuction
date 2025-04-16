@@ -1,6 +1,8 @@
 package org.example.vehical.Service;
 
+import org.example.vehical.dto.AuthTokenDTO;
 import org.example.vehical.dto.UserDTO;
+import org.example.vehical.dto.UserLoginDTO;
 
 import java.util.List;
 
@@ -12,4 +14,6 @@ public interface UserService {
 
     public UserDTO update(UserDTO userDTO);
     public void delete(int id) ;
+
+    AuthTokenDTO verifyUser(UserLoginDTO userLoginDTO);
 }
