@@ -22,9 +22,9 @@ Let users bid with confidence in a smooth, dynamic UI
 🏠 Home 
 <p align="center"> <img src="https://github.com/Dinithilakshani/TruthAuction/blob/493b6caf2fca7e0a7953fd2178d990d4381c8727/Screenshot%202025-04-16%20231008.png" width="700" alt="Homepage"> <br> <em>User Homepage! 📈</em> </p>
 🛠 Admin Auction Dashboard
-<p align="center"> <img src="https://github.com/Dinithilakshani/TruthAuction/blob/1766738d7252e055ec4feaa7c155518cdd68fb06/Screenshot%202025-04-16%20230619.png" width="700" alt="Admin Dashboard"> <br> <em>Manage vehicles, monitor top bids and participant data 🧾</em> </p>
+<p align="center"> <img src="" width="700" alt="Admin Dashboard"> <br> <em>Manage vehicles, monitor top bids and participant data 🧾</em> </p>
 🧾 Bid Entry Form
-<p align="center"> <img src="https://github.com/yourusername/Truth-Vehicle-Auction/blob/main/screenshots/bid-form.png" width="700" alt="Bid Form"> <br> <em>Submit your best bid—live updates in action! 💥</em> </p>
+<p align="center"> <img src="https://github.com/Dinithilakshani/TruthAuction/blob/1766738d7252e055ec4feaa7c155518cdd68fb06/Screenshot%202025-04-16%20230619.png" width="700" alt="Bid Form"> <br> <em>Submit your best bid—live updates in action! 💥</em> </p>
 🛠 Setup Instructions
 ⚙ Backend (Spring Boot)
 📁 Clone the repository:
