@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elite Auctions - Sale Item Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            min-height: 100vh;
+            background-color: #263238;
+            color: white;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            color: #a2abb3;
+            text-decoration: none;
+            display: block;
+            padding: 15px;
+            transition: all 0.3s;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            color: white;
+            background-color: rgba(255,255,255,0.1);
+        }
+        .sidebar a i {
+            margin-right: 10px;
+        }
+        .content {
+            padding: 20px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 15px;
+            color: white;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+        .logo i {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 sidebar">
+            <div class="logo">
+                <i class="fas fa-car"></i>Elite Auctions
+            </div>
+            <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="#"><i class="fas fa-users"></i> User Management</a>
+            <a href="#"><i class="fas fa-building"></i> Company Management</a>
+            <a href="#"><i class="fas fa-box"></i> Items Management</a>
+            <a href="#" class="active"><i class="fas fa-shopping-cart"></i> Sale Management</a>
+            <a href="#"><i class="fas fa-chart-bar"></i> Reports</a>
+            <a href="#"><i class="fas fa-cog"></i> Settings</a>
+            <a href="#"><i class="fas fa-question-circle"></i> Help</a>
+            <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-10 content">
+            <div class="row">
+                <!-- Sale Item Form -->
+                <div class="col-md-5">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="card-title mb-0">Sale Item Information</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="saleItemForm">
+                                <input type="hidden" id="saleItemId">
+
+                                <div class="mb-3">
+                                    <label for="itemId" class="form-label">Item ID</label>
+                                    <input type="text" step="0.01" class="form-control" id="itemId" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="saleId" class="form-label">Sale ID</label>
+                                    <input type="text" step="0.01" class="form-control" id="saleId" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="userId" class="form-label">User ID</label>
+                                    <input type="text" step="0.01" class="form-control" id="userId" required>
+
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="biddingPrice" class="form-label">Bidding Price</label>
+                                    <input type="number" step="0.01" class="form-control" id="biddingPrice" required>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="time" class="form-label">Time</label>
+                                    <input type="date" class="form-control" id="time" required>
+                                </div>
+
+                                <div class="d-flex gap-2">
+                                    <button type="submit" class="btn btn-primary" id="saveButton">Save Sale Item</button>
+                                    <button type="button" class="btn btn-secondary" id="clearButton">Clear Form</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sale Item List -->
+                <div class="col-md-7">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">Sale Item List</h5>
+                            <button class="btn btn-light btn-sm" id="refreshList">Refresh List</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="searchInput" placeholder="Search sale items...">
+                                    <button class="btn btn-primary" id="searchButton">Search</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Item</th>
+                                        <th>Sale</th>
+                                        <th>User</th>
+                                        <th>Bidding Price</th>
+                                        <th>Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="saleItemTableBody">
+                                    <!-- Sale items will be loaded here via AJAX -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <nav>
+                                <ul class="pagination justify-content-center" id="pagination">
+                                    <!-- Pagination will be generated dynamically -->
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Confirmation -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this sale item?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Auction History -->
+<div class="modal fade" id="auctionHistoryModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Auction History</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Auction ID</th>
+                            <th>Bidder</th>
+                            <th>Bid Amount</th>
+                            <th>Bid Time</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody id="auctionHistoryTableBody">
+                        <!-- Auction history will be loaded here via AJAX -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        let currentPage = 1;
+        let itemsPerPage = 10;
+        let deleteItemId = null;
+        const baseUrl = 'http://localhost:80882/sale-items'; // Adjust based on your application URL
+
+        // Initialize date input with today's date
+        const today = new Date().toISOString().split('T')[0];
+        $('#time').val(today);
+
+        // Load initial data
+        loadSaleItems();
+        loadItems();
+        loadSales();
+        loadUsers();
+
+        // Load Sale Items function
+        function loadSaleItems() {
+            $.ajax({
+                url: `${baseUrl}/sale-items/getAll`,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.code === 200) {
+                        displaySaleItems(response.data);
+                    } else {
+                        alert('Error loading sale items: ' + response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error: ' + status + ': ' + error);
+                    alert('Failed to load sale items. Please try again later.');
+                }
+            });
+        }
+
+        // Display Sale Items in table
+        function displaySaleItems(items) {
+            const tableBody = $('#saleItemTableBody');
+            tableBody.empty();
+
+            if (items.length === 0) {
+                tableBody.append('<tr><td colspan="7" class="text-center">No sale items found</td></tr>');
+                return;
+            }
+
+            // Calculate pagination
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, items.length);
+            const paginatedItems = items.slice(startIndex, endIndex);
+
+            // Update pagination UI
+            updatePagination(items.length);
+
+            // Populate table
+            $.each(paginatedItems, function(index, item) {
+                // Format date for display
+                const formattedDate = new Date(item.time).toLocaleDateString();
+
+                let row = `
+                        <tr>
+                            <td>${item.id}</td>
+                            <td>${item.item ? item.item.productName || 'N/A' : 'N/A'}</td>
+                            <td>${item.sale ? item.sale.id || 'N/A' : 'N/A'}</td>
+                            <td>${item.user ? item.user.username || 'N/A' : 'N/A'}</td>
+                            <td>$${item.biddingPrice.toFixed(2)}</td>
+                            <td>${formattedDate}</td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-primary edit-item" data-id="${item.id}">Edit</button>
+                                    <button class="btn btn-info view-auctions" data-id="${item.id}">Auctions</button>
+                                    <button class="btn btn-danger delete-item" data-id="${item.id}">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                tableBody.append(row);
+            });
+
+            // Add event listeners
+            attachEventListeners();
+        }
+
+        // Update pagination controls
+        function updatePagination(totalItems) {
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            const pagination = $('#pagination');
+            pagination.empty();
+
+            // Previous button
+            pagination.append(`
+                    <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                        <a class="page-link" href="#" id="prevPage">Previous</a>
+                    </li>
+                `);
+
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                pagination.append(`
+                        <li class="page-item ${currentPage === i ? 'active' : ''}">
+                            <a class="page-link page-number" href="#" data-page="${i}">${i}</a>
+                        </li>
+                    `);
+            }
+
+            // Next button
+            pagination.append(`
+                    <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                        <a class="page-link" href="#" id="nextPage">Next</a>
+                    </li>
+                `);
+
+            // Attach pagination event listeners
+            $('#prevPage').click(function(e) {
+                e.preventDefault();
+                if (currentPage > 1) {
+                    currentPage--;
+                    loadSaleItems();
+                }
+            });
+
+            $('#nextPage').click(function(e) {
+                e.preventDefault();
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    loadSaleItems();
+                }
+            });
+
+            $('.page-number').click(function(e) {
+                e.preventDefault();
+                currentPage = parseInt($(this).data('page'));
+                loadSaleItems();
+            });
+        }
+
+        // Load Items for dropdown
+        function loadItems() {
+            $.ajax({
+                url: `${baseUrl}/items/getAll`,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.code === 200) {
+                        const itemSelect = $('#itemId');
+                        itemSelect.empty();
+                        itemSelect.append('<option value="">Select Item</option>');
+
+                        $.each(response.data, function(index, item) {
+                            itemSelect.append(`<option value="${item.id}">${item.productName || item.id}</option>`);
+                        });
+                    }
+                },
+                error: function() {
+                    console.error('Failed to load items');
+                }
+            });
+        }
+
+        // Load Sales for dropdown
+        function loadSales() {
+            $.ajax({
+                url: `${baseUrl}/sale/getAll`,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.code === 200) {
+                        const saleSelect = $('#saleId');
+                        saleSelect.empty();
+                        saleSelect.append('<option value="">Select Sale</option>');
+
+                        $.each(response.data, function(index, sale) {
+                            let displayText = `Sale #${sale.id}`;
+                            if (sale.description) {
+                                displayText += ` - ${sale.description}`;
+                            }
+                            saleSelect.append(`<option value="${sale.id}">${displayText}</option>`);
+                        });
+                    }
+                },
+                error: function() {
+                    console.error('Failed to load sales');
+                }
+            });
+        }
+
+        // Load Users for dropdown
+        function loadUsers() {
+            $.ajax({
+                url: `${baseUrl}/users/getAll`,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.code === 200) {
+                        const userSelect = $('#userId');
+                        userSelect.empty();
+                        userSelect.append('<option value="">Select User</option>');
+
+                        $.each(response.data, function(index, user) {
+                            userSelect.append(`<option value="${user.id}">${user.username || user.firstName + ' ' + user.lastName || user.id}</option>`);
+                        });
+                    }
+                },
+                error: function() {
+                    console.error('Failed to load users');
+                }
+            });
+        }
+
+        // Save or Update Sale Item
+        $('#saleItemForm').submit(function(e) {
+            e.preventDefault();
+
+            const saleItemId = $('#saleItemId').val();
+            const saleItemData = {
+                id: saleItemId ? parseInt(saleItemId) : 0,
+                biddingPrice: parseFloat($('#biddingPrice').val()),
+                time: $('#time').val(),
+                item: {
+                    id: parseInt($('#itemId').val())
+                },
+                sale: {
+                    id: parseInt($('#saleId').val())
+                },
+                user: {
+                    id: parseInt($('#userId').val())
+                }
+            };
+
+            const url = saleItemId ?
+                `${baseUrl}/sale-items/update` :
+                `${baseUrl}/sale-items/save`;
+
+            const method = saleItemId ? 'PUT' : 'POST';
+
+            $.ajax({
+                url: url,
+                type: method,
+                contentType: 'application/json',
+                data: JSON.stringify(saleItemData),
+                success: function(response) {
+                    if ((response.code === 200) || response.id) {
+                        alert(saleItemId ? 'Sale item updated successfully!' : 'Sale item added successfully!');
+                        clearForm();
+                        loadSaleItems();
+                    } else {
+                        alert('Error: ' + (response.message || 'Unknown error occurred'));
+                    }
+                },
+                error: function(xhr) {
+                    alert('Failed to save sale item. Please try again.');
+                    console.error('Error:', xhr.responseText);
+                }
+            });
+        });
+
+        // Clear form
+        $('#clearButton').click(function() {
+            clearForm();
+        });
+
+        function clearForm() {
+            $('#saleItemId').val('');
+            $('#saleItemForm')[0].reset();
+            $('#time').val(today); // Reset date to today
+            $('#saveButton').text('Save Sale Item');
+        }
+
+        // Attach event listeners to buttons
+        function attachEventListeners() {
+            $('.edit-item').click(function() {
+                const itemId = $(this).data('id');
+                editSaleItem(itemId);
+            });
+
+            $('.delete-item').click(function() {
+                const itemId = $(this).data('id');
+                deleteItemId = itemId;
+                $('#confirmModal').modal('show');
+            });
+
+            $('.view-auctions').click(function() {
+                const itemId = $(this).data('id');
+                viewAuctionHistory(itemId);
+            });
+        }
+
+        // Edit Sale Item
+        function editSaleItem(id) {
+            $.ajax({
+                url: `${baseUrl}/sale-items/getAll`,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.code === 200) {
+                        const saleItem = response.data.find(item => item.id === id);
+                        if (saleItem) {
+                            $('#saleItemId').val(saleItem.id);
+                            $('#itemId').val(saleItem.item ? saleItem.item.id : '');
+                            $('#saleId').val(saleItem.sale ? saleItem.sale.id : '');
+                            $('#userId').val(saleItem.user ? saleItem.user.id : '');
+                            $('#biddingPrice').val(saleItem.biddingPrice);
+
+                            // Format date for input
+                            if (saleItem.time) {
+                                const date = new Date(saleItem.time);
+                                const formattedDate = date.toISOString().split('T')[0];
+                                $('#time').val(formattedDate);
+                            }
+
+                            $('#saveButton').text('Update Sale Item');
+
+                            // Scroll to form
+                            $('html, body').animate({
+                                scrollTop: $("#saleItemForm").offset().top - 100
+                            }, 500);
+                        }
+                    }
+                },
+                error: function() {
+                    alert('Failed to load sale item details');
+                }
+            });
+        }
+
+        // View Auction History
+        function viewAuctionHistory(saleItemId) {
+            $.ajax({
+                url: `${baseUrl}/auctions/by-sale-item/${saleItemId}`,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.code === 200) {
+                        const tableBody = $('#auctionHistoryTableBody');
+                        tableBody.empty();
+
+                        if (response.data.length === 0) {
+                            tableBody.append('<tr><td colspan="5" class="text-center">No auction history found</td></tr>');
+                        } else {
+                            $.each(response.data, function(index, auction) {
+                                const formattedDate = new Date(auction.bidTime).toLocaleString();
+
+                                let row = `
+                                        <tr>
+                                            <td>${auction.id}</td>
+                                            <td>${auction.user ? auction.user.username || 'N/A' : 'N/A'}</td>
+                                            <td>$${auction.bidAmount.toFixed(2)}</td>
+                                            <td>${formattedDate}</td>
+                                            <td><span class="badge ${auction.status === 'WINNING' ? 'bg-success' : 'bg-secondary'}">${auction.status}</span></td>
+                                        </tr>
+                                    `;
+                                tableBody.append(row);
+                            });
+                        }
+
+                        $('#auctionHistoryModal').modal('show');
+                    } else {
+                        alert('Error loading auction history: ' + response.message);
+                    }
+                },
+                error: function() {
+                    // If endpoint doesn't exist, show a default message
+                    const tableBody = $('#auctionHistoryTableBody');
+                    tableBody.empty();
+                    tableBody.append('<tr><td colspan="5" class="text-center">No auction history found or endpoint not available</td></tr>');
+                    $('#auctionHistoryModal').modal('show');
+                }
+            });
+        }
+
+        // Delete Sale Item - Confirm
+        $('#confirmDelete').click(function() {
+            if (deleteItemId) {
+                $.ajax({
+                    url: `${baseUrl}/sale-items/delete/${deleteItemId}`,
+                    type: 'DELETE',
+                    success: function(response) {
+                        if (response.code === 200) {
+                            alert('Sale item deleted successfully!');
+                            $('#confirmModal').modal('hide');
+                            loadSaleItems();
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    },
+                    error: function() {
+                        alert('Failed to delete sale item');
+                    }
+                });
+            }
+        });
+
+        // Refresh list
+        $('#refreshList').click(function() {
+            loadSaleItems();
+        });
+
+        // Search functionality
+        $('#searchButton').click(function() {
+            const searchTerm = $('#searchInput').val().toLowerCase();
+
+            $.ajax({
+                url: `${baseUrl}/sale-items/getAll`,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.code === 200) {
+                        const filteredItems = response.data.filter(item =>
+                            item.id.toString().includes(searchTerm) ||
+                            (item.item && item.item.productName && item.item.productName.toLowerCase().includes(searchTerm)) ||
+                            (item.user && item.user.username && item.user.username.toLowerCase().includes(searchTerm)) ||
+                            item.biddingPrice.toString().includes(searchTerm)
+                        );
+
+                        currentPage = 1;
+                        displaySaleItems(filteredItems);
+                    }
+                },
+                error: function() {
+                    alert('Failed to search sale items');
+                }
+            });
+        });
+
+        // Enter key for search
+        $('#searchInput').keypress(function(e) {
+            if (e.which === 13) {
+                $('#searchButton').click();
+                return false;
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -279,32 +279,24 @@
 <div class="sidebar col-md-3 col-lg-2">
     <div class="sidebar-header">
         <i class="fas fa-car sidebar-logo"></i>
-        <h5 class="sidebar-brand">Elite Auctions</h5>
+        <h5 class="sidebar-brand">Truth Auctions</h5>
     </div>
 
     <div class="sidebar-nav">
-        <a href="/Admin.html" class="sidebar-nav-item active">
+        <a href="Admin.html" class="sidebar-nav-item active">
             <i class="fas fa-tachometer-alt sidebar-nav-icon"></i>
             Dashboard
         </a>
-        <a href="/UserManagment.html" class="sidebar-nav-item">
-            <i class="fas fa-car sidebar-nav-icon"></i>
-           User Managment
-        </a>
-        <a href="/company2.html" class="sidebar-nav-item">
-            <i class="fas fa-users sidebar-nav-icon"></i>
-          Company Mangamnet
-        </a>
-        <a href="/Vehical.html" class="sidebar-nav-item">
+        <a href="Vehical.html" class="sidebar-nav-item">
             <i class="fas fa-money-bill-wave sidebar-nav-icon"></i>
           Vehical Mangment
         </a>
 
-        <a href="/Sale.html" class="sidebar-nav-item">
+        <a href="Sale.html" class="sidebar-nav-item">
             <i class="fas fa-money-bill-wave sidebar-nav-icon"></i>
             Sale Mangment
         </a>
-        <a href="" class="sidebar-nav-item">
+        <a href="Auction.html" class="sidebar-nav-item">
             <i class="fas fa-money-bill-wave sidebar-nav-icon"></i>
             Auction
         </a>
@@ -553,7 +545,117 @@
     </div>
 </div>
 
+
 <!-- Bootstrap JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Admin Auction Management JavaScript
+    const BASE_URL = "http://localhost:8082/api/auctions"; // Your backend base URL
+
+    // Document ready function
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load all active auctions
+        loadActiveAuctions();
+
+        // Set up timer functionality (keep your existing timer code)
+
+        // Handle sell button clicks
+        document.querySelectorAll('.btn-outline-primary').forEach(button => {
+            button.addEventListener('click', function() {
+                const auctionId = this.closest('tr').querySelector('td:first-child').textContent.trim();
+                sellAuction(auctionId);
+            });
+        });
+    });
+
+    // Load active auctions
+    function loadActiveAuctions() {
+        fetch(`${BASE_URL}/active`)
+            .then(response => response.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    displayAuctions(data);
+                } else {
+                    console.error("Invalid data format received");
+                    alert("Failed to load auctions. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error("Error loading auctions:", error);
+                alert("Failed to connect to the server. Please try again later.");
+            });
+    }
+
+    // Display auctions in the table
+    function displayAuctions(auctions) {
+        const tableBody = document.querySelector('table tbody');
+        tableBody.innerHTML = '';
+
+        auctions.forEach(auction => {
+            const row = document.createElement('tr');
+
+            row.innerHTML = `
+            <td>${auction.id}</td>
+            <td>${auction.productName}</td>
+            <td>${auction.registerNumber}</td>
+            <td>${auction.chassisNumber}</td>
+            <td><span class="timer" id="timer-${auction.id}">${formatTimeRemaining(auction.endTime)}</span></td>
+            <td><span class="badge bg-success">£${auction.currentMaxBid.toLocaleString()}</span></td>
+            <td>${auction.currentBidderEmail ? auction.currentBidderEmail : 'N/A'}</td>
+            <td>
+                <div class="btn-group btn-group-sm" role="group">
+                    <button class="btn btn-outline-primary">Sell</button>
+                </div>
+            </td>
+        `;
+
+            tableBody.appendChild(row);
+        });
+
+        // Initialize timers for each auction
+        initializeTimers();
+    }
+
+    // Sell an auction
+    function sellAuction(auctionId) {
+        if (confirm("Are you sure you want to finalize this auction sale?")) {
+            fetch(`${BASE_URL}/${auctionId}/sell`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.id) {
+                        alert("Auction sold successfully!");
+                        loadActiveAuctions(); // Refresh the table
+                    } else {
+                        throw new Error(data.message || "Failed to sell auction");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error selling auction:", error);
+                    alert("Failed to sell auction: " + error.message);
+                });
+        }
+    }
+
+    // Helper function to format time remaining
+    function formatTimeRemaining(endTime) {
+        const now = new Date();
+        const end = new Date(endTime);
+        const diffInSeconds = Math.floor((end - now) / 1000);
+
+        if (diffInSeconds <= 0) return "00:00:00";
+
+        const hours = Math.floor(diffInSeconds / 3600);
+        const minutes = Math.floor((diffInSeconds % 3600) / 60);
+        const seconds = diffInSeconds % 60;
+
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+</script>
+
 </body>
 </html>

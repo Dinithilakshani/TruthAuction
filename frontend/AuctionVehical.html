@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elite Auctions - Premium Vehicle Marketplace</title>
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -496,14 +494,15 @@
     <h2 class="mb-4 mt-3">Truth Auctions</h2>
 
     <div class="nav flex-column">
-        <a href="Dashboard%202.html" class="nav-link">
+        <a href="User.html" class="nav-link">
             <i class="bi bi-speedometer2"></i> Dashboard
         </a>
-        <a href="UserManagment.html" class="nav-link">
-            <i class="bi bi-people"></i> User Management
-        </a>
+
         <a href="company2.html" class="nav-link">
             <i class="bi bi-building"></i> Company Management
+        </a>
+        <a href="AuctionVehical.html" class="nav-link active">
+            <i class="bi bi-hammer"></i> Auction Management
         </a>
         <a href="Dashboard%202.html" class="nav-link mt-5">
             <i class="bi bi-box-arrow-right"></i> Logout
@@ -647,7 +646,6 @@
         function debug(message, data = null) {
             console.log(`[DEBUG] ${message}`, data);
         }
-
 
         // Cache for vehicles data
         let vehiclesData = []; // Store vehicles data for filtering

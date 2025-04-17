@@ -52,8 +52,22 @@ public class SecurityConfig {
                                 "/api/hotels/**",
                                 "/api/travel-packages/**",
                                 "/api/items/getall",
+                                "/api/items/save",
+                                "/api/items/update",
+                                "/api/items/delete/**",
                                 "/api/v1/auction/save",
-                                "/api/v1/auction/getAll"
+                                "/api/v1/auction/getAll",
+                                "/api/v1/auction/update",
+                                "/api/v1/auction/delete/**",
+                                "/api/v1/company/delete/**",
+                                "/api/v1/company/getAll",
+                                "/api/v1/company/save",
+                                "/api/v1/company/update",
+                                "/api/v1/Sale/save",
+                                "/api/v1/Sale/delete/**",
+                                "/api/v1/Sale/update",
+                                "/api/v1/Sale/getAll"
+
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

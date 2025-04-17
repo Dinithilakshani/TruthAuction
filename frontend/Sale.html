@@ -284,45 +284,27 @@
         </div>
         <ul class="nav flex-column mt-4">
             <li class="nav-item">
-                <a class="nav-link" href="/Dashboard.html">
+                <a class="nav-link" href="Admin.html">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link" href="/UserManagment.html">
-                    <i class="fas fa-users"></i> User Management
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/company2.html">
-                    <i class="fas fa-building"></i> Company Management
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/ItemManagment.html">
+                <a class="nav-link" href="Vehical.html">
                     <i class="fas fa-boxes"></i> Items Management
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="/Sale.html">
+                <a class="nav-link active" href="Sale.html">
                     <i class="fas fa-shopping-cart"></i> Sale Management
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/Report.html">
-                    <i class="fas fa-chart-bar"></i> Reports
+                <a class="nav-link active" href="Auction.html">
+                     Auction Management
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-cog"></i> Settings
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-question-circle"></i> Help
-                </a>
-            </li>
+
             <li class="nav-item mt-5">
                 <a class="nav-link" href="#">
                     <i class="fas fa-sign-out-alt"></i> Logout
@@ -337,52 +319,6 @@
             <h1 class="page-title mt-3">Sale Management</h1>
 
             <!-- Stats Cards -->
-            <div class="row mb-4">
-                <div class="col-md-3">
-                    <div class="stats-card">
-                        <div class="stats-icon blue">
-                            <i class="fas fa-shopping-cart fa-lg"></i>
-                        </div>
-                        <div class="stats-info">
-                            <h2>524</h2>
-                            <p>Active Sales</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stats-card">
-                        <div class="stats-icon orange">
-                            <i class="fas fa-calendar-alt fa-lg"></i>
-                        </div>
-                        <div class="stats-info">
-                            <h2>876</h2>
-                            <p>Completed Sales</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stats-card">
-                        <div class="stats-icon green">
-                            <i class="fas fa-dollar-sign fa-lg"></i>
-                        </div>
-                        <div class="stats-info">
-                            <h2>$2.4M</h2>
-                            <p>Revenue This Month</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="stats-card">
-                        <div class="stats-icon teal">
-                            <i class="fas fa-users fa-lg"></i>
-                        </div>
-                        <div class="stats-info">
-                            <h2>12,582</h2>
-                            <p>Registered Users</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="row">
                 <!-- Sale Form -->
@@ -499,7 +435,7 @@
 <script>
     $(document).ready(function() {
         // API URL - Change this to your actual API endpoint
-        const API_BASE_URL = "http://localhost:8082/API/V1/Sale";
+        const API_BASE_URL = "http://localhost:8082/api/v1/Sale";
 
         // Global variables
         let currentSaleId = null;
