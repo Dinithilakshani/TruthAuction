@@ -12,17 +12,26 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
     <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <style>
+        :root {
+            --primary-color: #2d3e50;
+            --secondary-color: #f78c40;
+            --light-color: #f5f5f5;
+            --dark-color: #212529;
+            --hover-color: #e67420;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--light-color);
         }
 
         .navbar {
-            background-color: #2d3e50 !important;
+            background-color: var(--primary-color) !important;
             padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .navbar-brand {
@@ -32,24 +41,46 @@
         }
 
         .car-icon {
-            color: #f78c40;
+            color: var(--secondary-color);
             margin-right: 10px;
         }
 
+        .nav-link {
+            color: rgba(255,255,255,0.8) !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: white !important;
+        }
+
+        .btn-auction {
+            background-color: transparent;
+            border: none;
+        }
+
+        .btn-outline-light:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+
+        .login-container {
+            margin: 60px auto;
+            max-width: 1200px;
+        }
+
         .form-container {
-            max-width: 450px;
-            margin: 80px auto;
             background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
         .form-header {
-            background-color: #2d3e50;
+            background-color: var(--primary-color);
             color: white;
             padding: 25px;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
             text-align: center;
         }
 
@@ -60,75 +91,261 @@
         .form-footer {
             padding: 15px 30px;
             background-color: #f9f9f9;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
             border-top: 1px solid #eee;
+            text-align: center;
         }
 
         .btn-primary {
-            background-color: #f78c40;
-            border-color: #f78c40;
-            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            padding: 12px 20px;
             font-weight: bold;
+            transition: all 0.3s ease;
         }
 
         .btn-primary:hover {
-            background-color: #e67420;
-            border-color: #e67420;
+            background-color: var(--hover-color);
+            border-color: var(--hover-color);
         }
 
         .form-control {
             padding: 12px;
             border-radius: 4px;
+            border: 1px solid #ced4da;
         }
 
         .form-control:focus {
             box-shadow: 0 0 0 0.25rem rgba(247, 140, 64, 0.25);
-            border-color: #f78c40;
+            border-color: var(--secondary-color);
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+        .brand-highlight {
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .side-image {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 10px 0 0 10px;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(45, 62, 80, 0.7);
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .testimonial {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .quote-icon {
+            font-size: 30px;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+
+        .car-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+            color: white;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
         }
     </style>
 </head>
 <body>
 
 <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-        <a class="navbar-brand" href="#"><i class="fas fa-car car-icon"></i>Elite Auto Auctions</a>
+        <a class="navbar-brand" href="#"><i class="fas fa-car-alt car-icon"></i>AutoAuctions</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="Dashboard%202.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="indexAuction.html">Auctions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="how%20work%20it.html">How It Works</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Category.html">Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="Contact.html">Contact</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <a href="LoginForm.html" class="btn btn-outline-light me-2">Login</a>
+                <a href="#" class="btn btn-outline-light">Register</a>
+            </div>
+        </div>
     </div>
 </nav>
 
-<!-- Sign In Form -->
-<div class="container">
-    <div class="form-container">
-        <div class="form-header">
-            <h2><i class="fas fa-sign-in-alt me-2"></i>Sign In</h2>
-        </div>
-        <div class="form-body">
-            <form id="signInForm">
-                <div class="mb-3">
-                    <label for="username" class="form-label">User Name</label>
-                    <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
-                </div>
-                <div class="mb-3 form-check">
-                    <input type="checkbox" class="form-check-input" id="rememberMe">
-                    <label class="form-check-label" for="rememberMe">Remember me</label>
-                    <a href="#" class="float-end">Forgot password?</a>
-                </div>
-                <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary">Sign In</button>
-                </div>
-            </form>
+<!-- Sign In Form with Side Image -->
+<div class="container login-container">
+    <div class="row">
+        <!-- Left Side - Image with overlay -->
+        <div class="col-lg-6 p-0 d-none d-lg-block position-relative">
+            <img src="new%20images/img_2.png" alt="Luxury car auction" class="side-image">
 
-            <div class="form-footer text-center mt-3">
-                Don't have an account? <a href="#">Register Now</a>
+        </div>
+
+        <!-- Right Side - Login Form -->
+        <div class="col-lg-6">
+            <div class="form-container h-100">
+                <div class="form-header">
+                    <h2><i class="fas fa-sign-in-alt me-2"></i>Sign In</h2>
+                    <p class="mb-0 mt-2">Welcome back! Please login to your account</p>
+                </div>
+                <div class="form-body">
+                    <form id="signInForm">
+                        <div class="mb-4">
+                            <label for="username" class="form-label">Username</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                            </div>
+                        </div>
+                        <div class="mb-4 d-flex justify-content-between">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="rememberMe">
+                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                            </div>
+                            <a href="#" class="text-decoration-none">Forgot password?</a>
+                        </div>
+                        <div class="d-grid gap-2 mb-4">
+                            <button type="submit" class="btn btn-primary">Sign In</button>
+                        </div>
+                        <div class="text-center">
+                            <p class="mb-0">Or sign in with</p>
+                            <div class="mt-3">
+                                <a href="#" class="btn btn-outline-secondary me-2"><i class="fab fa-google"></i> Google</a>
+                                <a href="#" class="btn btn-outline-secondary"><i class="fab fa-facebook-f"></i> Facebook</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-footer">
+                    Don't have an account? <a href="Register.html" class="text-decoration-none">Register Now</a>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Footer -->
+<footer class="mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <h5><i class="fas fa-car-alt me-2"></i><span class="brand-highlight">Elite</span> Auto Auctions</h5>
+                <p>International platform for auto auctions with thousands of vehicles from European banks and leasing companies.</p>
+                <div class="mt-3">
+                    <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="me-3"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="Dashboard%202.html">Home</a></li>
+                    <li class="mb-2"><a href="indexAuction.html">Auctions</a></li>
+                    <li class="mb-2"><a href="how%20work%20it.html">How It Works</a></li>
+                    <li class="mb-2"><a href="Category.html">Category</a></li>
+                    <li><a href="Contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                <h5>Services</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#">Vehicle Verification</a></li>
+                    <li class="mb-2"><a href="#">Transport Services</a></li>
+                    <li class="mb-2"><a href="#">Seller Registration</a></li>
+                    <li class="mb-2"><a href="#">Buyer Protection</a></li>
+                    <li><a href="#">Financing Options</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h5>Contact Us</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 Auction St, Berlin</li>
+                    <li class="mb-2"><i class="fas fa-phone me-2"></i> +49 123 456 789</li>
+                    <li class="mb-2"><i class="fas fa-envelope me-2"></i> info@eliteautoauctions.com</li>
+                    <li><i class="fas fa-clock me-2"></i> Mon-Fri: 9:00 AM - 5:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <hr class="my-4 bg-secondary">
+        <div class="text-center">
+            <p class="mb-0">&copy; 2023 Elite Auto Auctions. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
 
 <!-- Bootstrap JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>

@@ -15,5 +15,8 @@ public interface UserService {
     public UserDTO update(UserDTO userDTO);
     public void delete(int id) ;
 
+    UserDTO findByEmail(String email);
+
+
     AuthTokenDTO verifyUser(UserLoginDTO userLoginDTO);
 }

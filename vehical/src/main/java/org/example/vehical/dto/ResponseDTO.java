@@ -1,21 +1,17 @@
-package org.example.vehical.util;
+package org.example.vehical.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ResponseUtil {
+public class ResponseDTO {
     private int code;
     private String message;
     private Object data;
 
-
-    public ResponseUtil() {
+    public ResponseDTO() {
     }
 
-    public ResponseUtil(int code, String message, Object data) {
+    public ResponseDTO(int code, String message, Object data) {
         this.code = code;
         this.message = message;
         this.data = data;
@@ -45,5 +41,12 @@ public class ResponseUtil {
         this.data = data;
     }
 
-
+    @Override
+    public String toString() {
+        return "ResponseDTO{" +
+                "code=" + code +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }
