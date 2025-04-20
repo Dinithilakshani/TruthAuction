@@ -77,7 +77,7 @@ http://localhost:8082/api/v1/auction
 🎥 Demo Video
 Click to watch the walkthrough:
 
-<p align="center"> ▶ <a href="https://youtu.be/truth-vehicle-auction-demo"> <img src="https://img.youtube.com/vi/demo-video-id/0.jpg" width="600" alt="Demo Video Thumbnail"> <br> <em>Truth_Vehicle_Auction_Demo_2025.mp4 🎬</em> </a> </p>
+<p align="center"> ▶ <a href="https://youtu.be/XtOStTKSHZc?si=DjM3_cYWlVjK3sSD> <img src=""> <br> <em>https://youtu.be/XtOStTKSHZc?si=DjM3_cYWlVjK3sSD</em> </a> </p>
 🌟 Core Features
 
 Feature	Description
