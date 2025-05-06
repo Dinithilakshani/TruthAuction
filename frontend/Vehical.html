@@ -13,12 +13,13 @@
       padding: 0;
     }
     .sidebar {
-      background-color: #263745;
-      color: white;
+      background-color: #ffffff;
+      color: #333;
       width: 240px;
       position: fixed;
       height: 100%;
       padding-top: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     .sidebar-header {
       padding: 10px 20px;
@@ -27,30 +28,28 @@
       display: flex;
       align-items: center;
       margin-bottom: 20px;
+      color: #e65c00;
     }
     .sidebar-header i {
       margin-right: 10px;
-      color: #ff7f50;
+      color: #e65c00;
     }
-    .sidebar-menu {
-      list-style: none;
-      padding: 0;
-    }
-    .sidebar-menu li {
+    .nav-link {
+      color: #333;
       padding: 10px 20px;
       display: flex;
       align-items: center;
-      cursor: pointer;
       transition: background-color 0.3s;
     }
-    .sidebar-menu li:hover {
-      background-color: #1e2b37;
+    .nav-link:hover {
+      background-color: #f8f9fa;
+      color: #e65c00;
     }
-    .sidebar-menu li.active {
-      background-color: #1e2b37;
-      border-left: 4px solid #ff7f50;
+    .nav-link.active {
+      background-color: #e65c00;
+      color: #fff;
     }
-    .sidebar-menu li i {
+    .nav-link i {
       margin-right: 10px;
       width: 20px;
       text-align: center;
@@ -59,6 +58,14 @@
       margin-left: 240px;
       padding: 20px;
     }
+    .main-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #e65c00;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #e65c00;
+    }
     .card {
       border-radius: 10px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -66,137 +73,32 @@
       border: none;
     }
     .card-header {
-      background-color: #fff;
-      border-bottom: 1px solid #eee;
+      background-color: #e65c00;
+      color: white;
       font-weight: 600;
       font-size: 18px;
       padding: 15px 20px;
       border-radius: 10px 10px 0 0 !important;
     }
     .btn-primary {
-      background-color: #0d6efd;
-      border-color: #0d6efd;
+      background-color: #e65c00;
+      border-color: #e65c00;
     }
-    .dashboard-stats {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 30px;
+    .btn-primary:hover {
+      background-color: #d45500;
+      border-color: #d45500;
     }
-    .stat-card {
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      flex: 1;
-      margin: 0 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      display: flex;
-      align-items: center;
+    .btn-secondary {
+      background-color: #6c757d;
+      border-color: #6c757d;
     }
-    .stat-card .icon {
-      background-color: #f8f9fa;
-      width: 60px;
-      height: 60px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 15px;
-      font-size: 24px;
+    .btn-success {
+      background-color: #198754;
+      border-color: #198754;
     }
-    .stat-card .icon.blue {
-      background-color: #e6f0ff;
-      color: #0d6efd;
-    }
-    .stat-card .icon.orange {
-      background-color: #fff4e6;
-      color: #fd7e14;
-    }
-    .stat-card .icon.green {
-      background-color: #e6fff0;
-      color: #20c997;
-    }
-    .stat-card .icon.teal {
-      background-color: #e6fffa;
-      color: #20c9c9;
-    }
-    .stat-card .value {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    .stat-card .label {
-      color: #6c757d;
-      font-size: 14px;
-    }
-    .table th {
-      font-weight: 500;
-      border-bottom-width: 1px;
-    }
-    .table td {
-      vertical-align: middle;
-    }
-    .status-badge {
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 500;
-    }
-    .status-active {
-      background-color: #e6fff0;
-      color: #20c997;
-    }
-    .status-pending {
-      background-color: #fff8e6;
-      color: #ffc107;
-    }
-    .status-ended {
-      background-color: #f0f0f0;
-      color: #6c757d;
-    }
-    .action-btn {
-      padding: 5px 10px;
-      border-radius: 5px;
-    }
-    .header-bar {
-      background-color: white;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      margin-bottom: 20px;
-    }
-    .user-menu {
-      display: flex;
-      align-items: center;
-    }
-    .user-menu .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: #ff7f50;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      margin-right: 10px;
-    }
-    .view-all-btn {
-      float: right;
-      font-size: 14px;
-      padding: 5px 15px;
-      margin-top: -5px;
-    }
-    .chart-container {
-      background-color: white;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      min-height: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
     }
     .search-container {
       display: flex;
@@ -206,6 +108,46 @@
       display: flex;
       gap: 5px;
     }
+    .table thead {
+      background-color: #f8f9fa;
+    }
+    .table th {
+      font-weight: 500;
+    }
+    .status-badge {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .status-active {
+      background-color: #20c997;
+      color: white;
+    }
+    .pagination {
+      justify-content: center;
+    }
+    .page-item.active .page-link {
+      background-color: #e65c00;
+      border-color: #e65c00;
+    }
+    .page-link {
+      color: #e65c00;
+    }
+    .page-link:hover {
+      color: #d45500;
+    }
+    .form-label {
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+    .form-compact .form-control {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+    }
+    .btn-sm {
+      padding: 0.25rem 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -213,121 +155,92 @@
   <div class="sidebar-header">
     <i class="fas fa-car"></i> Elite Auctions
   </div>
-  <ul class="sidebar-menu">
-    <ul class="nav flex-column mt-4">
-      <li class="nav-item">
-        <a class="nav-link" href="Dashboard.html">
-          <i class="fas fa-tachometer-alt"></i> Dashboard
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="Vehical.html">
-          <i class="fas fa-boxes"></i> Vehicle Management
-        </a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link active" href="Auction.html">
-          <i class="fas fa-shopping-cart"></i> Auction Management
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" href="Sale.html">
-          <i class="fas fa-shopping-cart"></i> Sale Management
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" href="Dashboard%202.html">
-         Logout
-        </a>
-      </li>
-
-
-
+  <ul class="nav flex-column mt-4">
+    <li class="nav-item">
+      <a class="nav-link" href="Dashboard.html">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="Vehicle.html">
+        <i class="fas fa-car"></i> Vehicle Management
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="Auction.html">
+        <i class="fas fa-gavel"></i> Auction Management
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="Sale.html">
+        <i class="fas fa-shopping-cart"></i> Sale Management
+      </a>
+    </li>
+    <li class="nav-item mt-auto">
+      <a class="nav-link" href="Dashboard%202.html">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </li>
   </ul>
 </div>
 
 <div class="content">
-  <div class="header-bar">
-    <h3>Vehicle Management</h3>
-    <div class="user-menu">
-      <div class="user-avatar">A</div>
-      <div>Admin <i class="fas fa-chevron-down"></i></div>
-    </div>
-  </div>
-
-  <div class="dashboard-stats">
-
-
-    <div class="stat-card">
-      <div class="icon green">
-        <i class="fas fa-dollar-sign"></i>
-      </div>
-      <div>
-        <div class="value">$2.4M</div>
-        <div class="label">Revenue This Month</div>
-      </div>
-    </div>
-    <div class="stat-card">
-      <div class="icon teal">
-        <i class="fas fa-check"></i>
-      </div>
-      <div>
-        <div class="value">876</div>
-        <div class="label">Completed Auctions</div>
-      </div>
-    </div>
-  </div>
+  <h1 class="main-title">Vehicle Management</h1>
 
   <div class="row">
     <!-- Vehicle Information Form -->
-    <div class="col-md-5">
+    <div class="col-md-4">
       <div class="card">
         <div class="card-header">Vehicle Information</div>
         <div class="card-body">
-          <form id="itemForm">
+          <form id="itemForm" class="form-compact">
             <input type="hidden" id="isUpdate" value="false">
 
-            <div class="mb-3">
-              <label for="itemId" class="form-label">Item ID</label>
-              <input type="text" class="form-control" id="itemId" required>
+            <div class="mb-2">
+              <label for="itemId" class="form-label small">Item ID</label>
+              <input type="text" class="form-control form-control-sm" id="itemId" required>
             </div>
 
-            <div class="mb-3">
-              <label for="productName" class="form-label">Product Name</label>
-              <input type="text" class="form-control" id="productName" required>
+            <div class="mb-2">
+              <label for="productName" class="form-label small">Product Name</label>
+              <input type="text" class="form-control form-control-sm" id="productName" required>
             </div>
 
-            <div class="mb-3">
-              <label for="chassisNumber" class="form-label">Chassis Number</label>
-              <input type="text" class="form-control" id="chassisNumber" required>
+            <div class="mb-2">
+              <label for="chassisNumber" class="form-label small">Chassis Number</label>
+              <input type="text" class="form-control form-control-sm" id="chassisNumber" required>
             </div>
 
-            <div class="mb-3">
-              <label for="registerNumber" class="form-label">Register Number</label>
-              <input type="text" class="form-control" id="registerNumber" required>
+            <div class="mb-2">
+              <label for="registerNumber" class="form-label small">Register Number</label>
+              <input type="text" class="form-control form-control-sm" id="registerNumber" required>
             </div>
 
-            <div class="mb-3">
-              <label for="brandName" class="form-label">Brand Name</label>
-              <input type="text" class="form-control" id="brandName" required>
+            <div class="mb-2">
+              <label for="brandName" class="form-label small">Brand Name</label>
+              <input type="text" class="form-control form-control-sm" id="brandName" required>
             </div>
 
-            <div class="mb-3">
-              <label for="image" class="form-label">Image URL</label>
-              <input type="text" class="form-control" id="image" required>
+            <div class="mb-2">
+              <label for="image" class="form-label small">Image URL</label>
+              <input type="text" class="form-control form-control-sm" id="image" required>
             </div>
 
-            <div class="mb-3">
-              <label for="userId" class="form-label">User ID</label>
-              <input type="number" class="form-control" id="userId" required>
+            <div class="mb-2">
+              <label for="userId" class="form-label small">User ID</label>
+              <input type="number" class="form-control form-control-sm" id="userId" required>
             </div>
 
-            <div class="mb-3 d-flex gap-2">
-              <button type="submit" class="btn btn-primary" id="saveBtn">Save Vehicle</button>
-              <button type="button" class="btn btn-success" id="updateBtn" style="display:none;">Update Vehicle</button>
-              <button type="button" class="btn btn-secondary" id="clearBtn">Clear Form</button>
+            <div class="d-grid gap-2 mt-3">
+              <button type="submit" class="btn btn-primary btn-sm" id="saveBtn">
+                <i class="fas fa-save"></i> Save Vehicle
+              </button>
+              <button type="button" class="btn btn-success btn-sm" id="updateBtn" style="display:none;">
+                <i class="fas fa-edit"></i> Update Vehicle
+              </button>
+              <button type="button" class="btn btn-secondary btn-sm" id="clearBtn">
+                <i class="fas fa-undo"></i> Clear Form
+              </button>
             </div>
           </form>
         </div>
@@ -335,16 +248,18 @@
     </div>
 
     <!-- Vehicle List -->
-    <div class="col-md-7">
+    <div class="col-md-8">
       <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <span>Vehicle List</span>
-          <button class="btn btn-primary btn-sm view-all-btn" id="refreshBtn">Refresh List</button>
-        </div>
+        <div class="card-header">Vehicle Records</div>
         <div class="card-body">
           <div class="search-container mb-3">
             <input type="text" class="form-control" id="searchInput" placeholder="Search vehicles...">
-            <button class="btn btn-primary ms-2" id="searchBtn">Search</button>
+            <button class="btn btn-primary ms-2" id="searchBtn">
+              <i class="fas fa-search"></i>
+            </button>
+            <button class="btn btn-secondary ms-2" id="refreshBtn">
+              <i class="fas fa-sync-alt"></i>
+            </button>
           </div>
 
           <div class="table-responsive">
@@ -366,11 +281,11 @@
 
           <nav>
             <ul class="pagination" id="pagination">
-              <li class="page-item"><a class="page-link" href="#" id="prevPage">Previous</a></li>
+              <li class="page-item"><a class="page-link" href="#" id="prevPage"><i class="fas fa-chevron-left"></i></a></li>
               <li class="page-item active"><a class="page-link" href="#">1</a></li>
               <li class="page-item"><a class="page-link" href="#">2</a></li>
               <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#" id="nextPage">Next</a></li>
+              <li class="page-item"><a class="page-link" href="#" id="nextPage"><i class="fas fa-chevron-right"></i></a></li>
             </ul>
           </nav>
         </div>
@@ -515,8 +430,12 @@
           <td>${item.register_number}</td>
           <td>
             <div class="action-buttons">
-              <button class="btn btn-primary btn-sm" onclick="editVehicle('${item.id}')">Edit</button>
-              <button class="btn btn-danger btn-sm" onclick="deleteVehicle('${item.id}')">Delete</button>
+              <button class="btn btn-primary btn-sm" onclick="editVehicle('${item.id}')">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="btn btn-danger btn-sm" onclick="deleteVehicle('${item.id}')">
+                <i class="fas fa-trash"></i>
+              </button>
             </div>
           </td>
         </tr>

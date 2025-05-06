@@ -5,207 +5,284 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sale Management</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #284257;
-            --secondary-color: #6c757d;
-            --accent-color: #f7f7f9;
-            --success-color: #77c59e;
-            --warning-color: #ffd78e;
-            --danger-color: #dc3545;
-            --ended-color: #e9ecef;
+            --primary-color: #ff7700;
+            --secondary-color: #ff9a40;
+            --accent-color: #e05f00;
+            --accent-hover: #cc5500;
+            --light-accent: #fff1e6;
+            --success-color: #4caf50;
+            --warning-color: #ff9800;
+            --danger-color: #f44336;
+            --text-color: #333333;
+            --text-light: #ffffff;
+            --border-color: #eeeeee;
+            --bg-light: #ffffff;
+            --bg-medium: #f9f9f9;
         }
 
         body {
-            background-color: #f5f5f8;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            font-family: 'Lato', sans-serif;
+            color: var(--text-color);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
         }
 
         .navbar {
             background-color: var(--primary-color);
-            color: white;
-            padding: 15px;
+            color: var(--text-light);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar {
-            background-color: var(--primary-color);
-            color: white;
+            background-color: var(--bg-light); /* Changed to white */
+            color: var(--text-color);
             height: 100vh;
             position: fixed;
-            width: 250px;
+            width: 280px;
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
             padding-top: 20px;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h3 {
+            margin-bottom: 0;
+            font-size: 28px;
+            letter-spacing: 1px;
+            color: var(--primary-color); /* Orange text */
+        }
+
+        .sidebar-header .logo-divider {
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent-color); /* Orange divider */
+            margin: 10px auto;
         }
 
         .sidebar .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            padding: 12px 20px;
-            margin: 5px 0;
-            border-radius: 0;
+            color: var(--text-color);
+            padding: 14px 25px;
+            margin: 5px 15px;
+            border-radius: 5px;
             transition: all 0.3s;
+            font-size: 15px;
+            letter-spacing: 0.5px;
         }
 
-        .sidebar .nav-link:hover, .sidebar .nav-link.active {
-            background-color: rgba(255, 255, 255, 0.1);
+        .sidebar .nav-link:hover {
+            background-color: var(--secondary-color);
             color: white;
         }
 
+        .sidebar .nav-link.active {
+            background-color: var(--accent-color); /* Orange active button */
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-weight: 700;
+        }
+
         .sidebar .nav-link i {
-            margin-right: 10px;
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .sidebar-footer .nav-link {
+            color: var(--text-color);
+        }
+
+        .sidebar-footer .nav-link:hover {
+            background-color: var(--accent-color);
+            color: white;
         }
 
         .content {
-            margin-left: 250px;
-            padding: 20px;
+            margin-left: 280px;
+            padding: 30px;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .page-title {
+            font-size: 32px;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 0;
         }
 
         .card {
             border: none;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            overflow: hidden;
         }
 
         .card-header {
-            background-color: white;
-            border-bottom: 1px solid #f0f0f0;
+            background-color: var(--primary-color);
+            color: white;
+            border-bottom: none;
             padding: 15px 20px;
+            font-family: 'Lato', sans-serif;
+            font-size: 20px;
             font-weight: 600;
-            border-radius: 10px 10px 0 0 !important;
+        }
+
+        .card-header-accent {
+            background-color: var(--accent-color);
+        }
+
+        .card-body {
+            padding: 25px;
+            background-color: white;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: var(--secondary-color);
+            margin-bottom: 8px;
         }
 
         .form-control, .form-select {
-            border-radius: 5px;
-            padding: 10px 15px;
-            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            font-size: 15px;
+            background-color: var(--bg-light);
         }
 
         .form-control:focus, .form-select:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.25rem rgba(40, 66, 87, 0.25);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.2rem rgba(161, 124, 91, 0.25);
+            background-color: white;
         }
 
         .btn-primary {
-            background-color: var(--primary-color);
+            background-color: var(--accent-color);
             border: none;
-            border-radius: 5px;
-            padding: 10px 15px;
+            border-radius: 4px;
+            padding: 12px 20px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
         }
 
         .btn-primary:hover {
-            background-color: #1e3446;
+            background-color: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
         .btn-outline-secondary {
-            border-color: #e0e0e0;
+            border-color: var(--border-color);
             color: var(--secondary-color);
+            background-color: white;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            padding: 12px 20px;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: var(--bg-medium);
+            color: var(--primary-color);
+            border-color: var(--secondary-color);
         }
 
         .table-container {
             background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
         }
 
         .table {
             margin-bottom: 0;
+            border-collapse: separate;
+            border-spacing: 0;
         }
 
         .table thead th {
-            background-color: var(--accent-color);
+            background-color: var(--light-accent);
             border: none;
-            padding: 12px 15px;
+            padding: 14px 20px;
+            font-family: 'Lato', sans-serif;
+            font-size: 16px;
             font-weight: 600;
-            color: #333;
+            color: var(--accent-color);
+            letter-spacing: 0.5px;
         }
 
         .table tbody td {
-            padding: 12px 15px;
+            padding: 16px 20px;
             vertical-align: middle;
-            border-color: #f0f0f0;
+            border-color: var(--border-color);
+            font-size: 15px;
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(234, 230, 221, 0.5);
+        }
+
+        .badge {
+            padding: 8px 14px;
+            border-radius: 3px;
+            font-weight: 500;
+            font-size: 13px;
         }
 
         .badge-active {
             background-color: var(--success-color);
             color: white;
-            font-weight: normal;
-            padding: 5px 10px;
-            border-radius: 5px;
         }
 
         .badge-pending {
             background-color: var(--warning-color);
-            color: #333;
-            font-weight: normal;
-            padding: 5px 10px;
-            border-radius: 5px;
+            color: white;
         }
 
         .badge-ended {
-            background-color: var(--ended-color);
-            color: #333;
-            font-weight: normal;
-            padding: 5px 10px;
-            border-radius: 5px;
+            background-color: var(--secondary-color);
+            color: white;
+            opacity: 0.7;
         }
 
         .action-btn {
-            padding: 5px 10px;
-            border-radius: 5px;
+            padding: 8px 12px;
+            border-radius: 4px;
             margin-right: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
         }
 
-        .stats-card {
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .stats-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-        }
-
-        .stats-icon.blue {
-            background-color: #284257;
-            color: white;
-        }
-
-        .stats-icon.orange {
-            background-color: #f8a978;
-            color: white;
-        }
-
-        .stats-icon.green {
-            background-color: #77c59e;
-            color: white;
-        }
-
-        .stats-icon.teal {
-            background-color: #27bac4;
-            color: white;
-        }
-
-        .stats-info h2 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .stats-info p {
-            color: #6c757d;
-            margin-bottom: 0;
+        .action-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
 
         .section-header {
@@ -215,30 +292,11 @@
             margin-bottom: 20px;
         }
 
-        .page-title {
-            font-size: 24px;
+        .section-header h5 {
+            font-size: 22px;
+            color: var(--primary-color);
+            margin-bottom: 0;
             font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .btn-view-all {
-            padding: 5px 15px;
-            font-size: 14px;
-            border-radius: 5px;
-            background-color: white;
-            color: var(--primary-color);
-            border: 1px solid #e0e0e0;
-        }
-
-        .pagination .page-link {
-            color: var(--primary-color);
-            border-color: #e0e0e0;
-        }
-
-        .pagination .page-item.active .page-link {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
         }
 
         .search-container {
@@ -247,30 +305,72 @@
         }
 
         .search-container .form-control {
-            padding-right: 40px;
+            padding-left: 40px;
+            background-color: white;
+            border: 1px solid var(--border-color);
         }
 
         .search-icon {
             position: absolute;
-            right: 10px;
+            left: 14px;
             top: 50%;
             transform: translateY(-50%);
-            color: #aaa;
+            color: var(--secondary-color);
+        }
+
+        .pagination {
+            margin-top: 20px;
+        }
+
+        .pagination .page-link {
+            color: var(--primary-color);
+            border-color: var(--border-color);
+            padding: 10px 15px;
+            margin: 0 3px;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .pagination .page-link:hover {
+            background-color: var(--bg-medium);
+            color: var(--primary-color);
+            border-color: var(--border-color);
         }
 
         .modal-content {
-            border-radius: 10px;
+            border-radius: 5px;
             border: none;
+            overflow: hidden;
         }
 
         .modal-header {
             background-color: var(--primary-color);
             color: white;
-            border-radius: 10px 10px 0 0;
+            border-bottom: none;
+            padding: 20px;
+        }
+
+        .modal-header .modal-title {
+            font-family: 'Lato', sans-serif;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .modal-body {
+            padding: 25px;
+            font-size: 16px;
         }
 
         .modal-footer {
-            border-top: 1px solid #f0f0f0;
+            padding: 15px 25px;
+            border-top: 1px solid var(--border-color);
         }
     </style>
 </head>
@@ -278,11 +378,11 @@
 <div class="d-flex">
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="p-3 d-flex align-items-center">
-            <i class="fas fa-gavel me-2"></i>
-            <h4 class="mb-0">Sale Management</h4>
+        <div class="sidebar-header">
+            <h3>Sale Management</h3>
+            <div class="logo-divider"></div>
         </div>
-        <ul class="nav flex-column mt-4">
+        <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link" href="Admin.html">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
@@ -291,40 +391,39 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="Vehical.html">
-                    <i class="fas fa-boxes"></i> Vehicle Management
+                    <i class="fas fa-car"></i> Vehicle Management
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="Sale.html">
-                    <i class="fas fa-shopping-cart"></i> Sale Management
+                    <i class="fas fa-file-invoice-dollar"></i> Sale Management
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="Auction.html">
-                     Auction Management
-                </a>
-            </li>
-
-            <li class="nav-item mt-5">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-sign-out-alt"></i> Logout
+                <a class="nav-link" href="Auction.html">
+                    <i class="fas fa-gavel"></i> Auction Management
                 </a>
             </li>
         </ul>
+        <div class="sidebar-footer">
+            <a class="nav-link" href="#">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
     </div>
 
     <!-- Main Content -->
     <div class="content">
         <div class="container-fluid">
-            <h1 class="page-title mt-3">Sale Management</h1>
-
-            <!-- Stats Cards -->
+            <div class="page-header">
+                <h1 class="page-title">Sale Management</h1>
+            </div>
 
             <div class="row">
                 <!-- Sale Form -->
                 <div class="col-lg-5 mb-4">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="card-header card-header-accent">
                             <h5 class="mb-0">Sale Information</h5>
                         </div>
                         <div class="card-body">
@@ -352,8 +451,12 @@
                                 </div>
 
                                 <div class="d-grid gap-2">
-                                    <button class="btn btn-primary" type="submit" id="saveBtn">Save Sale</button>
-                                    <button class="btn btn-outline-secondary" type="reset" id="resetBtn">Clear Form</button>
+                                    <button class="btn btn-primary" type="submit" id="saveBtn">
+                                        <i class="fas fa-save me-2"></i>Save Sale
+                                    </button>
+                                    <button class="btn btn-outline-secondary" type="reset" id="resetBtn">
+                                        <i class="fas fa-undo me-2"></i>Clear Form
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -363,17 +466,17 @@
                 <!-- Sale List -->
                 <div class="col-lg-7">
                     <div class="section-header">
-                        <h5>Sale List</h5>
+                        <h5>Sale Records</h5>
                         <div class="search-container">
-                            <input type="text" class="form-control" id="searchInput" placeholder="Search sales...">
                             <span class="search-icon">
                                 <i class="fas fa-search"></i>
                             </span>
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search sales...">
                         </div>
                     </div>
                     <div class="table-container">
                         <div class="table-responsive">
-                            <table class="table table-hover">
+                            <table class="table">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
@@ -390,16 +493,20 @@
                             </table>
                         </div>
 
-                        <nav aria-label="Page navigation" class="mt-3">
+                        <nav aria-label="Page navigation">
                             <ul class="pagination justify-content-center">
                                 <li class="page-item disabled">
-                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                    <a class="page-link" href="#" tabindex="-1">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
                                 </li>
                                 <li class="page-item active"><a class="page-link" href="#">1</a></li>
                                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                                 <li class="page-item"><a class="page-link" href="#">3</a></li>
                                 <li class="page-item">
-                                    <a class="page-link" href="#">Next</a>
+                                    <a class="page-link" href="#">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
                                 </li>
                             </ul>
                         </nav>
@@ -419,11 +526,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Are you sure you want to delete this sale record? This action cannot be undone.
+                <p>Are you sure you want to delete this sale record? This action cannot be undone.</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" id="confirmDelete" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="confirmDelete" class="btn btn-danger">
+                    <i class="fas fa-trash me-2"></i>Delete
+                </button>
             </div>
         </div>
     </div>
@@ -544,7 +653,7 @@
                         $("#auction_date").val(sale.auction_date);
                         $("#user_id").val(sale.user_id);
 
-                        $("#saveBtn").text("Update Sale");
+                        $("#saveBtn").html('<i class="fas fa-edit me-2"></i>Update Sale');
                     } else {
                         alert("Failed to load sale details");
                     }
@@ -615,7 +724,7 @@
             $("#create_date").val(today);
             currentSaleId = null;
             $("#saleId").val("");
-            $("#saveBtn").text("Save Sale");
+            $("#saveBtn").html('<i class="fas fa-save me-2"></i>Save Sale');
         }
 
         // Format date function
