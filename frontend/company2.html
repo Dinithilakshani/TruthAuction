@@ -1,565 +1,699 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Company Management</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <style>
-    :root {
-      --primary-color: #2c3e50;
-      --secondary-color: #34495e;
-      --accent-color: #3498db;
-      --light-accent: #e9f2ff;
-      --sidebar-width: 240px;
-      --header-height: 60px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #212529;
+            --secondary-color: #333333;
+            --accent-color: #d85e00;
+            --accent-hover: #b34d00;
+            --text-color: #ffffff;
+            --background-color: #2b2b2b;
+            --card-bg-color: #333333;
+            --sidebar-width: 240px;
+            --header-height: 60px;
+            --border-color: #444444;
+            --input-bg: #424242;
+            --table-header-bg: #424242;
+        }
 
-    body {
-      background-color: #f5f5f5;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
+        body {
+            background-color: var(--background-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+        }
 
-    /* Sidebar */
-    .sidebar {
-      background-color: var(--secondary-color);
-      color: white;
-      width: var(--sidebar-width);
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0;
-      overflow-y: auto;
-      z-index: 100;
-      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    }
+        /* Sidebar */
+        .sidebar {
+            background-color: var(--primary-color);
+            color: white;
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
 
-    .sidebar-header {
-      background-color: var(--primary-color);
-      padding: 15px;
-      display: flex;
-      align-items: center;
-      height: var(--header-height);
-    }
+        .sidebar-header {
+            background-color: var(--accent-color);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            height: var(--header-height);
+        }
 
-    .sidebar-logo {
-      font-size: 20px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        .sidebar-logo {
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
 
-    .nav-link {
-      color: rgba(255, 255, 255, 0.8);
-      padding: 12px 15px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.3s;
-      border-left: 3px solid transparent;
-    }
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
 
-    .nav-link:hover, .nav-link.active {
-      color: white;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-left: 3px solid var(--accent-color);
-    }
+        .nav-link:hover, .nav-link.active {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 3px solid var(--accent-color);
+        }
 
-    .nav-icon {
-      width: 20px;
-      text-align: center;
-    }
+        .nav-icon {
+            width: 20px;
+            text-align: center;
+        }
 
-    /* Main content */
-    .main-content {
-      margin-left: var(--sidebar-width);
-      min-height: 100vh;
-    }
+        /* Main content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            background-color: var(--background-color);
+        }
 
-    .header {
-      height: var(--header-height);
-      background-color: white;
-      border-bottom: 1px solid #ddd;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-    }
+        .header {
+            height: var(--header-height);
+            background-color: var(--secondary-color);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            color: white;
+        }
 
-    .page-title {
-      font-size: 24px;
-      color: var(--primary-color);
-      margin: 0;
-    }
+        .page-title {
+            font-size: 24px;
+            color: white;
+            margin: 0;
+        }
 
-    .content {
-      padding: 20px;
-    }
+        .content {
+            padding: 20px;
+        }
 
-    /* Cards */
-    .dashboard-card {
-      background-color: white;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      height: 100%;
-    }
+        /* Cards */
+        .dashboard-card {
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            color: white;
+        }
 
-    .icon-box {
-      width: 50px;
-      height: 50px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 15px;
-    }
+        .icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            background-color: var(--accent-color);
+            color: white;
+        }
 
-    .bg-primary-soft {
-      background-color: #e3f2fd;
-      color: var(--accent-color);
-    }
+        /* Form styling */
+        .form-card {
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
 
-    /* Form styling */
-    .form-card {
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      margin-bottom: 20px;
-    }
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
 
-    .card-header {
-      background-color: var(--primary-color);
-      color: white;
-      border-radius: 10px 10px 0 0 !important;
-      padding: 15px 20px;
-    }
+        .form-label {
+            font-weight: 500;
+            color: #ddd;
+        }
 
-    .form-label {
-      font-weight: 500;
-      color: #555;
-    }
+        .form-control, .form-select {
+            background-color: var(--input-bg);
+            border: 1px solid var(--border-color);
+            color: white;
+        }
 
-    .form-control:focus, .form-select:focus {
-      border-color: var(--accent-color);
-      box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
-    }
+        .form-control:focus, .form-select:focus {
+            background-color: var(--input-bg);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 0.25rem rgba(216, 94, 0, 0.25);
+            color: white;
+        }
 
-    .btn-primary {
-      background-color: var(--accent-color);
-      border: none;
-    }
+        .form-control::placeholder {
+            color: #aaa;
+        }
 
-    .btn-primary:hover {
-      background-color: #2980b9;
-    }
+        .btn-primary {
+            background-color: var(--accent-color);
+            border: none;
+        }
 
-    /* Table styling */
-    .table-container {
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-      overflow: hidden;
-    }
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
 
-    .table-header {
-      background-color: #f8f9fa;
-      color: #555;
-    }
+        .btn-outline-secondary {
+            color: #fff;
+            border-color: #6c757d;
+        }
 
-    .table > :not(caption) > * > * {
-      padding: 0.75rem 1rem;
-    }
+        .btn-outline-secondary:hover {
+            background-color: #6c757d;
+            color: white;
+        }
 
-    .status-badge {
-      padding: 5px 10px;
-      border-radius: 50px;
-      font-size: 12px;
-      font-weight: 500;
-    }
+        /* Table styling */
+        .table-container {
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
 
-    .badge-active {
-      background-color: #e1f7e3;
-      color: #28a745;
-    }
+        .table-header {
+            background-color: var(--table-header-bg);
+            color: #ddd;
+        }
 
-    .badge-pending {
-      background-color: #fff8e1;
-      color: #ffc107;
-    }
+        .table {
+            color: white;
+        }
 
-    .badge-inactive {
-      background-color: #f8f9fa;
-      color: #6c757d;
-    }
+        .table > :not(caption) > * > * {
+            padding: 0.75rem 1rem;
+            background-color: var(--card-bg-color);
+            border-bottom-color: var(--border-color);
+        }
 
-    .action-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 4px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #f8f9fa;
-      color: #555;
-      margin-right: 5px;
-      border: none;
-    }
+        .table > thead {
+            background-color: var(--table-header-bg);
+        }
 
-    .action-btn:hover {
-      background-color: #e9ecef;
-    }
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 500;
+        }
 
-    .action-btn.edit {
-      color: var(--accent-color);
-    }
+        .badge-active {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: #2ecc71;
+        }
 
-    .action-btn.delete {
-      color: #dc3545;
-    }
+        .badge-pending {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
 
-    #loader {
-      display: none;
-      text-align: center;
-      padding: 20px;
-    }
+        .badge-inactive {
+            background-color: rgba(108, 117, 125, 0.2);
+            color: #ddd;
+        }
 
-    .alert {
-      display: none;
-      margin-top: 20px;
-    }
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            margin-right: 5px;
+            border: none;
+        }
 
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: var(--accent-color);
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
+        .action-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
 
-    .search-box {
-      position: relative;
-      max-width: 300px;
-    }
+        .action-btn.edit {
+            color: #3498db;
+        }
 
-    .search-box .form-control {
-      padding-left: 35px;
-      border-radius: 50px;
-    }
+        .action-btn.delete {
+            color: #e74c3c;
+        }
 
-    .search-icon {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #aaa;
-    }
+        #loader {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
 
-    .pagination .page-link {
-      color: var(--accent-color);
-    }
+        .alert {
+            display: none;
+            margin-top: 20px;
+        }
 
-    .pagination .page-item.active .page-link {
-      background-color: var(--accent-color);
-      border-color: var(--accent-color);
-    }
-  </style>
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 300px;
+        }
+
+        .search-box .form-control {
+            padding-left: 35px;
+            border-radius: 50px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+
+        .pagination .page-link {
+            background-color: var(--card-bg-color);
+            border-color: var(--border-color);
+            color: #fff;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .pagination .page-item.disabled .page-link {
+            background-color: var(--card-bg-color);
+            color: #6c757d;
+        }
+
+        /* Filter area */
+        .filter-area {
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .filter-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .filter-title i {
+            color: var(--accent-color);
+        }
+    </style>
 </head>
 <body>
 <!-- Sidebar -->
 <div class="sidebar">
-  <div class="sidebar-header">
-    <div class="sidebar-logo">
-      <i class="fas fa-building"></i>
-      <span>Truth Companies</span>
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <i class="fas fa-building"></i>
+            <span>Truth Companies</span>
+        </div>
     </div>
-  </div>
-  <div class="sidebar-menu mt-2">
+    <div class="sidebar-menu mt-2">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="Dashboard.html">
+                    <i class="fas fa-tachometer-alt nav-icon"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="company.html">
+                    <i class="fas fa-building nav-icon"></i>
+                    <span>Company Management</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="AuctionVehical.html">
+                    <i class="fas fa-gavel nav-icon"></i>
+                    <span>Auction Management</span>
+                </a>
+            </li>
 
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link active" href="User.html">
-            <i class="bi bi-speedometer2"></i> Dashboard
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="company2.html">
-            <i class="bi bi-building"></i> Company Management
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="UserAuction.html">
-            <i class="bi bi-car-front"></i> Auction Management
-          </a>
-        </li>
-
-        <li class="nav-item mt-4">
-          <a class="nav-link" href="Dashboard%202.html">
-            <i class="bi bi-box-arrow-right"></i> Logout
-          </a>
-        </li>
-      </ul>
-  </div>
+            <li class="nav-item mt-4">
+                <a class="nav-link" href="login.html">
+                    <i class="fas fa-sign-out-alt nav-icon"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <!-- Main Content -->
 <div class="main-content">
-  <!-- Header -->
-  <div class="header">
-    <h1 class="page-title">Company Management</h1>
-    <div class="d-flex align-items-center">
-      <div class="user-avatar me-2">A</div>
-      <span>Admin</span>
-    </div>
-  </div>
-
-  <!-- Content -->
-  <div class="content">
-    <!-- Alert messages -->
-    <div class="row">
-      <div class="col-12">
-        <div id="successAlert" class="alert alert-success alert-dismissible fade show" role="alert">
-          <span id="successMessage"></span>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <div id="errorAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
-          <span id="errorMessage"></span>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Summary Cards -->
-
-
-    <div class="row">
-      <!-- Company Form -->
-      <div class="col-lg-5 mb-4">
-        <div class="form-card">
-          <div class="card-header d-flex align-items-center">
+    <!-- Header -->
+    <div class="header">
+        <div class="d-flex align-items-center">
             <i class="fas fa-building me-2"></i>
-            <h5 class="mb-0">Company Information</h5>
-          </div>
-          <div class="card-body p-4">
-            <form id="companyForm">
-              <div class="mb-3">
-                <label for="c_id" class="form-label">Company ID</label>
-                <input type="number" class="form-control" id="c_id" placeholder="Enter company ID" required>
-              </div>
-
-              <div class="mb-3">
-                <label for="companyName" class="form-label">Company Name</label>
-                <input type="text" class="form-control" id="companyName" placeholder="Enter company name" required>
-              </div>
-
-              <div class="mb-3">
-                <label for="companyTypeId" class="form-label">Company Type</label>
-                <input type="text" class="form-control" id="companyTypeId" placeholder="Enter company name" required>
-
-              </div>
-
-              <div class="mb-3">
-                <label for="contactEmail" class="form-label">Contact Email</label>
-                <input type="email" class="form-control" id="contactEmail" placeholder="Enter email address">
-              </div>
-
-              <div class="mb-3">
-                <label for="contactPhone" class="form-label">Contact Phone</label>
-                <input type="tel" class="form-control" id="contactPhone" placeholder="Enter phone number">
-              </div>
-
-              <div class="mb-3">
-                <label for="address" class="form-label">Company Address</label>
-                <textarea class="form-control" id="address" rows="3" placeholder="Enter full address"></textarea>
-              </div>
-
-              <div class="d-grid gap-2">
-                <button class="btn btn-primary" type="submit">
-                  <i class="fas fa-save me-2"></i>Save Company
-                </button>
-                <button class="btn btn-outline-secondary" type="reset">
-                  <i class="fas fa-eraser me-2"></i>Clear Form
-                </button>
-              </div>
-            </form>
-          </div>
+            <h1 class="page-title">Company Management</h1>
         </div>
-      </div>
-
-      <!-- Company List -->
-      <div class="col-lg-7">
-        <div class="table-container">
-          <div class="p-4 d-flex justify-content-between align-items-center">
-            <h5 class="mb-0"><i class="fas fa-list me-2"></i>Company List</h5>
-            <div class="search-box">
-              <i class="fas fa-search search-icon"></i>
-              <input type="text" class="form-control" id="searchInput" placeholder="Search companies...">
-            </div>
-          </div>
-
-          <!-- Loader -->
-          <div id="loader" class="p-4">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <p class="mt-2">Loading data...</p>
-          </div>
-
-          <div class="table-responsive">
-            <table class="table table-hover border-bottom">
-              <thead class="table-header">
-              <tr>
-                <th>ID</th>
-                <th>Company Name</th>
-                <th>Type</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-              </thead>
-              <tbody id="companyTableBody">
-              <!-- Example row (this would be dynamically generated) -->
-              <tr>
-                <td><strong>1001</strong></td>
-                <td>Acme Corp</td>
-                <td>Partnership</td>
-                <td><span class="status-badge badge-active">Active</span></td>
-                <td>
-                  <button class="action-btn edit edit-btn" data-id="1"><i class="fas fa-edit"></i></button>
-                  <button class="action-btn delete delete-btn" data-id="1"><i class="fas fa-trash"></i></button>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>1002</strong></td>
-                <td>TechSolutions Inc</td>
-                <td>Bios</td>
-                <td><span class="status-badge badge-active">Active</span></td>
-                <td>
-                  <button class="action-btn edit edit-btn" data-id="2"><i class="fas fa-edit"></i></button>
-                  <button class="action-btn delete delete-btn" data-id="2"><i class="fas fa-trash"></i></button>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>1003</strong></td>
-                <td>GreenEarth Foundation</td>
-                <td>Non-Profit Organization</td>
-                <td><span class="status-badge badge-pending">Pending</span></td>
-                <td>
-                  <button class="action-btn edit edit-btn" data-id="3"><i class="fas fa-edit"></i></button>
-                  <button class="action-btn delete delete-btn" data-id="3"><i class="fas fa-trash"></i></button>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="p-3">
-            <nav aria-label="Page navigation">
-              <ul class="pagination justify-content-center mb-0" id="pagination">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">Next</a>
-                </li>
-              </ul>
-            </nav>
-          </div>
+        <div class="d-flex align-items-center">
+            <div class="user-avatar me-2">A</div>
+            <span>Admin</span>
         </div>
-      </div>
     </div>
-  </div>
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Alert messages -->
+        <div class="row">
+            <div class="col-12">
+                <div id="successAlert" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span id="successMessage"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <div id="errorAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span id="errorMessage"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter Area -->
+        <div class="filter-area mb-4">
+            <div class="filter-title">
+                <i class="fas fa-filter"></i>
+                <h5 class="mb-0">Filter Companies</h5>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <input type="text" class="form-control" id="filterCompanyId" placeholder="Enter Company ID">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <input type="text" class="form-control" id="filterCompanyName" placeholder="Enter Company Name">
+                </div>
+                <div class="col-md-4">
+                    <div class="d-flex">
+                        <button class="btn btn-primary me-2" id="applyFilter">
+                            <i class="fas fa-search me-1"></i> Filter
+                        </button>
+                        <button class="btn btn-outline-secondary" id="resetFilter">
+                            <i class="fas fa-undo me-1"></i> Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Company Form -->
+            <div class="col-lg-5 mb-4">
+                <div class="form-card">
+                    <div class="card-header d-flex align-items-center">
+                        <i class="fas fa-building me-2"></i>
+                        <h5 class="mb-0">Company Information</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <form id="companyForm">
+                            <div class="mb-3">
+                                <label for="c_id" class="form-label">Company ID</label>
+                                <input type="number" class="form-control" id="c_id" placeholder="Enter company ID" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="companyName" class="form-label">Company Name</label>
+                                <input type="text" class="form-control" id="companyName" placeholder="Enter company name" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="companyTypeId" class="form-label">Company Type</label>
+                                <input type="text" class="form-control" id="companyTypeId" placeholder="Enter company type" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="contactEmail" class="form-label">Contact Email</label>
+                                <input type="email" class="form-control" id="contactEmail" placeholder="Enter email address">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="contactPhone" class="form-label">Contact Phone</label>
+                                <input type="tel" class="form-control" id="contactPhone" placeholder="Enter phone number">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Company Address</label>
+                                <textarea class="form-control" id="address" rows="3" placeholder="Enter full address"></textarea>
+                            </div>
+
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-save me-2"></i>Save Company
+                                </button>
+                                <button class="btn btn-outline-secondary" type="reset">
+                                    <i class="fas fa-eraser me-2"></i>Clear Form
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Company List -->
+            <div class="col-lg-7">
+                <div class="table-container">
+                    <div class="p-4 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="fas fa-list me-2"></i>Company List</h5>
+                        <div class="search-box">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search companies...">
+                        </div>
+                    </div>
+
+                    <!-- Loader -->
+                    <div id="loader" class="p-4">
+                        <div class="spinner-border text-light" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2 text-light">Loading data...</p>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="table-header">
+                            <tr>
+                                <th>ID</th>
+                                <th>Company Name</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody id="companyTableBody">
+                            <!-- Example rows (these would be dynamically generated) -->
+                            <tr>
+                                <td><strong>1001</strong></td>
+                                <td>Acme Corp</td>
+                                <td>Partnership</td>
+                                <td><span class="status-badge badge-active">Active</span></td>
+                                <td>
+                                    <button class="action-btn edit edit-btn" data-id="1001"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn delete delete-btn" data-id="1001"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>1002</strong></td>
+                                <td>TechSolutions Inc</td>
+                                <td>Bios</td>
+                                <td><span class="status-badge badge-active">Active</span></td>
+                                <td>
+                                    <button class="action-btn edit edit-btn" data-id="1002"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn delete delete-btn" data-id="1002"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>1003</strong></td>
+                                <td>GreenEarth Foundation</td>
+                                <td>Non-Profit</td>
+                                <td><span class="status-badge badge-pending">Pending</span></td>
+                                <td>
+                                    <button class="action-btn edit edit-btn" data-id="1003"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn delete delete-btn" data-id="1003"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="p-3">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination justify-content-center mb-0" id="pagination">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script>
-  $(document).ready(function() {
-    const API_URL = "http://localhost:8082/api/v1/company";
-    const ITEMS_PER_PAGE = 5;
-    let companies = [];
-    let currentPage = 1;
+    $(document).ready(function() {
+        const API_URL = "http://localhost:8082/api/v1/company";
+        const ITEMS_PER_PAGE = 5;
+        let companies = [];
+        let currentPage = 1;
 
-    // Load companies when page loads
-    loadCompanies();
+        // Load companies when page loads
+        loadCompanies();
 
-    // Form submission handler
-    $("#companyForm").submit(function(e) {
-      e.preventDefault();
-      saveCompany();
-    });
+        // Form submission handler
+        $("#companyForm").submit(function(e) {
+            e.preventDefault();
+            saveCompany();
+        });
 
-    // Clear form button
-    $("button[type='reset']").click(function() {
-      resetForm();
-    });
+        // Clear form button
+        $("button[type='reset']").click(function() {
+            resetForm();
+        });
 
-    // Search input handler
-    $("#searchInput").keyup(function() {
-      searchCompanies();
-    });
+        // Search input handler
+        $("#searchInput").keyup(function() {
+            searchCompanies();
+        });
 
-    // Function to load all companies
-    function loadCompanies() {
-      showLoader(true);
+        // Filter buttons event handlers
+        $("#applyFilter").click(function() {
+            filterCompanies();
+        });
 
-      $.ajax({
-        url: API_URL + "/getAll",
-        type: "GET",
-        contentType: "application/json",
-        success: function(response) {
-          showLoader(false);
+        $("#resetFilter").click(function() {
+            $("#filterCompanyId").val("");
+            $("#filterCompanyName").val("");
+            loadCompanies();
+        });
 
-          if (response.code === 200) {
-            companies = response.data || [];
-            displayCompanies(companies);
-            setupPagination(companies.length);
-          } else {
-            showError("Failed to load companies: " + response.message);
-          }
-        },
-        error: function(xhr) {
-          showLoader(false);
-          showError("Error loading companies: " + (xhr.responseJSON?.message || xhr.statusText));
+        // Function to load all companies
+        function loadCompanies() {
+            showLoader(true);
 
-          // For debugging purposes
-          console.error("Error loading companies:", xhr);
+            $.ajax({
+                url: API_URL + "/getAll",
+                type: "GET",
+                contentType: "application/json",
+                success: function(response) {
+                    showLoader(false);
+
+                    if (response.code === 200) {
+                        companies = response.data || [];
+                        displayCompanies(companies);
+                        setupPagination(companies.length);
+                    } else {
+                        showError("Failed to load companies: " + response.message);
+                    }
+                },
+                error: function(xhr) {
+                    showLoader(false);
+                    showError("Error loading companies: " + (xhr.responseJSON?.message || xhr.statusText));
+
+                    // For debugging purposes
+                    console.error("Error loading companies:", xhr);
+                }
+            });
         }
-      });
-    }
 
-    // Function to display companies in the table with pagination
-    function displayCompanies(companyList) {
-      const tableBody = $("#companyTableBody");
-      tableBody.empty();
+        // Function to filter companies
+        function filterCompanies() {
+            const idFilter = $("#filterCompanyId").val().trim();
+            const nameFilter = $("#filterCompanyName").val().trim().toLowerCase();
 
-      if (!companyList || companyList.length === 0) {
-        tableBody.append("<tr><td colspan='5' class='text-center'>No companies found</td></tr>");
-        return;
-      }
+            if (!idFilter && !nameFilter) {
+                loadCompanies();
+                return;
+            }
 
-      // Calculate which items to show based on current page
-      const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-      const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, companyList.length);
-      const pageCompanies = companyList.slice(startIndex, endIndex);
+            let filtered = companies;
 
-      // Populate table with page companies
-      $.each(pageCompanies, function(i, company) {
-        let statusBadge = `<span class="status-badge badge-active">Active</span>`;
+            if (idFilter) {
+                filtered = filtered.filter(company => company.c_id.toString().includes(idFilter));
+            }
 
-        let row = `<tr>
+            if (nameFilter) {
+                filtered = filtered.filter(company => company.companyName.toLowerCase().includes(nameFilter));
+            }
+
+            currentPage = 1;
+            displayCompanies(filtered);
+            setupPagination(filtered.length);
+        }
+
+        // Function to display companies in the table with pagination
+        function displayCompanies(companyList) {
+            const tableBody = $("#companyTableBody");
+            tableBody.empty();
+
+            if (!companyList || companyList.length === 0) {
+                tableBody.append("<tr><td colspan='5' class='text-center'>No companies found</td></tr>");
+                return;
+            }
+
+            // Calculate which items to show based on current page
+            const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+            const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, companyList.length);
+            const pageCompanies = companyList.slice(startIndex, endIndex);
+
+            // Populate table with page companies
+            $.each(pageCompanies, function(i, company) {
+                let statusBadge = <span class="status-badge badge-active">Active</span>;
+
+                let row = `<tr>
               <td><strong>${company.c_id}</strong></td>
               <td>${company.companyName}</td>
               <td>${company.companyTypeId}</td>
@@ -570,245 +704,176 @@
               </td>
           </tr>`;
 
-        tableBody.append(row);
-      });
+                tableBody.append(row);
+            });
 
-      // Add edit button click event
-      $(".edit-btn").click(function() {
-        let companyId = $(this).data("id");
-        getCompanyById(companyId);
-      });
+            // Add edit button click event
+            $(".edit-btn").click(function() {
+                let companyId = $(this).data("id");
+                getCompanyById(companyId);
+            });
 
-      // Add delete button click event
-      $(".delete-btn").click(function() {
-        let companyId = $(this).data("id");
-        deleteCompany(companyId);
-      });
-    }
+            // Add delete button click event
+            $(".delete-btn").click(function() {
+                let companyId = $(this).data("id");
+                deleteCompany(companyId);
+            });
+        }
 
-    // Function to set up pagination
-    function setupPagination(totalItems) {
-      const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-      const pagination = $("#pagination");
-      pagination.empty();
+        // Function to set up pagination
+        function setupPagination(totalItems) {
+            const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+            const pagination = $("#pagination");
+            pagination.empty();
 
-      if (totalPages <= 1) {
-        return;
-      }
+            if (totalPages <= 1) {
+                return;
+            }
 
-      // Previous button
-      let prevDisabled = currentPage === 1 ? "disabled" : "";
-      pagination.append(`
+            // Previous button
+            let prevDisabled = currentPage === 1 ? "disabled" : "";
+            pagination.append(`
           <li class="page-item ${prevDisabled}">
               <a class="page-link" href="#" data-page="${currentPage - 1}">Previous</a>
           </li>
       `);
 
-      // Page numbers
-      for (let i = 1; i <= totalPages; i++) {
-        let active = i === currentPage ? "active" : "";
-        pagination.append(`
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                let active = i === currentPage ? "active" : "";
+                pagination.append(`
               <li class="page-item ${active}">
                   <a class="page-link" href="#" data-page="${i}">${i}</a>
               </li>
           `);
-      }
+            }
 
-      // Next button
-      let nextDisabled = currentPage === totalPages ? "disabled" : "";
-      pagination.append(`
+            // Next button
+            let nextDisabled = currentPage === totalPages ? "disabled" : "";
+            pagination.append(`
           <li class="page-item ${nextDisabled}">
               <a class="page-link" href="#" data-page="${currentPage + 1}">Next</a>
           </li>
       `);
 
-      // Add click event to pagination
-      $(".page-link").click(function(e) {
-        e.preventDefault();
-        const page = $(this).data("page");
+            // Add click event to pagination
+            $(".page-link").click(function(e) {
+                e.preventDefault();
+                const page = $(this).data("page");
 
-        // Check if valid page and not disabled
-        if (page >= 1 && page <= totalPages && !$(this).parent().hasClass("disabled")) {
-          currentPage = page;
-          displayCompanies(companies);
-          setupPagination(totalItems);
+                // Check if valid page and not disabled
+                if (page >= 1 && page <= totalPages && !$(this).parent().hasClass("disabled")) {
+                    currentPage = page;
+                    displayCompanies(companies);
+                    setupPagination(totalItems);
+                }
+            });
         }
-      });
-    }
 
-    // Function to get company by ID
-    function getCompanyById(id) {
-      showLoader(true);
+        // Function to get company by ID
+        function getCompanyById(id) {
+            showLoader(true);
 
-      $.ajax({
-        url: API_URL + "/" + id,
-        type: "GET",
-        contentType: "application/json",
-        success: function(response) {
-          showLoader(false);
+            $.ajax({
+                url: API_URL + "/" + id,
+                type: "GET",
+                contentType: "application/json",
+                success: function(response) {
+                    showLoader(false);
 
-          if (response.code === 200 && response.data) {
-            fillCompanyForm(response.data);
-          } else {
-            showError("Failed to get company: " + response.message);
-          }
-        },
-        error: function(xhr) {
-          showLoader(false);
-          showError("Error getting company: " + (xhr.responseJSON?.message || xhr.statusText));
+                    if (response.code === 200 && response.data) {
+                        fillCompanyForm(response.data);
+                    } else {
+                        showError("Failed to get company: " + response.message);
+                    }
+                },
+                error: function(xhr) {
+                    showLoader(false);
+                    showError("Error getting company: " + (xhr.responseJSON?.message || xhr.statusText));
+                }
+            });
         }
-      });
-    }
 
-    // Function to fill form with company data
-    function fillCompanyForm(company) {
-      $("#c_id").val(company.c_id);
-      $("#companyName").val(company.companyName);
-      $("#companyTypeId").val(company.companyTypeId);
-      $("#contactEmail").val(company.email || "");
-      $("#contactPhone").val(company.contactNumber || "");
-      $("#address").val(company.address || "");
+        // Function to fill form with company data
+        function fillCompanyForm(company) {
+            $("#c_id").val(company.c_id);
+            $("#companyName").val(company.companyName);
+            $("#companyTypeId").val(company.companyTypeId);
+            $("#contactEmail").val(company.email || "");
+            $("#contactPhone").val(company.contactNumber || "");
+            $("#address").val(company.address || "");
 
-      // Scroll to form
-      $("html, body").animate({
-        scrollTop: $("#companyForm").offset().top - 50
-      }, 500);
-    }
-
-    // Function to save or update company
-    function saveCompany() {
-      if (!$("#companyForm")[0].checkValidity()) {
-        $("#companyForm")[0].reportValidity();
-        return;
-      }
-
-      let companyData = {
-        c_id: $("#c_id").val().trim(),
-        companyName: $("#companyName").val().trim(),
-        companyTypeId: $("#companyTypeId").val(),
-        email: $("#contactEmail").val().trim(),
-        contactNumber: $("#contactPhone").val().trim(),
-        address: $("#address").val().trim()
-      };
-
-      // Check if it's an update (if c_id exists in the database)
-      let companyId = $("#c_id").val().trim();
-      let url = API_URL + "/save";
-      let type = "POST";
-      let successMsg = "Company saved successfully!";
-
-      // If we're updating an existing company
-      if (companyId && companies.some(c => c.c_id == companyId)) {
-        url = API_URL + "/update";
-        type = "PUT";
-        successMsg = "Company updated successfully!";
-      }
-
-      showLoader(true);
-
-      $.ajax({
-        url: url,
-        type: type,
-        contentType: "application/json",
-        data: JSON.stringify(companyData),
-        success: function(response) {
-          showLoader(false);
-
-          if (response.code === 200) {
-            showSuccess(successMsg);
-            resetForm();
-            loadCompanies();
-          } else {
-            showError("Failed: " + response.message);
-          }
-        },
-        error: function(xhr) {
-          showLoader(false);
-          showError("Error: " + (xhr.responseJSON?.message || xhr.statusText));
-          console.error("Error saving company:", xhr);
+            // Scroll to form
+            $("html, body").animate({
+                scrollTop: $("#companyForm").offset().top - 50
+            }, 500);
         }
-      });
-    }
 
-    // Function to delete company
-    function deleteCompany(id) {
-      if (confirm("Are you sure you want to delete this company?")) {
-        showLoader(true);
-
-        $.ajax({
-          url: API_URL + "/delete/" + id,
-          type: "DELETE",
-          contentType: "application/json",
-          success: function(response) {
-            showLoader(false);
-
-            if (response.code === 200) {
-              showSuccess("Company deleted successfully!");
-              loadCompanies();
-            } else {
-              showError("Failed to delete: " + response.message);
+        // Function to save or update company
+        function saveCompany() {
+            if (!$("#companyForm")[0].checkValidity()) {
+                $("#companyForm")[0].reportValidity();
+                return;
             }
-          },
-          error: function(xhr) {
-            showLoader(false);
-            showError("Error deleting company: " + (xhr.responseJSON?.message || xhr.statusText));
-            console.error("Error deleting company:", xhr);
-          }
-        });
-      }
-    }
 
-    // Function to search companies
-    function searchCompanies() {
-      let searchTerm = $("#searchInput").val().trim().toLowerCase();
+            let companyData = {
+                c_id: $("#c_id").val().trim(),
+                companyName: $("#companyName").val().trim(),
+                companyTypeId: $("#companyTypeId").val(),
+                email: $("#contactEmail").val().trim(),
+                contactNumber: $("#contactPhone").val().trim(),
+                address: $("#address").val().trim()
+            };
 
-      if (!searchTerm) {
-        displayCompanies(companies);
-        setupPagination(companies.length);
-        return;
-      }
+            // Check if it's an update (if c_id exists in the database)
+            let companyId = $("#c_id").val().trim();
+            let url = API_URL + "/save";
+            let type = "POST";
+            let successMsg = "Company saved successfully!";
 
-      // Filter companies on client side
-      const filtered = companies.filter(function(company) {
-        return (
-                company.companyName.toLowerCase().includes(searchTerm) ||
-                String(company.c_id).includes(searchTerm) ||
-                (company.companyTypeId && company.companyTypeId.toString().toLowerCase().includes(searchTerm))
-        );
-      });
+            // If we're updating an existing company
+            if (companyId && companies.some(c => c.c_id == companyId)) {
+                url = API_URL + "/update";
+                type = "PUT";
+                successMsg = "Company updated successfully!";
+            }
 
-      currentPage = 1;
-      displayCompanies(filtered);
-      setupPagination(filtered.length);
-    }
+            showLoader(true);
 
-    // Function to reset form
-    function resetForm() {
-      $("#c_id").val("");
-      $("#companyForm")[0].reset();
-    }
+            $.ajax({
+                url: url,
+                type: type,
+                contentType: "application/json",
+                data: JSON.stringify(companyData),
+                success: function(response) {
+                    showLoader(false);
 
-    // Function to show/hide loader
-    function showLoader(show) {
-      if (show) {
-        $("#loader").show();
-      } else {
-        $("#loader").hide();
-      }
-    }
+                    if (response.code === 200) {
+                        showSuccess(successMsg);
+                        resetForm();
+                        loadCompanies();
+                    } else {
+                        showError("Failed: " + response.message);
+                    }
+                },
+                error: function(xhr) {
+                    showLoader(false);
+                    showError("Error: " + (xhr.responseJSON?.message || xhr.statusText));
+                    console.error("Error saving company:", xhr);
+                }
+            });
+        }
 
-    // Functions to show alerts
-    function showSuccess(message) {
-      $("#successMessage").text(message);
-      $("#successAlert").fadeIn().delay(3000).fadeOut();
-    }
+        // Function to delete company
+        function deleteCompany(id) {
+            if (confirm("Are you sure you want to delete this company?")) {
+                showLoader(true);
 
-    function showError(message) {
-      $("#errorMessage").text(message);
-      $("#errorAlert").fadeIn().delay(5000).fadeOut();
-    }
-  });
-</script>
+                $.ajax({
+                    url: API_URL + "/delete/" + id,
+                    type: "DELETE",
+                    contentType: "application/json",
+                    success: function(response) {
+                        showLoader(false);
 
-</body>
-</html>
+                        if (response.code === 200) {

@@ -8,23 +8,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #ff7700;
-            --secondary-color: #ff9a40;
+            --primary-color: #dd6610;
+            --secondary-color: #e67e22;
             --accent-color: #e05f00;
             --accent-hover: #cc5500;
-            --light-accent: #fff1e6;
+            --light-accent: #36322e;
             --success-color: #4caf50;
             --warning-color: #ff9800;
             --danger-color: #f44336;
-            --text-color: #333333;
-            --text-light: #ffffff;
-            --border-color: #eeeeee;
-            --bg-light: #ffffff;
-            --bg-medium: #f9f9f9;
+            --text-color: #ffffff;
+            --text-secondary: #cccccc;
+            --border-color: #444444;
+            --bg-dark: #212121;
+            --bg-medium: #333333;
+            --bg-light: #2c2c2c;
+            --table-header: #3d3d3d;
         }
 
         body {
-            background-color: var(--bg-light);
+            background-color: var(--bg-dark);
             font-family: 'Lato', sans-serif;
             color: var(--text-color);
         }
@@ -32,65 +34,53 @@
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Lato', sans-serif;
             font-weight: 700;
-        }
-
-        .navbar {
-            background-color: var(--primary-color);
-            color: var(--text-light);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            color: var(--text-color);
         }
 
         .sidebar {
-            background-color: var(--bg-light); /* Changed to white */
+            background-color: var(--bg-dark);
             color: var(--text-color);
             height: 100vh;
             position: fixed;
-            width: 280px;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-            padding-top: 20px;
+            width: 250px;
             border-right: 1px solid var(--border-color);
         }
 
         .sidebar-header {
             padding: 20px;
-            text-align: center;
+            text-align: left;
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 20px;
+            background-color: #c65000;
         }
 
         .sidebar-header h3 {
             margin-bottom: 0;
-            font-size: 28px;
+            font-size: 24px;
             letter-spacing: 1px;
-            color: var(--primary-color); /* Orange text */
-        }
-
-        .sidebar-header .logo-divider {
-            width: 50px;
-            height: 3px;
-            background-color: var(--accent-color); /* Orange divider */
-            margin: 10px auto;
+            color: white;
         }
 
         .sidebar .nav-link {
             color: var(--text-color);
             padding: 14px 25px;
-            margin: 5px 15px;
-            border-radius: 5px;
+            margin: 5px 0;
+            border-radius: 0;
             transition: all 0.3s;
             font-size: 15px;
             letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
         }
 
         .sidebar .nav-link:hover {
-            background-color: var(--secondary-color);
+            background-color: var(--accent-color);
             color: white;
         }
 
         .sidebar .nav-link.active {
-            background-color: var(--accent-color); /* Orange active button */
+            background-color: var(--accent-color);
             color: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             font-weight: 700;
         }
 
@@ -110,6 +100,7 @@
 
         .sidebar-footer .nav-link {
             color: var(--text-color);
+            text-align: center;
         }
 
         .sidebar-footer .nav-link:hover {
@@ -118,29 +109,35 @@
         }
 
         .content {
-            margin-left: 280px;
+            margin-left: 250px;
             padding: 30px;
+            background-color: var(--bg-medium);
+            min-height: 100vh;
         }
 
         .page-header {
             margin-bottom: 30px;
             padding-bottom: 15px;
             border-bottom: 3px solid var(--primary-color);
+            display: flex;
+            align-items: center;
         }
 
         .page-title {
-            font-size: 32px;
+            font-size: 28px;
             color: var(--primary-color);
             font-weight: 700;
             margin-bottom: 0;
+            margin-left: 10px;
         }
 
         .card {
             border: none;
             border-radius: 5px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             margin-bottom: 25px;
             overflow: hidden;
+            background-color: var(--bg-light);
         }
 
         .card-header {
@@ -149,7 +146,7 @@
             border-bottom: none;
             padding: 15px 20px;
             font-family: 'Lato', sans-serif;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
         }
 
@@ -159,12 +156,12 @@
 
         .card-body {
             padding: 25px;
-            background-color: white;
+            background-color: var(--bg-light);
         }
 
         .form-label {
             font-weight: 500;
-            color: var(--secondary-color);
+            color: var(--text-secondary);
             margin-bottom: 8px;
         }
 
@@ -173,13 +170,15 @@
             padding: 12px 15px;
             border: 1px solid var(--border-color);
             font-size: 15px;
-            background-color: var(--bg-light);
+            background-color: var(--bg-medium);
+            color: var(--text-color);
         }
 
         .form-control:focus, .form-select:focus {
             border-color: var(--accent-color);
-            box-shadow: 0 0 0 0.2rem rgba(161, 124, 91, 0.25);
-            background-color: white;
+            box-shadow: 0 0 0 0.2rem rgba(224, 95, 0, 0.25);
+            background-color: var(--bg-medium);
+            color: var(--text-color);
         }
 
         .btn-primary {
@@ -201,40 +200,39 @@
 
         .btn-outline-secondary {
             border-color: var(--border-color);
-            color: var(--secondary-color);
-            background-color: white;
+            color: var(--text-secondary);
+            background-color: transparent;
             font-weight: 500;
             letter-spacing: 0.5px;
             padding: 12px 20px;
         }
 
         .btn-outline-secondary:hover {
-            background-color: var(--bg-medium);
-            color: var(--primary-color);
-            border-color: var(--secondary-color);
+            background-color: var(--border-color);
+            color: var(--text-color);
         }
 
         .table-container {
-            background-color: white;
+            background-color: var(--bg-light);
             border-radius: 5px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            padding: 0;
+            overflow: hidden;
         }
 
         .table {
             margin-bottom: 0;
-            border-collapse: separate;
-            border-spacing: 0;
+            color: var(--text-color);
         }
 
         .table thead th {
-            background-color: var(--light-accent);
+            background-color: var(--table-header);
             border: none;
             padding: 14px 20px;
             font-family: 'Lato', sans-serif;
             font-size: 16px;
             font-weight: 600;
-            color: var(--accent-color);
+            color: var(--text-color);
             letter-spacing: 0.5px;
         }
 
@@ -243,10 +241,11 @@
             vertical-align: middle;
             border-color: var(--border-color);
             font-size: 15px;
+            background-color: var(--bg-light);
         }
 
-        .table tbody tr:hover {
-            background-color: rgba(234, 230, 221, 0.5);
+        .table tbody tr:hover td {
+            background-color: var(--light-accent);
         }
 
         .badge {
@@ -293,7 +292,7 @@
         }
 
         .section-header h5 {
-            font-size: 22px;
+            font-size: 20px;
             color: var(--primary-color);
             margin-bottom: 0;
             font-weight: 600;
@@ -306,7 +305,7 @@
 
         .search-container .form-control {
             padding-left: 40px;
-            background-color: white;
+            background-color: var(--bg-medium);
             border: 1px solid var(--border-color);
         }
 
@@ -329,6 +328,7 @@
             margin: 0 3px;
             border-radius: 3px;
             transition: all 0.3s;
+            background-color: var(--bg-light);
         }
 
         .pagination .page-item.active .page-link {
@@ -348,6 +348,8 @@
             border-radius: 5px;
             border: none;
             overflow: hidden;
+            background-color: var(--bg-light);
+            color: var(--text-color);
         }
 
         .modal-header {
@@ -372,6 +374,90 @@
             padding: 15px 25px;
             border-top: 1px solid var(--border-color);
         }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #d32f2f;
+        }
+
+        .filter-section {
+            background-color: var(--bg-light);
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        .filter-title {
+            color: var(--primary-color);
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .filter-title i {
+            margin-right: 10px;
+        }
+
+        .add-new-btn {
+            background-color: var(--accent-color);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+        }
+
+        .add-new-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .add-new-btn i {
+            margin-right: 8px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .empty-state i {
+            font-size: 5rem;
+            color: var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .empty-state p {
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+
+        /* Custom styles for smaller form inputs */
+        #saleForm .form-control,
+        #saleForm .form-select {
+            padding: 8px 12px;
+            font-size: 14px;
+            height: auto;
+        }
+
+        #saleForm .form-label {
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        #saleForm .btn {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+
+        #saleForm .mb-3 {
+            margin-bottom: 1rem !important;
+        }
     </style>
 </head>
 <body>
@@ -379,35 +465,33 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-header">
-            <h3>Sale Management</h3>
-            <div class="logo-divider"></div>
+            <h3>Truth Auctions</h3>
         </div>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link" href="Admin.html">
+                <a class="nav-link" href="dashboard.html">
                     <i class="fas fa-tachometer-alt"></i> Dashboard
                 </a>
             </li>
-
             <li class="nav-item">
-                <a class="nav-link" href="Vehical.html">
+                <a class="nav-link" href="vehicle.html">
                     <i class="fas fa-car"></i> Vehicle Management
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="Sale.html">
+                <a class="nav-link active" href="sale.html">
                     <i class="fas fa-file-invoice-dollar"></i> Sale Management
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="Auction.html">
+                <a class="nav-link" href="auction.html">
                     <i class="fas fa-gavel"></i> Auction Management
                 </a>
             </li>
         </ul>
         <div class="sidebar-footer">
             <a class="nav-link" href="#">
-                <i class="fas fa-sign-out-alt"></i> Logout
+                <i class="fas fa-sign-out-alt"></i> Log out
             </a>
         </div>
     </div>
@@ -416,14 +500,55 @@
     <div class="content">
         <div class="container-fluid">
             <div class="page-header">
+                <i class="fas fa-file-invoice-dollar fa-lg" style="color: var(--primary-color);"></i>
                 <h1 class="page-title">Sale Management</h1>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <div class="filter-title"><i class="fas fa-filter"></i> Filter Sales</div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="filter_name" class="form-label">Sale Name</label>
+                            <input type="text" class="form-control" id="filter_name" placeholder="Enter sale name...">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="filter_date" class="form-label">Date Range</label>
+                            <input type="date" class="form-control" id="filter_date">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="filter_status" class="form-label">Status</label>
+                            <select class="form-select" id="filter_status">
+                                <option value="">All Statuses</option>
+                                <option value="Active">Active</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Ended">Ended</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12 d-flex justify-content-end">
+                        <button class="btn btn-primary me-2" id="applyFilterBtn">
+                            <i class="fas fa-search me-2"></i>Filter
+                        </button>
+                        <button class="btn btn-outline-secondary" id="resetFilterBtn">
+                            <i class="fas fa-undo me-2"></i>Reset
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div class="row">
                 <!-- Sale Form -->
                 <div class="col-lg-5 mb-4">
                     <div class="card">
-                        <div class="card-header card-header-accent">
+                        <div class="card-header">
                             <h5 class="mb-0">Sale Information</h5>
                         </div>
                         <div class="card-body">
@@ -467,16 +592,21 @@
                 <div class="col-lg-7">
                     <div class="section-header">
                         <h5>Sale Records</h5>
-                        <div class="search-container">
-                            <span class="search-icon">
-                                <i class="fas fa-search"></i>
-                            </span>
-                            <input type="text" class="form-control" id="searchInput" placeholder="Search sales...">
+                        <div class="d-flex">
+                            <div class="search-container me-2">
+                                <span class="search-icon">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                                <input type="text" class="form-control" id="searchInput" placeholder="Search sales...">
+                            </div>
+                            <button class="btn add-new-btn">
+                                <i class="fas fa-plus"></i> Add New
+                            </button>
                         </div>
                     </div>
                     <div class="table-container">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table class="table" id="salesTable">
                                 <thead>
                                 <tr>
                                     <th>ID</th>
@@ -488,7 +618,9 @@
                                 </tr>
                                 </thead>
                                 <tbody id="saleTableBody">
-                                <!-- Dynamic content will be injected here -->
+                                <!-- Table rows will be injected by JavaScript -->
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -523,7 +655,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Confirm Delete</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>Are you sure you want to delete this sale record? This action cannot be undone.</p>
@@ -665,74 +797,151 @@
             });
         });
 
+        // Apply filter
+        $("#applyFilterBtn").click(function() {
+            applyFilters();
+        });
+
+        // Reset filter
+        $("#resetFilterBtn").click(function() {
+            $("#filter_name").val("");
+            $("#filter_date").val("");
+            $("#filter_status").val("");
+            loadSales();
+        });
+
         // Load all sales
         function loadSales() {
+            // For demo purposes, we'll simulate API call
+            const mockData = [
+                { id: 1, sale_name: "Spring Auction 2025", create_date: "2025-04-01", auction_date: "2025-05-15", user_id: 101, status: "Active" },
+                { id: 2, sale_name: "Luxury Vehicle Sale", create_date: "2025-03-20", auction_date: "2025-05-20", user_id: 102, status: "Pending" },
+                { id: 3, sale_name: "Classic Car Collection", create_date: "2025-04-10", auction_date: "2025-06-01", user_id: 103, status: "Active" },
+                { id: 4, sale_name: "Winter Clearance", create_date: "2025-01-15", auction_date: "2025-02-28", user_id: 104, status: "Ended" },
+                { id: 5, sale_name: "Fleet Vehicle Sale", create_date: "2025-05-01", auction_date: "2025-06-15", user_id: 105, status: "Pending" }
+            ];
+
+            renderSaleTable(mockData);
+
+            // Uncomment to use real API when available
+            /*
             $.ajax({
                 url: `${API_BASE_URL}/getAll`,
                 type: "GET",
                 success: function(response) {
                     if (response.code === 200 && response.data) {
-                        const sales = response.data;
-                        let tableBody = $("#saleTableBody");
-                        tableBody.empty();
-
-                        sales.forEach(function(sale) {
-                            // Generate a random status for demo purposes
-                            const statuses = ['Active', 'Pending', 'Ended'];
-                            const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-
-                            let statusBadge = '';
-                            if (randomStatus === 'Active') {
-                                statusBadge = '<span class="badge badge-active">Active</span>';
-                            } else if (randomStatus === 'Pending') {
-                                statusBadge = '<span class="badge badge-pending">Pending</span>';
-                            } else {
-                                statusBadge = '<span class="badge badge-ended">Ended</span>';
-                            }
-
-                            tableBody.append(`
-                                <tr>
-                                    <td>${sale.id}</td>
-                                    <td>${sale.sale_name}</td>
-                                    <td>${formatDate(sale.create_date)}</td>
-                                    <td>${formatDate(sale.auction_date)}</td>
-                                    <td>${statusBadge}</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-primary action-btn edit-btn" data-id="${sale.id}">
-                                            <i class="fas fa-edit"></i>
-                                        </button>
-                                        <button class="btn btn-sm btn-danger action-btn delete-btn" data-id="${sale.id}">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            `);
-                        });
+                        renderSaleTable(response.data);
                     } else {
                         console.error("Failed to load sales data", response);
                     }
                 },
                 error: function(xhr) {
                     console.error("Error loading sales:", xhr);
+                    // Show empty state
+                    const tableBody = $("#saleTableBody");
+                    tableBody.html(`
+                        <tr>
+                            <td colspan="6">
+                                <div class="empty-state">
+                                    <i class="fas fa-search"></i>
+                                    <p>No sales records found or couldn't connect to server.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    `);
                 }
+            });
+            */
+        }
+
+        // Apply filters function
+        function applyFilters() {
+            const filterName = $("#filter_name").val().toLowerCase();
+            const filterDate = $("#filter_date").val();
+            const filterStatus = $("#filter_status").val();
+
+            // For demo, we'll filter the mock data
+            const mockData = [
+                { id: 1, sale_name: "Spring Auction 2025", create_date: "2025-04-01", auction_date: "2025-05-15", user_id: 101, status: "Active" },
+                { id: 2, sale_name: "Luxury Vehicle Sale", create_date: "2025-03-20", auction_date: "2025-05-20", user_id: 102, status: "Pending" },
+                { id: 3, sale_name: "Classic Car Collection", create_date: "2025-04-10", auction_date: "2025-06-01", user_id: 103, status: "Active" },
+                { id: 4, sale_name: "Winter Clearance", create_date: "2025-01-15", auction_date: "2025-02-28", user_id: 104, status: "Ended" },
+                { id: 5, sale_name: "Fleet Vehicle Sale", create_date: "2025-05-01", auction_date: "2025-06-15", user_id: 105, status: "Pending" }
+            ];
+
+            const filteredData = mockData.filter(sale => {
+                const matchesName = sale.sale_name.toLowerCase().includes(filterName);
+                const matchesDate = filterDate ? sale.create_date === filterDate : true;
+                const matchesStatus = filterStatus ? sale.status === filterStatus : true;
+
+                return matchesName && matchesDate && matchesStatus;
+            });
+
+            renderSaleTable(filteredData);
+        }
+
+        // Render sale table
+        function renderSaleTable(sales) {
+            const tableBody = $("#saleTableBody");
+            tableBody.empty();
+
+            if (sales.length === 0) {
+                tableBody.html(`
+                    <tr>
+                        <td colspan="6">
+                            <div class="empty-state">
+                                <i class="fas fa-search"></i>
+                                <p>No sales records found</p>
+                            </div>
+                        </td>
+                    </tr>
+                `);
+                return;
+            }
+
+            sales.forEach(sale => {
+                let statusBadge;
+                if (sale.status === "Active") {
+                    statusBadge = '<span class="badge badge-active">Active</span>';
+                } else if (sale.status === "Pending") {
+                    statusBadge = '<span class="badge badge-pending">Pending</span>';
+                } else {
+                    statusBadge = '<span class="badge badge-ended">Ended</span>';
+                }
+
+                const row = `
+                    <tr>
+                        <td>${sale.id}</td>
+                        <td>${sale.sale_name}</td>
+                        <td>${sale.create_date}</td>
+                        <td>${sale.auction_date}</td>
+                        <td>${statusBadge}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary action-btn edit-btn" data-id="${sale.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-sm btn-danger action-btn delete-btn" data-id="${sale.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                tableBody.append(row);
             });
         }
 
         // Reset form function
         function resetForm() {
+            currentSaleId = null;
             $("#saleForm")[0].reset();
             $("#create_date").val(today);
-            currentSaleId = null;
-            $("#saleId").val("");
             $("#saveBtn").html('<i class="fas fa-save me-2"></i>Save Sale');
         }
 
-        // Format date function
-        function formatDate(dateString) {
-            if (!dateString) return "";
-            const date = new Date(dateString);
-            return date.toLocaleDateString();
-        }
+        // Add new button click handler
+        $(".add-new-btn").click(function() {
+            resetForm();
+        });
     });
 </script>
 </body>

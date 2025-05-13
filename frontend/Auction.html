@@ -5,64 +5,130 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Truth Auctions - Admin Panel</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --dark-orange: #D35400;
+            --light-orange: #E67E22;
+            --very-dark: #1E1E1E;
+            --dark: #2D2D2D;
+            --medium-dark: #3D3D3D;
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --border-radius: 8px;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: var(--medium-dark);
+            color: var(--white);
         }
 
         .sidebar {
-            background-color: #2c3e50;
-            color: white;
+            background-color: var(--very-dark);
+            color: var(--white);
             min-height: 100vh;
-            padding: 20px 0;
-        }
-
-        .sidebar .nav-link {
-            color: #adb5bd;
-            padding: 15px 20px;
-            margin: 5px 0;
-            border-radius: 5px;
-        }
-
-        .sidebar .nav-link:hover, .sidebar .nav-link.active {
-            background-color: #34495e;
-            color: white;
+            padding: 0;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
         }
 
         .sidebar .brand {
             font-size: 24px;
             font-weight: bold;
-            padding: 0 20px 20px;
+            padding: 20px;
+            background-color: var(--dark-orange);
             margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .sidebar .nav-link {
+            color: var(--white);
+            padding: 15px 20px;
+            margin: 5px 15px;
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: rgba(211, 84, 0, 0.2);
+            color: var(--light-orange);
+        }
+
+        .sidebar .nav-link.active {
+            background-color: var(--dark-orange);
+            color: var(--white);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
         }
 
         .content {
-            padding: 20px;
+            padding: 25px;
+            background-color: var(--medium-dark);
+        }
+
+        .content h2 {
+            color: var(--white);
+            margin-bottom: 25px;
+            font-weight: 600;
+            border-bottom: 2px solid var(--dark-orange);
+            padding-bottom: 10px;
         }
 
         .card {
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            background-color: var(--dark);
+            color: var(--white);
         }
 
         .card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: white;
-            border-bottom: 1px solid #eee;
+            background-color: var(--dark);
+            border-bottom: 1px solid var(--medium-dark);
             padding: 15px 20px;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
         }
 
-        .time-remaining {
-            color: #dc3545;
-            font-weight: bold;
+        .card-header h5 {
+            font-weight: 600;
+            margin-bottom: 0;
+            color: var(--white);
+        }
+
+        .card-body {
+            padding: 20px;
         }
 
         .btn-primary {
-            background-color: #0d6efd;
+            background-color: var(--dark-orange);
+            border: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover, .btn-primary:focus {
+            background-color: var(--light-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-info {
+            background-color: #3498db;
+            border: none;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
             border: none;
         }
 
@@ -73,10 +139,36 @@
 
         .auth-buttons .btn {
             margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-light {
+            border-color: var(--dark-orange);
+            color: var(--white);
+        }
+
+        .btn-outline-light:hover {
+            background-color: var(--dark-orange);
+            color: var(--white);
+        }
+
+        table {
+            color: var(--white);
         }
 
         table th {
             font-weight: 600;
+            border-color: var(--medium-dark);
+            color: var(--light-orange);
+        }
+
+        table td {
+            border-color: var(--medium-dark);
+            vertical-align: middle;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(211, 84, 0, 0.1);
         }
 
         .spinner-overlay {
@@ -85,7 +177,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -93,13 +185,38 @@
             visibility: hidden;
         }
 
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            color: var(--dark-orange) !important;
+        }
+
         /* Filter styles */
         .filter-form {
             margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            border: 1px solid #dee2e6;
+            padding: 20px;
+            background-color: var(--dark);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--medium-dark);
+        }
+
+        .filter-form .form-label {
+            color: var(--light-orange);
+            font-weight: 500;
+        }
+
+        .filter-form .form-control {
+            background-color: var(--medium-dark);
+            border: 1px solid var(--medium-dark);
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .filter-form .form-control:focus {
+            background-color: var(--medium-dark);
+            border-color: var(--dark-orange);
+            color: var(--white);
+            box-shadow: 0 0 0 0.25rem rgba(211, 84, 0, 0.25);
         }
 
         .filter-form .input-group {
@@ -107,17 +224,87 @@
         }
 
         .filter-form .btn-outline-secondary {
-            border-color: #ced4da;
+            border-color: var(--dark-orange);
+            color: var(--white);
+            background-color: transparent;
+        }
+
+        .filter-form .btn-outline-secondary:hover {
+            background-color: var(--dark-orange);
+            color: var(--white);
         }
 
         .filter-reset {
             margin-left: 10px;
+            background-color: transparent;
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .filter-reset:hover {
+            background-color: #e74c3c;
+            color: var(--white);
         }
 
         .no-results {
-            padding: 20px;
+            padding: 30px;
             text-align: center;
-            color: #6c757d;
+            color: var(--light-gray);
+            background-color: rgba(211, 84, 0, 0.05);
+            border-radius: var(--border-radius);
+        }
+
+        /* Status badges */
+        .badge.bg-warning {
+            background-color: #f39c12 !important;
+            color: var(--white);
+        }
+
+        .badge.bg-success {
+            background-color: #2ecc71 !important;
+        }
+
+        .badge.bg-danger {
+            background-color: #e74c3c !important;
+        }
+
+        .badge.bg-primary {
+            background-color: var(--dark-orange) !important;
+        }
+
+        /* Add button animation */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(211, 84, 0, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(211, 84, 0, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(211, 84, 0, 0);
+            }
+        }
+
+        .btn-pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--dark-orange);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--light-orange);
         }
     </style>
 </head>
@@ -128,29 +315,24 @@
         <div class="col-md-2 sidebar p-0">
             <div class="brand">Truth Auctions</div>
             <nav class="nav flex-column">
-                <a class="nav-link" href="Admin.html">Dashboard</a>
-                <a class="nav-link active" href="Vehical.html">Vehicle Management</a>
-                <a class="nav-link" href="Sale.html">Sale Management</a>
-                <a class="nav-link" href="Auction.html"> Auction Management</a>
-
+                <a class="nav-link" href="Admin.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a class="nav-link" href="Vehical.html"><i class="fas fa-car"></i> Vehicle Management</a>
+                <a class="nav-link" href="Sale.html"><i class="fas fa-dollar-sign"></i> Sale Management</a>
+                <a class="nav-link active" href="Auction.html"><i class="fas fa-gavel"></i> Auction Management</a>
             </nav>
             <div class="auth-buttons">
-                <a href="#" class="btn btn-outline-light">Log out</a>
-
+                <a href="#" class="btn btn-outline-light w-100"><i class="fas fa-sign-out-alt"></i> Log out</a>
             </div>
         </div>
 
         <!-- Main Content -->
         <div class="col-md-10 content">
-            <h2 class="mb-4">Auction Management</h2>
-
-            <!-- Chassis Number Filter -->
-
+            <h2><i class="fas fa-gavel me-2"></i>Auction Management</h2>
 
             <!-- Chassis Number Filter -->
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0">Filter Auctions</h5>
+                    <h5 class="mb-0"><i class="fas fa-filter me-2"></i>Filter Auctions</h5>
                 </div>
                 <div class="card-body">
                     <div class="filter-form">
@@ -159,8 +341,12 @@
                                 <label for="chassisFilter" class="form-label">Chassis Number</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" id="chassisFilter" placeholder="Enter chassis number...">
-                                    <button class="btn btn-outline-secondary" type="button" id="applyFilter">Filter</button>
-                                    <button class="btn btn-outline-danger filter-reset" type="button" id="resetFilter">Reset</button>
+                                    <button class="btn btn-outline-secondary" type="button" id="applyFilter">
+                                        <i class="fas fa-search me-1"></i> Filter
+                                    </button>
+                                    <button class="btn btn-outline-danger filter-reset" type="button" id="resetFilter">
+                                        <i class="fas fa-times me-1"></i> Reset
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -171,8 +357,10 @@
             <!-- Admin Auction Table -->
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Admin Auction Table</h5>
-                    <button class="btn btn-primary btn-sm">Add New Auction</button>
+                    <h5 class="mb-0"><i class="fas fa-list me-2"></i>Admin Auction Table</h5>
+                    <button class="btn btn-primary btn-sm btn-pulse">
+                        <i class="fas fa-plus me-1"></i> Add New Auction
+                    </button>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -192,7 +380,8 @@
                             </tbody>
                         </table>
                         <div id="noResults" class="no-results" style="display: none;">
-                            No auctions found matching the filter criteria.
+                            <i class="fas fa-search fa-3x mb-3"></i>
+                            <p>No auctions found matching the filter criteria.</p>
                         </div>
                     </div>
                 </div>
@@ -295,8 +484,12 @@
             <td>$${auction.bid_price.toFixed(2)}</td>
             <td>${statusBadge}</td>
             <td>
-                <button class="btn btn-sm btn-info me-1" onclick="editAuction(${auction.id})">Edit</button>
-                <button class="btn btn-sm btn-danger" onclick="deleteAuction(${auction.id})">Delete</button>
+                <button class="btn btn-sm btn-info me-1" onclick="editAuction(${auction.id})">
+                    <i class="fas fa-edit me-1"></i> Edit
+                </button>
+                <button class="btn btn-sm btn-danger" onclick="deleteAuction(${auction.id})">
+                    <i class="fas fa-trash-alt me-1"></i> Delete
+                </button>
             </td>
         `;
 
@@ -314,7 +507,18 @@
         };
 
         const badgeClass = statusMap[status] || 'bg-secondary';
-        return `<span class="badge ${badgeClass}">${status}</span>`;
+
+        // Add icon to badge based on status
+        const iconMap = {
+            'Pending': 'fa-clock',
+            'Approved': 'fa-check-circle',
+            'Rejected': 'fa-times-circle',
+            'Completed': 'fa-flag-checkered'
+        };
+
+        const icon = iconMap[status] || 'fa-circle';
+
+        return `<span class="badge ${badgeClass}"><i class="fas ${icon} me-1"></i>${status}</span>`;
     }
 
     // Filter auctions by chassis number
@@ -364,25 +568,75 @@
                     // Remove from local data
                     auctionData = auctionData.filter(auction => auction.id !== id);
                     renderAuctionTable(auctionData);
-                    alert('Auction deleted successfully');
+                    showToast('Auction deleted successfully', 'success');
                 } else {
                     console.error('Error deleting auction:', data.message);
-                    alert('Failed to delete auction: ' + data.message);
+                    showToast('Failed to delete auction: ' + data.message, 'error');
                 }
             })
             .catch(error => {
                 console.error('Error deleting auction:', error);
-                alert('Failed to delete auction. Please try again later.');
+                showToast('Failed to delete auction. Please try again later.', 'error');
             })
             .finally(() => {
                 hideSpinner();
             });
     }
 
+    // Show toast notification
+    function showToast(message, type = 'info') {
+        // Create toast container if it doesn't exist
+        let toastContainer = document.getElementById('toast-container');
+        if (!toastContainer) {
+            toastContainer = document.createElement('div');
+            toastContainer.id = 'toast-container';
+            toastContainer.style.position = 'fixed';
+            toastContainer.style.top = '20px';
+            toastContainer.style.right = '20px';
+            toastContainer.style.zIndex = '1050';
+            document.body.appendChild(toastContainer);
+        }
+
+        // Create toast element
+        const toast = document.createElement('div');
+        toast.className = 'toast show';
+        toast.style.backgroundColor = type === 'success' ? '#2ecc71' :
+            type === 'error' ? '#e74c3c' : '#3498db';
+        toast.style.color = 'white';
+        toast.style.minWidth = '250px';
+        toast.style.margin = '0 0 10px 0';
+        toast.style.padding = '15px';
+        toast.style.borderRadius = '4px';
+        toast.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+
+        toast.innerHTML = `
+            <div class="d-flex align-items-center">
+                <i class="fas ${type === 'success' ? 'fa-check-circle' :
+            type === 'error' ? 'fa-exclamation-circle' :
+                'fa-info-circle'} me-2"></i>
+                <div>${message}</div>
+                <button type="button" class="btn-close ms-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        `;
+
+        toastContainer.appendChild(toast);
+
+        // Auto remove toast after 3 seconds
+        setTimeout(() => {
+            toast.remove();
+        }, 3000);
+
+        // Close toast on button click
+        const closeButton = toast.querySelector('.btn-close');
+        closeButton.addEventListener('click', () => {
+            toast.remove();
+        });
+    }
+
     // Edit auction placeholder - you can expand this as needed
     function editAuction(id) {
         // You would typically open a modal or navigate to an edit page
-        alert(`Edit auction with ID: ${id} (Implement this functionality)`);
+        showToast(`Edit auction with ID: ${id} (Implement this functionality)`, 'info');
 
         // Example implementation might fetch the specific auction data:
         // fetch(`${API_BASE_URL}/${id}`)
@@ -395,7 +649,7 @@
     // Add new auction function - to be connected to the "Add New Auction" button
     document.querySelector('.card-header .btn-primary').addEventListener('click', () => {
         // Open modal or navigate to create page
-        alert('Add new auction feature (Implement this functionality)');
+        showToast('Add new auction feature (Implement this functionality)', 'info');
     });
 </script>
 </body>

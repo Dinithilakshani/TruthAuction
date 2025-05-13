@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Elite Auctions - Vehicle Management</title>
+  <title>Truth Auctions - Vehicle Management</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f0f2f5;
+      background-color: #25262A;
       margin: 0;
       padding: 0;
+      color: #f0f2f5;
     }
     .sidebar {
-      background-color: #ffffff;
-      color: #333;
+      background-color: #212121;
+      color: #fff;
       width: 240px;
       position: fixed;
       height: 100%;
       padding-top: 20px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
     .sidebar-header {
       padding: 10px 20px;
@@ -28,25 +29,27 @@
       display: flex;
       align-items: center;
       margin-bottom: 20px;
-      color: #e65c00;
+      color: #ffffff;
+      background-color: #D45C00;
+      padding: 20px;
     }
     .sidebar-header i {
       margin-right: 10px;
-      color: #e65c00;
+      color: #ffffff;
     }
     .nav-link {
-      color: #333;
+      color: #fff;
       padding: 10px 20px;
       display: flex;
       align-items: center;
       transition: background-color 0.3s;
     }
     .nav-link:hover {
-      background-color: #f8f9fa;
-      color: #e65c00;
+      background-color: #333333;
+      color: #fff;
     }
     .nav-link.active {
-      background-color: #e65c00;
+      background-color: #D45C00;
       color: #fff;
     }
     .nav-link i {
@@ -57,36 +60,44 @@
     .content {
       margin-left: 240px;
       padding: 20px;
+      background-color: #25262A;
     }
     .main-title {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: bold;
-      color: #e65c00;
+      color: #ffffff;
       margin-bottom: 20px;
       padding-bottom: 10px;
-      border-bottom: 2px solid #e65c00;
+      border-bottom: 2px solid #D45C00;
+      display: flex;
+      align-items: center;
+    }
+    .main-title i {
+      margin-right: 10px;
     }
     .card {
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
       margin-bottom: 20px;
       border: none;
+      background-color: #2D2E32;
+      color: #f0f2f5;
     }
     .card-header {
-      background-color: #e65c00;
+      background-color: #D45C00;
       color: white;
       font-weight: 600;
       font-size: 18px;
       padding: 15px 20px;
-      border-radius: 10px 10px 0 0 !important;
+      border-radius: 8px 8px 0 0 !important;
     }
     .btn-primary {
-      background-color: #e65c00;
-      border-color: #e65c00;
+      background-color: #D45C00;
+      border-color: #D45C00;
     }
     .btn-primary:hover {
-      background-color: #d45500;
-      border-color: #d45500;
+      background-color: #B24A00;
+      border-color: #B24A00;
     }
     .btn-secondary {
       background-color: #6c757d;
@@ -108,11 +119,18 @@
       display: flex;
       gap: 5px;
     }
+    .table {
+      color: #f0f2f5;
+    }
     .table thead {
-      background-color: #f8f9fa;
+      background-color: #343438;
     }
     .table th {
       font-weight: 500;
+      color: #ffffff;
+    }
+    .table tbody tr {
+      border-bottom: 1px solid #3a3a3f;
     }
     .status-badge {
       padding: 5px 10px;
@@ -128,18 +146,33 @@
       justify-content: center;
     }
     .page-item.active .page-link {
-      background-color: #e65c00;
-      border-color: #e65c00;
+      background-color: #D45C00;
+      border-color: #D45C00;
     }
     .page-link {
-      color: #e65c00;
+      color: #D45C00;
+      background-color: #343438;
+      border-color: #484848;
     }
     .page-link:hover {
-      color: #d45500;
+      color: #ffffff;
+      background-color: #D45C00;
     }
     .form-label {
       font-weight: 500;
       margin-bottom: 0.25rem;
+      color: #f0f2f5;
+    }
+    .form-control, .form-select {
+      background-color: #343438;
+      border-color: #484848;
+      color: #f0f2f5;
+    }
+    .form-control:focus, .form-select:focus {
+      background-color: #343438;
+      border-color: #D45C00;
+      color: #f0f2f5;
+      box-shadow: 0 0 0 0.25rem rgba(212, 92, 0, 0.25);
     }
     .form-compact .form-control {
       padding: 0.25rem 0.5rem;
@@ -148,12 +181,72 @@
     .btn-sm {
       padding: 0.25rem 0.5rem;
     }
+    input::placeholder {
+      color: #9ca3af;
+    }
+    .filter-section {
+      background-color: #2D2E32;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .filter-title {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #ffffff;
+    }
+    .filter-title i {
+      margin-right: 10px;
+    }
+    .table-container {
+      background-color: #2D2E32;
+      border-radius: 8px;
+      padding: 5px;
+      margin-bottom: 20px;
+    }
+    .table-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+    }
+    .table-title h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+    }
+    .table-title h3 i {
+      margin-right: 10px;
+    }
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 0;
+      text-align: center;
+    }
+    .empty-state i {
+      font-size: 48px;
+      color: #6c757d;
+      margin-bottom: 20px;
+    }
+    .empty-state p {
+      font-size: 16px;
+      color: #9ca3af;
+    }
   </style>
 </head>
 <body>
 <div class="sidebar">
   <div class="sidebar-header">
-    <i class="fas fa-car"></i> Elite Auctions
+    <i class="fas fa-gavel"></i> Truth Auctions
   </div>
   <ul class="nav flex-column mt-4">
     <li class="nav-item">
@@ -177,15 +270,15 @@
       </a>
     </li>
     <li class="nav-item mt-auto">
-      <a class="nav-link" href="Dashboard%202.html">
-        <i class="fas fa-sign-out-alt"></i> Logout
+      <a class="nav-link" href="logout.html">
+        <i class="fas fa-sign-out-alt"></i> Log out
       </a>
     </li>
   </ul>
 </div>
 
 <div class="content">
-  <h1 class="main-title">Vehicle Management</h1>
+  <h1 class="main-title"><i class="fas fa-car"></i> Vehicle Management</h1>
 
   <div class="row">
     <!-- Vehicle Information Form -->
@@ -277,6 +370,11 @@
               <!-- Items will be loaded here -->
               </tbody>
             </table>
+          </div>
+
+          <div id="emptyState" class="empty-state" style="display: none;">
+            <i class="fas fa-search"></i>
+            <p>No vehicles found matching the filter criteria.</p>
           </div>
 
           <nav>
@@ -417,9 +515,13 @@
     tableBody.empty();
 
     if (data.length === 0) {
-      tableBody.append('<tr><td colspan="5" class="text-center">No vehicles found</td></tr>');
+      $("#emptyState").show();
+      $(".table, #pagination").hide();
       return;
     }
+
+    $("#emptyState").hide();
+    $(".table, #pagination").show();
 
     data.forEach(function(item) {
       tableBody.append(`
