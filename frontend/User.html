@@ -10,24 +10,23 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #6d2c00; /* Dark orange/brown from the screenshot */
-            --secondary-color: #d35400; /* Brighter orange for highlights */
-            --dark-bg: #3d3630; /* Dark background seen in the auction page */
-            --darker-bg: #292520; /* Even darker background for contrast */
-            --light-gray: #f5f5f5;
-            --medium-gray: #e9ecef;
-            --text-dark: #343a40;
-            --text-muted: #6c757d;
-            --success: #28a745;
-            --danger: #dc3545;
-            --warning: #ffc107;
-            --info: #17a2b8;
+            --primary-color: #3d2017; /* Dark brown */
+            --secondary-color: #d35400; /* Orange */
+            --dark-bg: #1e1e1e; /* Dark background */
+            --light-gray: #2c2c2c; /* Darker gray for dark theme */
+            --medium-gray: #3a3a3a; /* Medium gray for dark theme */
+            --text-light: #f8f9fa; /* Light text for dark backgrounds */
+            --text-muted: #adb5bd; /* Muted text for dark theme */
+            --success: #2ecc71; /* Brighter success for dark theme */
+            --danger: #e74c3c; /* Brighter danger for dark theme */
+            --warning: #f39c12; /* Brighter warning for dark theme */
+            --info: #3498db; /* Brighter info for dark theme */
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1e1e1e; /* Dark background from screenshot */
-            color: white;
+            background-color: var(--dark-bg);
+            color: var(--text-light);
         }
 
         /* Sidebar styles */
@@ -38,18 +37,17 @@
             position: fixed;
             padding: 0;
             overflow-y: auto;
-            z-index: 100;
         }
 
         .sidebar-header {
             padding: 20px 15px;
-            background-color: var(--primary-color);
+            background-color: rgba(0, 0, 0, 0.3);
             display: flex;
             align-items: center;
         }
 
         .sidebar-logo {
-            color: white;
+            color: var(--secondary-color);
             margin-right: 10px;
             font-size: 24px;
         }
@@ -58,7 +56,6 @@
             font-size: 18px;
             font-weight: bold;
             margin: 0;
-            color: white;
         }
 
         .sidebar-nav {
@@ -76,7 +73,7 @@
 
         .sidebar-nav-item:hover, .sidebar-nav-item.active {
             color: white;
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.1);
             border-left: 4px solid var(--secondary-color);
         }
 
@@ -112,7 +109,7 @@
 
         /* Navbar styles */
         .top-navbar {
-            background-color: var(--dark-bg);
+            background-color: var(--medium-gray);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             padding: 12px 20px;
             margin-bottom: 20px;
@@ -123,7 +120,7 @@
             display: flex;
             align-items: center;
             cursor: pointer;
-            color: white;
+            color: var(--text-light);
         }
 
         .user-avatar {
@@ -141,7 +138,7 @@
 
         /* Card styles */
         .dashboard-card {
-            background-color: var(--dark-bg);
+            background-color: var(--light-gray);
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s, box-shadow 0.3s;
@@ -172,34 +169,34 @@
         }
 
         .bg-primary-gradient {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            background: linear-gradient(45deg, var(--primary-color), #5a3121);
             color: white;
         }
 
         .bg-secondary-gradient {
-            background: linear-gradient(45deg, var(--secondary-color), #ff7e1f);
+            background: linear-gradient(45deg, var(--secondary-color), #e67e22);
             color: white;
         }
 
         .bg-success-gradient {
-            background: linear-gradient(45deg, var(--success), #5ad17a);
+            background: linear-gradient(45deg, var(--success), #27ae60);
             color: white;
         }
 
         .bg-info-gradient {
-            background: linear-gradient(45deg, var(--info), #4cd4ee);
+            background: linear-gradient(45deg, var(--info), #2980b9);
             color: white;
         }
 
         .stats-details h4 {
             margin: 0;
             font-weight: bold;
-            color: white;
+            color: var(--text-light);
         }
 
         .stats-details p {
             margin: 5px 0 0;
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-muted);
             font-size: 14px;
         }
 
@@ -210,18 +207,17 @@
         }
 
         .table-card-header {
-            background-color: var(--darker-bg);
+            background-color: var(--medium-gray);
             padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .table-card-title {
             margin: 0;
             font-weight: bold;
-            color: white;
+            color: var(--text-light);
         }
 
         .table-card-body {
@@ -230,20 +226,18 @@
 
         .dashboard-table {
             margin-bottom: 0;
-            color: white;
+            color: var(--text-light);
         }
 
         .dashboard-table th {
-            background-color: var(--darker-bg);
+            background-color: var(--medium-gray);
             border-top: 0;
             font-weight: 600;
-            color: white;
-            border-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
         }
 
         .dashboard-table td {
             border-color: rgba(255, 255, 255, 0.1);
-            vertical-align: middle;
         }
 
         .status-badge {
@@ -254,18 +248,18 @@
         }
 
         .status-active {
-            background-color: rgba(40, 167, 69, 0.2);
-            color: #5ad17a;
+            background-color: rgba(46, 204, 113, 0.2);
+            color: var(--success);
         }
 
         .status-pending {
-            background-color: rgba(255, 193, 7, 0.2);
-            color: #ffd149;
+            background-color: rgba(243, 156, 18, 0.2);
+            color: var(--warning);
         }
 
         .status-ended {
             background-color: rgba(108, 117, 125, 0.2);
-            color: #adb5bd;
+            color: var(--text-muted);
         }
 
         /* Chart card */
@@ -277,120 +271,18 @@
             margin-top: 0;
             margin-bottom: 20px;
             font-weight: bold;
-            color: white;
+            color: var(--text-light);
         }
 
         .chart-placeholder {
             height: 300px;
-            background-color: var(--darker-bg);
+            background-color: var(--medium-gray);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: rgba(255, 255, 255, 0.5);
+            color: var(--text-muted);
             border-radius: 8px;
-            border: 1px dashed rgba(255, 255, 255, 0.2);
-        }
-
-        /* Filter section */
-        .filter-section {
-            background-color: var(--dark-bg);
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .filter-title {
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: white;
-        }
-
-        .filter-icon {
-            margin-right: 10px;
-            color: var(--secondary-color);
-        }
-
-        .filter-input {
-            background-color: var(--darker-bg);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-
-        .filter-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .filter-input:focus {
-            background-color: var(--darker-bg);
-            border-color: var(--secondary-color);
-            color: white;
-            box-shadow: none;
-        }
-
-        .table-section {
-            background-color: var(--dark-bg);
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-
-        .section-header {
-            background-color: var(--darker-bg);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .section-title {
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            margin: 0;
-            color: white;
-        }
-
-        .section-icon {
-            margin-right: 10px;
-            color: var(--secondary-color);
-        }
-
-        .btn-action {
-            background-color: var(--secondary-color);
-            color: white;
-            border: none;
-        }
-
-        .btn-action:hover {
-            background-color: #ff7e1f;
-            color: white;
-        }
-
-        .section-body {
-            padding: 0;
-        }
-
-        .empty-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 20px;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .empty-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        .empty-text {
-            font-size: 18px;
-            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         /* Button styles */
@@ -401,38 +293,43 @@
 
         .btn-outline-primary:hover {
             background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
             color: white;
+            border-color: var(--secondary-color);
         }
 
         .btn-outline-secondary {
-            color: rgba(255, 255, 255, 0.7);
-            border-color: rgba(255, 255, 255, 0.3);
+            color: var(--text-light);
+            border-color: var(--text-muted);
         }
 
         .btn-outline-secondary:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
+            background-color: var(--medium-gray);
             color: white;
+            border-color: var(--text-muted);
         }
 
-        /* Dropdown styles */
+        /* Custom dropdown menu for dark theme */
         .dropdown-menu {
-            background-color: var(--darker-bg);
+            background-color: var(--light-gray);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .dropdown-item {
-            color: white;
+            color: var(--text-light);
         }
 
         .dropdown-item:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: var(--medium-gray);
             color: white;
         }
 
         .dropdown-divider {
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Table responsiveness improvements */
+        .table-responsive {
+            overflow-x: auto;
         }
     </style>
 </head>
@@ -440,26 +337,27 @@
 <!-- Sidebar -->
 <div class="sidebar col-md-3 col-lg-2">
     <div class="sidebar-header">
-        <i class="fas fa-gavel sidebar-logo"></i>
+        <i class="fas fa-car sidebar-logo"></i>
         <h5 class="sidebar-brand">Truth Auctions</h5>
     </div>
 
     <div class="sidebar-nav">
-        <a href="Admin.html" class="sidebar-nav-item">
+        <a href="Admin.html" class="sidebar-nav-item active">
             <i class="fas fa-tachometer-alt sidebar-nav-icon"></i>
             Dashboard
         </a>
-        <a href="Vehicle.html" class="sidebar-nav-item">
+        <a href="Vehical.html" class="sidebar-nav-item">
             <i class="fas fa-car sidebar-nav-icon"></i>
             Vehicle Management
         </a>
+
         <a href="Sale.html" class="sidebar-nav-item">
             <i class="fas fa-money-bill-wave sidebar-nav-icon"></i>
             Sale Management
         </a>
-        <a href="Auction.html" class="sidebar-nav-item active">
+        <a href="Auction.html" class="sidebar-nav-item">
             <i class="fas fa-gavel sidebar-nav-icon"></i>
-            Auction Management
+            Auction
         </a>
 
         <div class="sidebar-divider"></div>
@@ -481,7 +379,7 @@
 
         <a href="#" class="sidebar-nav-item">
             <i class="fas fa-sign-out-alt sidebar-nav-icon"></i>
-            Log out
+            Logout
         </a>
     </div>
 </div>
@@ -490,10 +388,7 @@
 <div class="main-content">
     <!-- Top Navbar -->
     <div class="top-navbar d-flex justify-content-between">
-        <div class="d-flex align-items-center">
-            <i class="fas fa-gavel me-2" style="color: var(--secondary-color);"></i>
-            <h4 class="mb-0">Auction Management</h4>
-        </div>
+        <h4>Dashboard</h4>
         <div class="dropdown">
             <div class="user-dropdown-toggle" data-bs-toggle="dropdown">
                 <div class="user-avatar">
@@ -512,207 +407,240 @@
         </div>
     </div>
 
-    <!-- Filter Section -->
-    <div class="filter-section">
-        <div class="filter-title">
-            <i class="fas fa-filter filter-icon"></i>
-            Filter Auctions
+    <!-- Dashboard Stats -->
+    <div class="row">
+        <div class="col-md-6 col-lg-3">
+            <div class="dashboard-card stats-card">
+                <div class="stats-icon bg-primary-gradient">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="stats-details">
+                    <h4>524</h4>
+                    <p>Active Auctions</p>
+                </div>
+            </div>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="mb-3">
-                    <label for="chassisNumber" class="form-label">Chassis Number</label>
-                    <input type="text" class="form-control filter-input" id="chassisNumber" placeholder="Enter chassis number...">
+        <div class="col-md-6 col-lg-3">
+            <div class="dashboard-card stats-card">
+                <div class="stats-icon bg-secondary-gradient">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stats-details">
+                    <h4>12,582</h4>
+                    <p>Registered Users</p>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="mb-3">
-                    <label for="auctionStatus" class="form-label">Status</label>
-                    <select class="form-select filter-input" id="auctionStatus">
-                        <option value="">All Statuses</option>
-                        <option value="active">Active</option>
-                        <option value="pending">Pending</option>
-                        <option value="ended">Ended</option>
-                    </select>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="dashboard-card stats-card">
+                <div class="stats-icon bg-success-gradient">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="stats-details">
+                    <h4>$2.4M</h4>
+                    <p>Revenue This Month</p>
                 </div>
             </div>
-            <div class="col-md-4 d-flex align-items-end">
-                <div class="mb-3 d-flex gap-2 w-100">
-                    <button class="btn btn-action flex-grow-1">
-                        <i class="fas fa-search me-2"></i> Filter
-                    </button>
-                    <button class="btn btn-outline-secondary">
-                        <i class="fas fa-times me-2"></i> Reset
-                    </button>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <div class="dashboard-card stats-card">
+                <div class="stats-icon bg-info-gradient">
+                    <i class="fas fa-gavel"></i>
+                </div>
+                <div class="stats-details">
+                    <h4>876</h4>
+                    <p>Completed Auctions</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Auctions Table -->
-    <div class="table-section">
-        <div class="section-header">
-            <h5 class="section-title">
-                <i class="fas fa-list section-icon"></i>
-                Admin Auction Table
-            </h5>
-            <button class="btn btn-action">
-                <i class="fas fa-plus me-2"></i> Add New Auction
-            </button>
+    <!-- Recent Auctions Table -->
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="dashboard-card table-card">
+                <div class="table-card-header">
+                    <h5 class="table-card-title">Recent Auctions</h5>
+                    <button class="btn btn-sm btn-outline-primary">View All</button>
+                </div>
+                <div class="table-card-body">
+                    <div class="table-responsive">
+                        <table class="table dashboard-table">
+                            <thead>
+                            <tr>
+                                <th>Auction ID</th>
+                                <th>Vehicle</th>
+                                <th>Current Bid</th>
+                                <th>End Date</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>#AUC-2458</td>
+                                <td>2022 Tesla Model 3</td>
+                                <td>$36,500</td>
+                                <td>Mar 22, 2025</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#AUC-2457</td>
+                                <td>2021 BMW X5</td>
+                                <td>$42,800</td>
+                                <td>Mar 21, 2025</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#AUC-2456</td>
+                                <td>2023 Ford F-150</td>
+                                <td>$38,200</td>
+                                <td>Mar 20, 2025</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-eye"></i></button>
+                                        <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#AUC-2455</td>
+                                <td>2020 Audi Q7</td>
+                                <td>$35,900</td>
+                                <td>Mar 19, 2025</td>
+                                <td><span class="status-badge status-ended">Ended</span></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#AUC-2454</td>
+                                <td>2022 Mercedes-Benz E-Class</td>
+                                <td>$48,500</td>
+                                <td>Mar 19, 2025</td>
+                                <td><span class="status-badge status-ended">Ended</span></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="section-body">
-            <div class="table-responsive">
-                <table class="table dashboard-table">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Chassis Number</th>
-                        <th>Email</th>
-                        <th>Bid Price</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <!-- Empty state - you can remove this if you want to show sample data -->
-                    <tr>
-                        <td colspan="6">
-                            <div class="empty-state">
-                                <i class="fas fa-search empty-icon"></i>
-                                <p class="empty-text">No auctions found matching the filter criteria.</p>
-                            </div>
-                        </td>
-                    </tr>
 
-                    <!-- Sample data - uncomment to show -->
-                    <!--
-                    <tr>
-                        <td>#AUC-2458</td>
-                        <td>JN1CV6AP7CM626820</td>
-                        <td>buyer1@example.com</td>
-                        <td>£36,500</td>
-                        <td><span class="status-badge status-active">Active</span></td>
-                        <td>
-                            <div class="btn-group">
-                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-eye"></i></button>
-                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#AUC-2457</td>
-                        <td>5UXWX7C5*BA451907</td>
-                        <td>buyer2@example.com</td>
-                        <td>£42,800</td>
-                        <td><span class="status-badge status-active">Active</span></td>
-                        <td>
-                            <div class="btn-group">
-                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-eye"></i></button>
-                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>#AUC-2456</td>
-                        <td>1FTFW1ET7DFA02298</td>
-                        <td>pending@example.com</td>
-                        <td>£38,200</td>
-                        <td><span class="status-badge status-pending">Pending</span></td>
-                        <td>
-                            <div class="btn-group">
-                                <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-eye"></i></button>
-                                <button class="btn btn-sm btn-outline-primary"><i class="fas fa-edit"></i></button>
-                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </td>
-                    </tr>
-                    -->
-                    </tbody>
-                </table>
+        <!-- Quick Stats -->
+        <div class="col-lg-4">
+            <div class="dashboard-card chart-card">
+                <h4>Monthly Revenue</h4>
+                <div class="chart-placeholder">
+                    <img src="images/img_4.png">
+                </div>
+            </div>
+
+            <div class="dashboard-card table-card">
+                <div class="table-card-header">
+                    <h5 class="table-card-title">Recent Users</h5>
+                    <button class="btn btn-sm btn-outline-primary">View All</button>
+                </div>
+                <div class="table-card-body">
+                    <div class="table-responsive">
+                        <table class="table dashboard-table">
+                            <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>John Smith</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Emma Johnson</td>
+                                <td><span class="status-badge status-active">Active</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Michael Brown</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-eye"></i></button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
+
 <!-- Bootstrap JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Truth Auctions - Auction Management JavaScript
-    const BASE_URL = "http://localhost:8082/api/auctions"; // Backend base URL
+    // Admin Auction Management JavaScript
+    const BASE_URL = "http://localhost:8082/api/auctions"; // Your backend base URL
 
     // Document ready function
     document.addEventListener('DOMContentLoaded', function() {
-        // Set up filter button
-        document.querySelector('.btn-action').addEventListener('click', function() {
-            filterAuctions();
-        });
+        // Load all active auctions
+        loadActiveAuctions();
 
-        // Set up reset button
-        document.querySelector('.btn-outline-secondary').addEventListener('click', function() {
-            document.getElementById('chassisNumber').value = '';
-            document.getElementById('auctionStatus').value = '';
-            loadAllAuctions();
-        });
+        // Set up timer functionality (keep your existing timer code)
 
-        // Load all auctions initially
-        loadAllAuctions();
+        // Handle sell button clicks
+        document.querySelectorAll('.btn-outline-primary').forEach(button => {
+            button.addEventListener('click', function() {
+                const auctionId = this.closest('tr').querySelector('td:first-child').textContent.trim();
+                sellAuction(auctionId);
+            });
+        });
     });
 
-    // Load all auctions
-    function loadAllAuctions() {
-        // This would normally fetch from your API
-        // For now we'll just show the empty state
-        displayEmptyState();
-
-        // Uncomment this when you have an API endpoint
-        /*
-        fetch(${BASE_URL}/all)
+    // Load active auctions
+    function loadActiveAuctions() {
+        fetch(${BASE_URL}/active)
             .then(response => response.json())
             .then(data => {
-                if (Array.isArray(data) && data.length > 0) {
+                if (Array.isArray(data)) {
                     displayAuctions(data);
                 } else {
-                    displayEmptyState();
+                    console.error("Invalid data format received");
+                    alert("Failed to load auctions. Please try again.");
                 }
             })
             .catch(error => {
                 console.error("Error loading auctions:", error);
-                displayEmptyState("Failed to connect to the server. Please try again later.");
+                alert("Failed to connect to the server. Please try again later.");
             });
-        */
-    }
-
-    // Filter auctions based on input
-    function filterAuctions() {
-        const chassisNumber = document.getElementById('chassisNumber').value;
-        const status = document.getElementById('auctionStatus').value;
-
-        // For demonstration, just display empty state
-        displayEmptyState();
-
-        // Uncomment when API is available
-        /*
-        // Build query string
-        let queryParams = new URLSearchParams();
-        if (chassisNumber) queryParams.append("chassisNumber", chassisNumber);
-        if (status) queryParams.append("status", status);
-
-        fetch(${BASE_URL}/filter?${queryParams.toString()})
-            .then(response => response.json())
-            .then(data => {
-                if (Array.isArray(data) && data.length > 0) {
-                    displayAuctions(data);
-                } else {
-                    displayEmptyState();
-                }
-            })
-            .catch(error => {
-                console.error("Error filtering auctions:", error);
-                displayEmptyState("Failed to connect to the server. Please try again later.");
-            });
-        */
     }
 
     // Display auctions in the table
@@ -723,103 +651,68 @@
         auctions.forEach(auction => {
             const row = document.createElement('tr');
 
-            // Format status badge
-            let statusBadgeClass = 'status-ended';
-            if (auction.status === 'active') statusBadgeClass = 'status-active';
-            if (auction.status === 'pending') statusBadgeClass = 'status-pending';
-
             row.innerHTML = `
-                    <td>${auction.id}</td>
-                    <td>${auction.chassisNumber}</td>
-                    <td>${auction.bidderEmail || 'N/A'}</td>
-                    <td>${formatCurrency(auction.bidPrice)}</td>
-                    <td><span class="status-badge ${statusBadgeClass}">${auction.status}</span></td>
-                    <td>
-                        <div class="btn-group">
-                            <button class="btn btn-sm btn-outline-secondary view-btn" data-id="${auction.id}"><i class="fas fa-eye"></i></button>
-                            <button class="btn btn-sm btn-outline-primary edit-btn" data-id="${auction.id}"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${auction.id}"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </td>
-                `;
+            <td>${auction.id}</td>
+            <td>${auction.productName}</td>
+            <td>${auction.registerNumber}</td>
+            <td>${auction.chassisNumber}</td>
+            <td><span class="timer" id="timer-${auction.id}">${formatTimeRemaining(auction.endTime)}</span></td>
+            <td><span class="badge bg-success">£${auction.currentMaxBid.toLocaleString()}</span></td>
+            <td>${auction.currentBidderEmail ? auction.currentBidderEmail : 'N/A'}</td>
+            <td>
+                <div class="btn-group btn-group-sm" role="group">
+                    <button class="btn btn-outline-primary">Sell</button>
+                </div>
+            </td>
+        `;
 
             tableBody.appendChild(row);
         });
 
-        // Set up action button handlers
-        setupActionButtons();
+        // Initialize timers for each auction
+        initializeTimers();
     }
 
-    // Display empty state
-    function displayEmptyState(message = "No auctions found matching the filter criteria.") {
-        const tableBody = document.querySelector('table tbody');
-        tableBody.innerHTML = `
-                <tr>
-                    <td colspan="6">
-                        <div class="empty-state">
-                            <i class="fas fa-search empty-icon"></i>
-                            <p class="empty-text">${message}</p>
-                        </div>
-                    </td>
-                </tr>
-            `;
-    }
-
-    // Set up action button handlers
-    function setupActionButtons() {
-        // View button
-        document.querySelectorAll('.view-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const auctionId = this.getAttribute('data-id');
-                viewAuction(auctionId);
-            });
-        });
-
-        // Edit button
-        document.querySelectorAll('.edit-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const auctionId = this.getAttribute('data-id');
-                editAuction(auctionId);
-            });
-        });
-
-        // Delete button
-        document.querySelectorAll('.delete-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const auctionId = this.getAttribute('data-id');
-                deleteAuction(auctionId);
-            });
-        });
-    }
-
-    // View auction details
-    function viewAuction(id) {
-        alert(View auction details for ID: ${id});
-        // Implement view auction functionality
-    }
-
-    // Edit auction
-    function editAuction(id) {
-        alert(Edit auction with ID: ${id});
-        // Implement edit auction functionality
-    }
-
-    // Delete auction
-    function deleteAuction(id) {
-        if (confirm(Are you sure you want to delete auction #${id}?)) {
-            // Implement delete functionality
-            alert(Auction #${id} deleted successfully!);
-            loadAllAuctions();
+    // Sell an auction
+    function sellAuction(auctionId) {
+        if (confirm("Are you sure you want to finalize this auction sale?")) {
+            fetch(${BASE_URL}/${auctionId}/sell, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+        .then(response => response.json())
+                .then(data => {
+                    if (data.id) {
+                        alert("Auction sold successfully!");
+                        loadActiveAuctions(); // Refresh the table
+                    } else {
+                        throw new Error(data.message || "Failed to sell auction");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error selling auction:", error);
+                    alert("Failed to sell auction: " + error.message);
+                });
         }
     }
 
-    // Helper function to format currency
-    function formatCurrency(amount) {
-        return new Intl.NumberFormat('en-GB', {
-            style: 'currency',
-            currency: 'GBP'
-        }).format(amount);
+    // Helper function to format time remaining
+    function formatTimeRemaining(endTime) {
+        const now = new Date();
+        const end = new Date(endTime);
+        const diffInSeconds = Math.floor((end - now) / 1000);
+
+        if (diffInSeconds <= 0) return "00:00:00";
+
+        const hours = Math.floor(diffInSeconds / 3600);
+        const minutes = Math.floor((diffInSeconds % 3600) / 60);
+        const seconds = diffInSeconds % 60;
+
+        return ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')};
     }
 </script>
+
 </body>
 </html>
